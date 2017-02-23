@@ -43,7 +43,7 @@ persist.data.mode=concurrent
 
 # Display
 ro.opengles.version=196610
-ro.sf.lcd_density=640
+ro.sf.lcd_density=560
 sdm.perf_hint_window=50
 
 # Factory Reset Protection

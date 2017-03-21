@@ -133,8 +133,11 @@ int touch_boost_topapp;
 int touch_min_freq_big;
 int touch_min_freq_little;
 
+static int power_device_open(const hw_module_t* module, const char* name,
+        hw_device_t** device);
+
 static struct hw_module_methods_t power_module_methods = {
-    .open = NULL,
+    .open = power_device_open,
 };
 
 static void power_init(struct power_module *module)
@@ -865,6 +868,38 @@ void set_feature(struct power_module *module, feature_t feature, int state)
         default:
             break;
     }
+}
+
+static int power_device_open(const hw_module_t* module, const char* name,
+        hw_device_t** device)
+{
+    int status = -EINVAL;
+    if (module && name && device) {
+        if (!strcmp(name, POWER_HARDWARE_MODULE_ID)) {
+            power_module_t *dev = (power_module_t *)malloc(sizeof(*dev));
+            memset(dev, 0, sizeof(*dev));
+
+            if(dev) {
+                /* initialize the fields */
+                dev->common.module_api_version = POWER_MODULE_API_VERSION_0_2;
+                dev->common.tag = HARDWARE_DEVICE_TAG;
+                dev->init = power_init;
+                dev->powerHint = power_hint;
+                dev->setInteractive = set_interactive;
+                /* At the moment we support 0.2 APIs */
+                dev->setFeature = NULL,
+                dev->get_number_of_platform_modes = NULL,
+                dev->get_platform_low_power_stats = NULL,
+                dev->get_voter_list = NULL,
+                *device = (hw_device_t*)dev;
+                status = 0;
+            } else {
+                status = -ENOMEM;
+            }
+        }
+    }
+
+    return status;
 }
 
 struct power_module HAL_MODULE_INFO_SYM = {

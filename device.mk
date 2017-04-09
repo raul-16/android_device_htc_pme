@@ -243,6 +243,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     $(LOCAL_PATH)/configs/libnfc-nxp.conf:system/etc/libnfc-nxp.conf
 
+# Performance / IOP
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/public.libraries.txt:system/vendor/etc/public.libraries.txt
+
+
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \

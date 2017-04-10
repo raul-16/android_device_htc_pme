@@ -139,12 +139,12 @@ PRODUCT_PACKAGES += \
     fingerprintd
 
 # FlipFlap
-PRODUCT_PACKAGES += \
-    FlipFlap
+# PRODUCT_PACKAGES += \
+#    FlipFlap
 
 # Gesture Handler
-PRODUCT_PACKAGES += \
-    GestureHandler
+# PRODUCT_PACKAGES += \
+#    GestureHandler
 
 # GPS
 PRODUCT_PACKAGES += \

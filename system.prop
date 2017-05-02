@@ -27,6 +27,7 @@ ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress
 persist.bt.enableAptXHD=true
 
 # Camera
+camera.disable_zsl_mode=1
 camera2.portability.force_api=1
 persist.ts.postmakeup=false
 persist.ts.rtmakeup=false

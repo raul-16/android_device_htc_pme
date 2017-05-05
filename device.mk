@@ -133,6 +133,11 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libtinyxml
 
+# DRM props
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true \
+    media.mediadrmservice.enable=true
+
 # Fingerprint
 PRODUCT_PACKAGES += \
     fingerprint.msm8996 \

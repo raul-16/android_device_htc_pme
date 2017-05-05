@@ -77,6 +77,11 @@ on fs
     wait /dev/block/bootdevice/by-name/rfg_3
     mount vfat /dev/block/bootdevice/by-name/rfg_3 /firmware/wsd ro shortname=lower,uid=3012,gid=3012,dmask=277,fmask=377
 
+    # Mount cradio image
+    mkdir /firmware/cradio 0771 system system
+    wait /dev/block/bootdevice/by-name/cradio
+    mount vfat /dev/block/bootdevice/by-name/cradio /firmware/cradio ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+
     # symlink firmware to /firmware/image
     wait /system/bin/sh
     class_start firmware-link

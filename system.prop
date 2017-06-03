@@ -67,6 +67,9 @@ vidc.debug.perf.mode=2
 # Media
 mm.enable.smoothstreaming=true
 
+# NFC
+ro.nfc.port=I2C
+
 # Perf
 ro.am.reschedule_service=true
 ro.vendor.extension_library=libqti-perfd-client.so

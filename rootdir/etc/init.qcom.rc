@@ -409,6 +409,10 @@ on boot
     # Set volume key wake attribute permissions
     chown media media /sys/keyboard/vol_wakeup
 
+    # NFC
+    chmod 0666 /dev/pn544
+    chown nfc nfc /dev/pn544
+
     # Set vibrator intensity permissions
     chown system system /sys/devices/virtual/timed_output/vibrator/voltage_level
     chmod 0644 /sys/devices/virtual/timed_output/vibrator/voltage_level

@@ -71,7 +71,7 @@
          gradually in the same manner that normally happens when the screen is on according to the
          brightening or dimming debounce thresholds.  As a result, it may take somewhat longer to
          adapt to the environment.  This mode may be better suited for watches. -->
-    <bool name="config_autoBrightnessResetAmbientLuxAfterWarmUp">false</bool>
+    <bool name="config_autoBrightnessResetAmbientLuxAfterWarmUp">true</bool>
 
     <!-- Allow user to adjust button brightness from settings -->
     <integer name="config_buttonBrightnessSettingDefault">110</integer>
@@ -214,7 +214,7 @@
          * The remote submix module "audio.r_submix.default" must be installed on the device.
          * The device must be provisioned with HDCP keys (for protected content).
     -->
-    <bool name="config_enableWifiDisplay">true</bool>
+    <bool name="config_enableWifiDisplay">false</bool>
 
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
@@ -262,7 +262,7 @@
     <integer name="config_multiuserMaximumUsers">4</integer>
 
     <!-- Whether Multiuser UI should be shown -->
-    <bool name="config_enableMultiUserUI">true</bool>
+    <bool name="config_enableMultiUserUI">false</bool>
 
     <!-- SD card is hot-pluggable on this device -->
     <bool name="config_batterySdCardAccessibility">true</bool>

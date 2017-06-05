@@ -321,6 +321,9 @@
     <!-- If this is true, device supports Sustained Performance Mode. -->
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
-   <!-- Make things go fast -->
+    <!-- Make things go fast -->
     <bool name="config_ui_enableFadingMarquee">false</bool>
+
+    <!-- Configuration to support SIM contact batch operation -->
+    <bool name="config_sim_phonebook_batch_operation">false</bool>
 </resources>

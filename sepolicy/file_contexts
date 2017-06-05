@@ -3,6 +3,9 @@
 /dev/rt5501                                 u:object_r:audio_device:s0
 /dev/tfa9888                                u:object_r:audio_device:s0
 
+# Carrier file
+/carrier(/.*)?				    u:object_r:carrier_file:s0
+
 # CMHW
 /sys/devices/virtual/timed_output/vibrator/voltage_level u:object_r:vibeamp_sysfs:s0
 

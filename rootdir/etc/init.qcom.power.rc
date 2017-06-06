@@ -123,8 +123,8 @@ on property:init.svc.recovery=running
     trigger enable-low-power
 
 on property:dev.bootcomplete=1
-    # Set CFQ scheduler
-    setprop sys.io.scheduler "cfq"
+    # Set BFQ scheduler
+    setprop sys.io.scheduler "bfq"
 
     # Update foreground and background cpusets (goal is load balancing
     # and UI responsiveness).

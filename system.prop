@@ -32,6 +32,8 @@ camera2.portability.force_api=1
 persist.ts.postmakeup=false
 persist.ts.rtmakeup=false
 Camera.no_navigation_bar=true
+# Increase jpg quality to 100%
+ro.media.enc.jpeg.quality=100
 
 # CNE
 persist.cne.feature=1

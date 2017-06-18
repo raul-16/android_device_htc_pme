@@ -126,6 +126,9 @@ on property:dev.bootcomplete=1
     # Set BFQ scheduler
     setprop sys.io.scheduler "bfq"
 
+    # Disable core control
+    write /sys/module/msm_thermal/core_control/enabled 0
+
     # Update foreground and background cpusets (goal is load balancing
     # and UI responsiveness).
     write /dev/cpuset/background/cpus "0"

@@ -5,7 +5,7 @@ static bool is_variant_sprint(std::string bootcid) {
 }
 
 static const char *htc_sprint_properties =
-    "ro.build.fingerprint=htc/pmewhl_00651/htc_pmewhl:6.0.1/MMB29M/761758.20:user/release-keys\n"
+    "ro.build.fingerprint=htc/pmewhl_00651/htc_pmewhl:7.0/NRD90M/857212.63:user/release-keys\n"
     "ro.build.product=htc_pmewhl\n"
     "ro.product.device=htc_pmewhl\n"
     "ro.product.model=2PS64\n"

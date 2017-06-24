@@ -806,6 +806,9 @@ etc/firmware/synaptics.img
 etc/firmware/usb_typec_otp.img
 etc/firmware/usb_typec_otp_ad.img
 
+# Hotword Enrollment
+priv-app/HotwordEnrollment/HotwordEnrollment.apk
+
 # HVDCP 3.0 charger
 bin/hvdcp_opti
 

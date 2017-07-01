@@ -3,11 +3,19 @@ allow vold forceencrypt_block_device:blk_file rw_file_perms;
 
 # For exfat
 allow vold unlabeled:filesystem { mount unmount remount };
+
 allow sdcardd unlabeled:dir { append create execute write relabelfrom link unlink ioctl getattr setattr read rename lock mounton quotaon swapon rmdir audit_access remove_name add_name reparent execmod search open };
 allow sdcardd unlabeled:file { append create write relabelfrom link unlink ioctl getattr setattr read rename lock mounton quotaon swapon audit_access open };
 allow sdcardd unlabeled:filesystem { getattr };
+
 allow unlabeled unlabeled:filesystem { associate };
+
 allow untrusted_app rootfs:dir { read };
 allow untrusted_app rfs_system_file:dir { getattr };
 allow untrusted_app mnt_media_rw_file:dir { getattr };
 allow untrusted_app rootfs:dir { open };
+
+allow platform_app unlabeled:dir { append create execute write relabelfrom link unlink ioctl getattr setattr read rename lock mounton quotaon swapon rmdir audit_access remove_name add_name reparent execmod search open };
+allow platform_app unlabeled:file { append create write relabelfrom link unlink ioctl getattr setattr read rename lock mounton quotaon swapon audit_access open };
+
+allow priv_app unlabeled:file { getattr open read };

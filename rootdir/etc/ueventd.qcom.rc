@@ -181,26 +181,6 @@
 /dev/voice_svc            0660   system     audio
 /dev/avtimer              0660   system     audio
 /dev/tfa9888              0660   media      audio
-/dev/tpa6185              0660   system     audio
-
-# Misc
-/dev/ttyHSUSB4            0660   root       mtp
-/dev/nanohub              0640   system     system
-/dev/nanohub_comms        0640   system     system
-
-# CIR
-/dev/ttyHSL2              0660   system     system
-
-# Sensor hub
-/dev/shub_dload           0660   system     system
-/dev/shub_log             0660   system     system
-/dev/shub_event           0660   system     system
-
-# HtcCarGPS
-/dev/ttyHSUSB1            0600   system     system
-
-# for autobot car pc
-/dev/ttyHSUSB3            0660   root       mtp
 
 # MirrorLink
 /sys/devices/virtual/android_usb/android0/f_projector2    client_context_info    0664  system mtp
@@ -262,6 +242,7 @@
 /dev/battery_data         0660   system     system
 
 # nfc permissions
+/dev/pn544                0660    nfc         nfc
 /dev/nfc-nci              0660    nfc         nfc
 /dev/nq-nci               0660    nfc         nfc
 /dev/assd                 0660    nfc         nfc

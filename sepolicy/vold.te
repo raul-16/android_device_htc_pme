@@ -10,12 +10,16 @@ allow sdcardd unlabeled:filesystem { getattr };
 
 allow unlabeled unlabeled:filesystem { associate };
 
-allow untrusted_app rootfs:dir { read };
+allow untrusted_app rootfs:dir { read open };
 allow untrusted_app rfs_system_file:dir { getattr };
 allow untrusted_app mnt_media_rw_file:dir { getattr };
-allow untrusted_app rootfs:dir { open };
+allow untrusted_app unlabeled:file { read write open };
 
 allow platform_app unlabeled:dir { append create execute write relabelfrom link unlink ioctl getattr setattr read rename lock mounton quotaon swapon rmdir audit_access remove_name add_name reparent execmod search open };
 allow platform_app unlabeled:file { append create write relabelfrom link unlink ioctl getattr setattr read rename lock mounton quotaon swapon audit_access open };
+allow platform_app unlabeled:filesystem { getattr} ;
 
 allow priv_app unlabeled:file { getattr open read };
+
+allow mediaserver unlabeled:file { getattr open read };
+

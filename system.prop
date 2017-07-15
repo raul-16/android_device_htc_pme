@@ -34,6 +34,8 @@ persist.ts.rtmakeup=false
 Camera.no_navigation_bar=true
 # Increase jpg quality to 100%
 ro.media.enc.jpeg.quality=100
+# Make sure that camera use stereo audio recording
+persist.audio.camcorder.stereo=true
 
 # CNE
 persist.cne.feature=1

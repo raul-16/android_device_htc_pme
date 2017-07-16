@@ -33,7 +33,6 @@
         <device name="SND_DEVICE_OUT_BT_SCO_WB" acdb_id="1520" />
         <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" acdb_id="42" />
         <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="508" />
-        <device name="SND_DEVICE_IN_CAMCORDER_DMIC" acdb_id="508" />
         <device name="SND_DEVICE_IN_CAMCORDER_STEREO_DMIC" acdb_id="508"/>
         <device name="SND_DEVICE_IN_CAMCORDER_STEREO_DMIC_REVERSE" acdb_id="508"/>
         <device name="SND_DEVICE_IN_BT_SCO_MIC" acdb_id="1420" />

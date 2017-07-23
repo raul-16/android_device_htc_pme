@@ -9,6 +9,9 @@
 # CMHW
 /sys/devices/virtual/timed_output/vibrator/voltage_level u:object_r:vibeamp_sysfs:s0
 
+# CPU tunable for EAS
+/sys/devices/system/cpu/cpu[0-3]/cpufreq/schedutil(/.*)?            u:object_r:sysfs_devices_system_cpu:s0
+
 # Encryption
 /dev/block/bootdevice/by-name/extra         u:object_r:forceencrypt_block_device:s0
 

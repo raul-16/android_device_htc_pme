@@ -945,6 +945,7 @@ on class_start:late_start
     write /data/misc/radio/copy_complete 1
 
 on property:sys.boot_completed=1
+    write /proc/sys/kernel/sched_boost 0
     write /dev/kmsg "Boot completed "
 
 on property:gsm.sim.operator.numeric=*

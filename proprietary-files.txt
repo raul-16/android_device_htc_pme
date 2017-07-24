@@ -866,11 +866,14 @@ bin/energy-awareness
 bin/iop
 bin/msm_irqbalance
 lib64/libqti-iop.so
-vendor/bin/perfd|dcb9dc3b552972110dab04339255ce2ebee9463e
 vendor/lib64/libqti-iop-client.so
-vendor/lib64/libqti-perfd-client.so
 vendor/lib/libqti-iop-client.so
-vendor/lib/libqti-perfd-client.so
+
+# Perf EAS - Marlin 7.1.2 (N2G47E)
+vendor/bin/perfd|906dc417c05dc55f3027383e18b5d82295923d64
+vendor/etc/perf-profile0.conf|02204355bf29ceb0460cd53e6716552bb9d9b05f
+vendor/lib/libqti-perfd-client.so|25a184329986d03fd111eaaf044a14794c0fa0a4
+vendor/lib64/libqti-perfd-client.so|d5e0584ccaf242db0c513f7380bfad5b201670ad
 
 # Peripheral manager
 bin/pm-proxy

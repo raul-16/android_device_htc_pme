@@ -804,7 +804,7 @@ etc/firmware/usb_typec_otp.img
 etc/firmware/usb_typec_otp_ad.img
 
 # HVDCP 3.0 charger
-bin/hvdcp_opti
+vendor/bin/hvdcp_opti
 
 # IPA
 bin/ipacm-diag:vendor/bin/ipacm-diag

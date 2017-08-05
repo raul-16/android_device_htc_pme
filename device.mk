@@ -115,7 +115,7 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    libshim_camera
+    libshim_camera \
     Snap
 
 # Connectivity Engine support (CNE)

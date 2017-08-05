@@ -186,10 +186,6 @@ include device/qcom/sepolicy/sepolicy.mk
 include vendor/aosip/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
-# Virtual Reality
-PRODUCT_PACKAGES += \
-    vr.msm8996
-
 # Wifi
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
 BOARD_WLAN_DEVICE           := bcmdhd

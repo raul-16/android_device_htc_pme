@@ -116,9 +116,6 @@ PRODUCT_COPY_FILES += \
 # Camera
 PRODUCT_PACKAGES += \
     libshim_camera
-
-# Snap
-PRODUCT_PACKAGES += \
     Snap
 
 # Connectivity Engine support (CNE)
@@ -205,6 +202,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
+# KeyHandler
+PRODUCT_PACKAGES += \
+    com.cyanogenmod.keyhandler
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8996
@@ -255,7 +256,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshim_power \
     power.msm8996 \
-    thermal.msm8996
+    thermal.msm8996 \
+    libdumpstate.msm8996
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
@@ -296,6 +298,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
-# KeyHandler
+# Virtual Reality
 PRODUCT_PACKAGES += \
-    com.cyanogenmod.keyhandler
+    vr.msm8996

@@ -827,7 +827,7 @@ vendor/lib/hw/keystore.msm8996.so
 vendor/lib64/hw/keystore.msm8996.so
 
 # Listen
-vendor/lib/hw/sound_trigger.primary.msm8996.so
+vendor/lib/hw/sound_trigger.primary.msm8996.so|3a28da3c2fc9c368ce04b141193102e9a3af38f4
 vendor/lib/libadpcmdec.so
 vendor/lib/libsmwrapper.so
 
@@ -866,7 +866,7 @@ bin/energy-awareness
 bin/iop
 bin/msm_irqbalance
 lib64/libqti-iop.so
-vendor/bin/perfd|dcb9dc3b552972110dab04339255ce2ebee9463e
+vendor/bin/perfd|01f3154ec4e8bbfc726cbda152689693b91cba71
 vendor/lib64/libqti-iop-client.so
 vendor/lib64/libqti-perfd-client.so
 vendor/lib/libqti-iop-client.so
@@ -943,7 +943,7 @@ etc/permissions/qcrilhook.xml
 framework/qcrilhook.jar
 lib64/libhtc_rilhook.so
 lib64/librilqmiservices.so
-vendor/bin/qti
+vendor/bin/qti|4610bc1b5a38b66fa9beba46650ff93b176ff0a9
 vendor/lib/libmdmdetect.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/liblqe.so
@@ -1000,7 +1000,7 @@ vendor/lib64/sensor_calibrate.so
 
 # Thermal
 etc/thermal-engine.conf
-vendor/bin/thermal-engine
+vendor/bin/thermal-engine|d166c7768ab77f4ee18488271479449ef0db924c
 -vendor/lib/libthermalclient.so
 -vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so

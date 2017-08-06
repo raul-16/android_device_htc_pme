@@ -15,9 +15,32 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">false</bool>
+
+    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
+         it causes the device to wake up.
+         The default is false. -->
+    <bool name="config_lidControlsSleep">true</bool>
+
+    <!-- Indicate whether to allow the device to suspend when the screen is off
+         due to the proximity sensor.  This resource should only be set to true
+         if the sensor HAL correctly handles the proximity sensor as a wake-up source.
+         Otherwise, the device may fail to wake out of suspend reliably.
+         The default is false. -->
+    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
+
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
+
+    <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
+         for debouncing the light sensor.  Different constants are used to debounce the light sensor
+         when adapting to brighter or darker environments.  This parameter controls how quickly
+         brightness changes occur in response to an observed change in light level that exceeds the
+         hysteresis threshold. -->
+    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -30,14 +53,14 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>1</item>
-        <item>5</item>
         <item>20</item>
-        <item>45</item>
-        <item>1025</item>
-        <item>1480</item>
-        <item>2940</item>
-        <item>4600</item>
+        <item>40</item>
+        <item>100</item>
+        <item>325</item>
+        <item>600</item>
+        <item>1250</item>
+        <item>2200</item>
+        <item>4000</item>
         <item>10000</item>
     </integer-array>
 
@@ -46,15 +69,16 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>3</item>
-        <item>6</item>
-        <item>8</item>
-        <item>11</item>
-        <item>26</item>
-        <item>60</item>
-        <item>108</item>
-        <item>175</item>
-        <item>255</item>
+        <item>20</item>   <!-- 0-20 -->
+        <item>45</item>   <!-- 20-40 -->
+        <item>65</item>   <!-- 40-100 -->
+        <item>90</item>   <!-- 100-325 -->
+        <item>120</item>  <!-- 325-600 -->
+        <item>150</item>  <!-- 600-1250 -->
+        <item>180</item>  <!-- 1250-2200 -->
+        <item>210</item>  <!-- 2200-4000 -->
+        <item>230</item>  <!-- 4000-10000 -->
+        <item>255</item>  <!-- 10000+ -->
     </integer-array>
 
     <!-- When the screen is turned on, the previous estimate of the ambient light level at the time
@@ -69,6 +93,23 @@
          brightening or dimming debounce thresholds.  As a result, it may take somewhat longer to
          adapt to the environment.  This mode may be better suited for watches. -->
     <bool name="config_autoBrightnessResetAmbientLuxAfterWarmUp">true</bool>
+
+    <!-- Minimum screen brightness allowed by the power manager. -->
+    <integer name="config_screenBrightnessDim">6</integer>
+
+    <!-- Screen brightness when dozing. -->
+    <integer name="config_screenBrightnessDoze">13</integer>
+
+    <!-- Default screen brightness setting.
+         Must be in the range specified by minimum and maximum. -->
+    <integer name="config_screenBrightnessSettingDefault">98</integer>
+
+    <!-- Default screen brightness for VR setting. Default value: 0x56 => 86. -->
+    <integer name="config_screenBrightnessForVrSettingDefault">86</integer>
+
+    <!-- Minimum screen brightness setting allowed by the power manager.
+         The user is forbidden from setting the brightness below this level. -->
+    <integer name="config_screenBrightnessSettingMinimum">4</integer>
 
     <!-- Allow user to adjust button brightness from settings -->
     <integer name="config_buttonBrightnessSettingDefault">110</integer>
@@ -141,6 +182,7 @@
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
         <item>"wlan0"</item>
+        <item>"softap.*"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -235,16 +277,48 @@
          * The remote submix module "audio.r_submix.default" must be installed on the device.
          * The device must be provisioned with HDCP keys (for protected content).
     -->
-    <bool name="config_enableWifiDisplay">false</bool>
+    <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
+
+    <!-- Boolean indicating whether Hotspot 2.0/Passpoint and ANQP queries is enabled -->
+    <bool translatable="false" name="config_wifi_hotspot2_enabled">true</bool>
+
+    <!-- Boolean indicating whether 802.11r Fast BSS Transition is enabled on this platform -->
+    <bool translatable="false" name="config_wifi_fast_bss_transition_enabled">true</bool>
 
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
+
+    <!-- Boolean indicating whether or not to revert to default country code when cellular
+    radio is unable to find any MCC information to infer wifi country code from -->
+    <bool translatable="false" name="config_wifi_revert_country_code_on_cellular_loss">true</bool>
+
+    <!-- Boolean indicating whether or not wifi should turn off when emergency call is made -->
+    <bool translatable="false" name="config_wifi_turn_off_during_emergency_call">true</bool>
+
+    <!-- Configure wifi tcp buffersizes in the form:
+         rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max -->
+    <string name="config_wifi_tcp_buffers" translatable="false">524288,2097152,4194304,262144,524288,1048576</string>
+
+    <!-- Idle Receive current for wifi radio. 0 by default-->
+    <integer translatable="false" name="config_wifi_idle_receive_cur_ma">1</integer>
+
+    <!-- Rx current for wifi radio. 0 by default-->
+    <integer translatable="false" name="config_wifi_active_rx_cur_ma">100</integer>
+
+    <!-- Tx current for wifi radio. 0 by default-->
+    <integer translatable="false" name="config_wifi_tx_cur_ma">250</integer>
+
+    <!-- Operating volatage for wifi radio. 0 by default-->
+    <integer translatable="false" name="config_wifi_operating_voltage_mv">3800</integer>
+
+    <!-- Config SoftAP 2G channel list -->
+    <string  translatable="false" name="config_wifi_framework_sap_2G_channel_list">6</string>
 
     <!-- Indicate whether to allow the device to suspend when the screen is off
          due to the proximity sensor.  This resource should only be set to true
@@ -279,11 +353,11 @@
     -->
     <integer name="config_longPressOnHomeBehavior">0</integer>
 
-    <!-- Maximum number of supported users -->
-    <integer name="config_multiuserMaximumUsers">4</integer>
+    <!--  Whether Multiuser UI should be shown -->
+    <bool name="config_enableMultiUserUI">true</bool>
 
-    <!-- Whether Multiuser UI should be shown -->
-    <bool name="config_enableMultiUserUI">false</bool>
+    <!--  Maximum number of supported users -->
+    <integer name="config_multiuserMaximumUsers">4</integer>
 
     <!-- SD card is hot-pluggable on this device -->
     <bool name="config_batterySdCardAccessibility">true</bool>

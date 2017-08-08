@@ -745,7 +745,7 @@ service netmgrd /system/bin/netmgrd
 service per_mgr /system/bin/pm-service
     class core
     user system
-    group system
+    group system net_raw
     ioprio rt 4
     writepid /dev/cpuset/system-background/tasks
 
@@ -839,21 +839,6 @@ service qti /system/vendor/bin/qti
     group radio net_raw diag usb net_admin
     writepid /dev/cpuset/system-background/tasks
 
-service ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio log readproc wakelock qcom_diag net_raw
-
-service ril-daemon2 /system/bin/rild -c 2
-    class main
-    socket rild2 stream 660 root radio
-    socket rild-debug2 stream 660 radio system
-    user root
-    group radio cache inet misc audio log readproc wakelock qcom_diag net_raw
-
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
@@ -943,10 +928,6 @@ on class_start:late_start
 on property:sys.boot_completed=1
     write /proc/sys/kernel/sched_boost 0
     write /dev/kmsg "Boot completed "
-    #WDSP FW boot sysfs node used by STHAL
-    chown media audio /sys/kernel/wdsp0/boot
-    #CPE fw_name used by sound trigger HAL
-    chown media audio /sys/kernel/wcd_cpe0/fw_name
 
 on property:gsm.sim.operator.numeric=*
     start op-prop

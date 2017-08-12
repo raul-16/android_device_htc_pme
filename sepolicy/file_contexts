@@ -20,6 +20,12 @@
 /data/fpc(/.*)?                             u:object_r:fingerprintd_data_file:s0
 /sys/devices/soc/soc:fp_fpc1155(/.*)?       u:object_r:sysfs_fingerprint:s0
 
+# Init
+/system/bin/init\.power\.sh                 u:object_r:init_power_exec:s0
+
+# Power management
+/sys/module/lpm_levels/parameters(/.*)?     u:object_r:sysfs_power_management:s0
+
 # Properties
 /system/bin/operator-properties             u:object_r:operator-properties_exec:s0
 

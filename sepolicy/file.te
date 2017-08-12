@@ -13,3 +13,7 @@ type sysfs_msm_subsys, sysfs_type, fs_type;
 type sysfs_perf, sysfs_type, fs_type;
 type sysfs_power_management, sysfs_type, fs_type;
 
+# Power
+type proc_irq, fs_type;
+type proc_kernel_sched, fs_type;
+type sysfs_power_management, sysfs_type, fs_type;

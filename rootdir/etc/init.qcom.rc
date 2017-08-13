@@ -107,7 +107,9 @@ on init
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
 on fs
+    wait /dev/block/bootdevice
     mount_all fstab.qcom
+    swapon_all fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
     mkdir /firmware/wsd 0500 rfs rfs

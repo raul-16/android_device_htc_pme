@@ -912,8 +912,8 @@ on property:sys.boot_completed=1
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
     # Disable boosting
     write /proc/sys/kernel/sched_boost 0
-    # Disable core control
-    write /sys/module/msm_thermal/core_control/enabled 0
+    # Enable MSM-Thermal
+    write  /sys/module/msm_thermal/parameters/enabled 1
     # Update foreground and background cpusets (goal is load balancing
     # and UI responsiveness).
     write /dev/cpuset/background/cpus "0"

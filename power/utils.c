@@ -40,7 +40,7 @@
 #include "hint-data.h"
 #include "power-common.h"
 
-#define LOG_TAG "QCOM PowerHAL"
+#define LOG_TAG "Vox Populi PowerHAL"
 #include <utils/Log.h>
 
 #define INTERACTION_BOOST

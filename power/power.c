@@ -1,4 +1,21 @@
 /*
+ * Copyright (C) 2017  Joshua Choo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **********************************************************************
+ *
  * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +55,7 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 
-#define LOG_TAG "QCOM PowerHAL"
+#define LOG_TAG "Vox Populi PowerHAL"
 #include <utils/Log.h>
 #include <hardware/hardware.h>
 #include <hardware/power.h>
@@ -104,13 +121,25 @@ static pthread_mutex_t s_interaction_lock = PTHREAD_MUTEX_INITIALIZER;
 static struct timespec s_previous_boost_timespec;
 static int s_previous_duration;
 
+// Create Vox Populi variables
+int enable_interaction_boost;
+int fling_min_boost_duration;
+int fling_max_boost_duration;
+int fling_boost_topapp;
+int fling_min_freq_big;
+int fling_min_freq_little;
+int boost_duration;
+int touch_boost_topapp;
+int touch_min_freq_big;
+int touch_min_freq_little;
+
 static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
 
 static void power_init(struct power_module *module)
 {
-    ALOGI("QCOM power HAL initing.");
+    ALOGI("Vox Populi Power HAL initing.");
 
     int fd;
     char buf[10] = {0};
@@ -127,6 +156,18 @@ static void power_init(struct power_module *module)
         }
         close(fd);
     }
+
+    // Initialise Vox Populi tunables
+    get_int(ENABLE_INTERACTION_BOOST_PATH, &enable_interaction_boost, 1);
+    get_int(FLING_MIN_BOOST_DURATION_PATH, &fling_min_boost_duration, 300);
+    get_int(FLING_MAX_BOOST_DURATION_PATH, &fling_max_boost_duration, 2500);
+    get_int(FLING_BOOST_TOPAPP_PATH, &fling_boost_topapp, 10);
+    get_int(FLING_MIN_FREQ_BIG_PATH, &fling_min_freq_big, 1113);
+    get_int(FLING_MIN_FREQ_LITTLE_PATH, &fling_min_freq_little, 1113);
+    get_int(TOUCH_BOOST_DURATION_PATH, &boost_duration, 300);
+    get_int(TOUCH_BOOST_TOPAPP_PATH, &touch_boost_topapp, 10);
+    get_int(TOUCH_MIN_FREQ_BIG_PATH, &touch_min_freq_big, 1113);
+    get_int(TOUCH_MIN_FREQ_LITTLE_PATH, &touch_min_freq_little, 1113);
 }
 
 static void process_video_decode_hint(void *metadata)
@@ -411,51 +452,60 @@ static void power_hint(struct power_module *module, power_hint_t hint,
         break;
         case POWER_HINT_INTERACTION:
         {
-            char governor[80];
-
-            if (get_scaling_governor(governor, sizeof(governor)) == -1) {
-                ALOGE("Can't obtain scaling governor.");
-                return;
-            }
-
             pthread_mutex_lock(&s_interaction_lock);
             if (sustained_performance_mode || vr_mode) {
                 pthread_mutex_unlock(&s_interaction_lock);
                 return;
             }
 
-            int duration = 1500; // 1.5s by default
-            if (data) {
-                int input_duration = *((int*)data) + 750;
-                if (input_duration > duration) {
-                    duration = (input_duration > 5750) ? 5750 : input_duration;
+            // Check if interaction_boost is enabled
+            if (enable_interaction_boost) {
+                if (data) { // Boost duration for scrolls/flings
+                    int input_duration = *((int*)data) + fling_min_boost_duration;
+                    boost_duration = (input_duration > fling_max_boost_duration) ? fling_max_boost_duration : input_duration;
+                } 
+
+                struct timespec cur_boost_timespec;
+                clock_gettime(CLOCK_MONOTONIC, &cur_boost_timespec);
+                long long elapsed_time = calc_timespan_us(s_previous_boost_timespec, cur_boost_timespec);
+                // don't hint if previous hint's duration covers this hint's duration
+                if ((s_previous_duration * 1000) > (elapsed_time + boost_duration * 1000)) {
+                    pthread_mutex_unlock(&s_interaction_lock);
+                    return;
+                }
+                s_previous_boost_timespec = cur_boost_timespec;
+                s_previous_duration = boost_duration;
+
+                // Scrolls/flings
+                if (data) {
+                    int eas_interaction_resources[] = { MIN_FREQ_BIG_CORE_0, fling_min_freq_big, 
+                                                        MIN_FREQ_LITTLE_CORE_0, fling_min_freq_little, 
+                                                        0x42C0C000, fling_boost_topapp,
+                                                        CPUBW_HWMON_MIN_FREQ, 0x33};
+                    interaction(boost_duration, sizeof(eas_interaction_resources)/sizeof(eas_interaction_resources[0]), eas_interaction_resources);
+                }
+                // Touches/taps
+                else {
+                    int eas_interaction_resources[] = { MIN_FREQ_BIG_CORE_0, touch_min_freq_big, 
+                                                        MIN_FREQ_LITTLE_CORE_0, touch_min_freq_little, 
+                                                        0x42C0C000, touch_boost_topapp, 
+                                                        CPUBW_HWMON_MIN_FREQ, 0x33};
+                    interaction(boost_duration, sizeof(eas_interaction_resources)/sizeof(eas_interaction_resources[0]), eas_interaction_resources);
                 }
             }
-
-            struct timespec cur_boost_timespec;
-            clock_gettime(CLOCK_MONOTONIC, &cur_boost_timespec);
-
-            long long elapsed_time = calc_timespan_us(s_previous_boost_timespec, cur_boost_timespec);
-            // don't hint if previous hint's duration covers this hint's duration
-            if ((s_previous_duration * 1000) > (elapsed_time + duration * 1000)) {
-                pthread_mutex_unlock(&s_interaction_lock);
-                return;
-            }
-            s_previous_boost_timespec = cur_boost_timespec;
-            s_previous_duration = duration;
-
-            // Scheduler is EAS.
-            if (true || (strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) ||
-                    (strncmp(governor, SCHEDUTIL_GOVERNOR, strlen(SCHEDUTIL_GOVERNOR)) == 0)) {
-                // Setting the value of foreground schedtune boost to 50 and
-                // scaling_min_freq to 1100MHz.
-                int resources[] = {0x40800000, 1100, 0x40800100, 1100, 0x42C0C000, 0x32, 0x41800000, 0x33};
-                interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
-            } else { // Scheduler is HMP.
-                int resources[] = {0x41800000, 0x33, 0x40800000, 1000, 0x40800100, 1000, 0x40C00000, 0x1};
-                interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
-            }
             pthread_mutex_unlock(&s_interaction_lock);
+
+            // Update tunable values again
+            get_int(ENABLE_INTERACTION_BOOST_PATH, &enable_interaction_boost, 1);
+            get_int(FLING_MIN_BOOST_DURATION_PATH, &fling_min_boost_duration, 300);
+            get_int(FLING_MAX_BOOST_DURATION_PATH, &fling_max_boost_duration, 2500);
+            get_int(FLING_BOOST_TOPAPP_PATH, &fling_boost_topapp, 10);
+            get_int(FLING_MIN_FREQ_BIG_PATH, &fling_min_freq_big, 1113);
+            get_int(FLING_MIN_FREQ_LITTLE_PATH, &fling_min_freq_little, 1113);
+            get_int(TOUCH_BOOST_DURATION_PATH, &boost_duration, 300);
+            get_int(TOUCH_BOOST_TOPAPP_PATH, &touch_boost_topapp, 10);
+            get_int(TOUCH_MIN_FREQ_BIG_PATH, &touch_min_freq_big, 1113);
+            get_int(TOUCH_MIN_FREQ_LITTLE_PATH, &touch_min_freq_little, 1113);
         }
         break;
         case POWER_HINT_VIDEO_ENCODE:
@@ -797,14 +847,34 @@ static int get_platform_low_power_stats(struct power_module *module,
     return 0;
 }
 
+void set_feature(struct power_module *module, feature_t feature, int state)
+{
+    char tmp_str[NODE_MAX];
+    switch (feature) {
+#ifdef TAP_TO_WAKE_NODE
+        case POWER_FEATURE_DOUBLE_TAP_TO_WAKE:
+            snprintf(tmp_str, NODE_MAX, "%d", state);
+            sysfs_write(TAP_TO_WAKE_NODE, tmp_str);
+            break;
+#endif
+#ifdef HIGH_BRIGHTNESS_MODE_NODE
+        case POWER_FEATURE_HIGH_BRIGHTNESS_MODE:
+            sysfs_write(HIGH_BRIGHTNESS_MODE_NODE, state ? "1" : "0");
+            break;
+#endif
+        default:
+            break;
+    }
+}
+
 struct power_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
         .module_api_version = POWER_MODULE_API_VERSION_0_5,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
-        .name = "QCOM Power HAL",
-        .author = "Qualcomm",
+        .name = "Vox Populi Power HAL",
+        .author = "joshuous",
         .methods = &power_module_methods,
     },
 
@@ -813,5 +883,6 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .setInteractive = set_interactive,
     .get_number_of_platform_modes = get_number_of_platform_modes,
     .get_platform_low_power_stats = get_platform_low_power_stats,
-    .get_voter_list = get_voter_list
+    .get_voter_list = get_voter_list,
+    .setFeature = set_feature
 };

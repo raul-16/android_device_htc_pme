@@ -1,4 +1,21 @@
 /*
+ * Copyright (C) 2017  Joshua Choo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **********************************************************************
+ *
  * Copyright (c) 2013, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,8 +54,22 @@
 #define ONDEMAND_GOVERNOR "ondemand"
 #define INTERACTIVE_GOVERNOR "interactive"
 #define MSMDCVS_GOVERNOR "msm-dcvs"
+#define ALUCARDSCHED_GOVERNOR "alucardsched"
+#define DARKNESSSCHED_GOVERNOR "darknesssched"
 #define SCHED_GOVERNOR "sched"
 #define SCHEDUTIL_GOVERNOR "schedutil"
+#define PWRUTIL_GOVERNOR "pwrutil"
+
+#define ENABLE_INTERACTION_BOOST_PATH		"/dev/voxpopuli/enable_interaction_boost"
+#define FLING_MIN_BOOST_DURATION_PATH 		"/dev/voxpopuli/fling_min_boost_duration"
+#define FLING_MAX_BOOST_DURATION_PATH 		"/dev/voxpopuli/fling_max_boost_duration"
+#define FLING_BOOST_TOPAPP_PATH 		"/dev/voxpopuli/fling_boost_topapp"
+#define FLING_MIN_FREQ_BIG_PATH 		"/dev/voxpopuli/fling_min_freq_big"
+#define FLING_MIN_FREQ_LITTLE_PATH 		"/dev/voxpopuli/fling_min_freq_little"
+#define TOUCH_BOOST_DURATION_PATH 		"/dev/voxpopuli/touch_boost_duration"
+#define TOUCH_BOOST_TOPAPP_PATH 		"/dev/voxpopuli/touch_boost_topapp"
+#define TOUCH_MIN_FREQ_BIG_PATH 		"/dev/voxpopuli/touch_min_freq_big"
+#define TOUCH_MIN_FREQ_LITTLE_PATH 		"/dev/voxpopuli/touch_min_freq_little"
 
 #define HINT_HANDLED (0)
 #define HINT_NONE (-1)
@@ -49,3 +80,8 @@ enum CPU_GOV_CHECK {
     CPU2 = 2,
     CPU3 = 3
 };
+
+const char * eas_governors[];
+int is_eas_governor(const char *governor);
+void get_int(const char* file_path, int* value, int fallback_value);
+void get_hex(const char* file_path, int* value, int fallback_value);

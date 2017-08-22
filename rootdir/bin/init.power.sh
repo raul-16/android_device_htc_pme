@@ -57,13 +57,11 @@ write /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif 0
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
 write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
 
-# Set schedutil adjustments
-write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 700
-write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 3000
-write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 0
-write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 800
-write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 2000
-write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable 0
+# Adjust Schedutil tunables for better performance
+write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us "500"
+write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us "50000"
+write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us "500"
+write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us "50000"
 
 # re-enable thermal hotplug
 write /sys/module/msm_thermal/core_control/enabled 1

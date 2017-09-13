@@ -6,7 +6,6 @@
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
 #<src>                                      <mnt_point>        <type>  <mnt_flags and options>                                                                           <fs_mgr_flags>
-/dev/block/platform/soc/7464900.sdhci/by-name/system        /system            ext4    ro,barrier=1                                                                                      wait
 /dev/block/platform/soc/7464900.sdhci/by-name/userdata      /data              ext4    nosuid,nodev,noatime,nodiratime,noauto_da_alloc,nobarrier,journal_async_commit                    wait,check,encryptable=/dev/block/platform/soc/7464900.sdhci/by-name/extra
 /dev/block/platform/soc/7464900.sdhci/by-name/persist       /persist           ext4    nosuid,nodev,barrier=1                                                                            wait
 /dev/block/platform/soc/7464900.sdhci/by-name/cache         /cache             ext4    nosuid,nodev,noatime,nodiratime,noauto_da_alloc,nobarrier,journal_async_commit                    wait

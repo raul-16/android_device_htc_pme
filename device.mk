@@ -180,6 +180,10 @@ PRODUCT_PACKAGES += \
     libcurl \
     libgnsspps
 
+# GPS
+PRODUCT_PACKAGES += \
+    libshim_gps
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/gps/etc/gps.conf.default:system/etc/gps.conf.default \

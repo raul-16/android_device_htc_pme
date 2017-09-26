@@ -545,22 +545,22 @@ vendor/lib64/libcneqmiutils.so|41bf6f87336faaee239a3047b1fdac3f742ebde9
 vendor/lib64/libwqe.so|0ca87bc277c645fea7dbfd50504f7a6097c08d98
 vendor/lib64/libxml.so|b966ad575b2078dd09a0e5fdc2fb428a1ffe31fc
 
-# DRM
-vendor/bin/qseecomd
-vendor/lib/libQSEEComAPI.so
-vendor/lib64/lib-sec-disp.so
-vendor/lib64/libGPreqcancel.so
-vendor/lib64/libGPreqcancel_svc.so
-vendor/lib64/libQSEEComAPI.so
-vendor/lib64/libSecureUILib.so
-vendor/lib64/libStDrvInt.so
-vendor/lib64/libdrmfs.so
-vendor/lib64/libdrmtime.so
-vendor/lib64/libqisl.so
-vendor/lib64/librpmb.so
-vendor/lib64/libsecureui.so
-vendor/lib64/libsecureui_svcsock.so
-vendor/lib64/libssd.so
+# DRM - LA.UM.6.5.r1-02500-8x96.0
+vendor/bin/qseecomd|7bc811273b0d12680ce57dec24c5f0262fda4c16
+vendor/lib/libQSEEComAPI.so|7062cdfb83a986d44190d6fd9762da43d508e10a
+vendor/lib64/lib-sec-disp.so|e34d0a03eec000d5455f818710cb255800e7d348
+vendor/lib64/libGPreqcancel.so|1f00e7a539f5851a2a8fb55a5cedd806a12472aa
+vendor/lib64/libGPreqcancel_svc.so|7e36ee7225ff30e74fa00132ba8e5dfc9dc8bb2b
+vendor/lib64/libQSEEComAPI.so|4c7e40896d8b92cac02f457dce605b7eeff139e6
+vendor/lib64/libSecureUILib.so|d650623d3cf8840e38f9b3d4be6400ab601644f9
+vendor/lib64/libStDrvInt.so|f38c7a373b2fcae03718a8fbca4d655fe8e3cb42
+vendor/lib64/libdrmfs.so|caaa4442b3bd3b2be345d3cddf86b0b4d6e7cbe5
+vendor/lib64/libdrmtime.so|0d8c67f8bd42906d9dde3131b690051cfc33e29c
+vendor/lib64/libqisl.so|83eb6617d7f0a11593df45adb9d09e485abe14b6
+vendor/lib64/librpmb.so|1be8d44919ad1d457b73fdc987335f4ec2620842
+vendor/lib64/libsecureui.so|96e8730968a044ecce63d478be9f0ce07c97c746
+vendor/lib64/libsecureui_svcsock.so|b18eaba3019428b6b2d92a33cd166924b20eca2d
+vendor/lib64/libssd.so|2a07064578f0b8dde52d755b44227f354af15c77
 
 # DRM firmware
 vendor/firmware/cmnlib.b00
@@ -1005,7 +1005,5 @@ vendor/bin/time_daemon
 -vendor/lib64/libtime_genoff.so
 -vendor/lib64/libTimeService.so
 
-# Widevine - op3
-vendor/lib/libWVStreamControlAPI_L3.so|3bfb950f01c51430aeefdf9850301cba8e56645a
-vendor/lib/libwvdrm_L3.so|84e3aca99db67f2323e158131978e5bc3ad69fbc
-vendor/lib/mediadrm/libwvdrmengine.so|01c7543cf509c9cdbe0572178cc11fdf432ec2fd
+# Widevine - LA.UM.6.5.r1-02500-8x96.0
+vendor/lib/mediadrm/libwvdrmengine.so|0d8245220b20a39963c59d7469dfa3b48bb6d83d

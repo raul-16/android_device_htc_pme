@@ -27,7 +27,7 @@
 /sys/module/lpm_levels/parameters(/.*)?     u:object_r:sysfs_power_management:s0
 
 # Properties
-/system/bin/operator-properties             u:object_r:operator-properties_exec:s0
+/system/vendor/bin/operator-properties      u:object_r:operator-properties_exec:s0
 
 # Radio
 /dev/radio(/.*)?                            u:object_r:radio_data_file:s0

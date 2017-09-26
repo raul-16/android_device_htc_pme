@@ -622,9 +622,9 @@ etc/firmware/htc_fp6_ta.b06|a4caea78068d0ae4e4cec4981aaa76d8ef44bd2f
 etc/firmware/htc_fp6_ta.mdt|31ceca8f68bb12b09aa708b1e4ef44b82f895d69
 lib64/hw/fingerprint.vendor6.msm8996.so|a5b06f246224dbc7eff6de752befa51f63e24896
 
-# Gatekeeper
-vendor/lib/hw/gatekeeper.msm8996.so
-vendor/lib64/hw/gatekeeper.msm8996.so
+# Gatekeeper - LA.UM.6.5.r1-02500-8x96.0
+-vendor/lib/hw/gatekeeper.msm8996.so|ac555627694d57b1dd79b4ddf3faec2e9174967f
+-vendor/lib64/hw/gatekeeper.msm8996.so|285d7f197ee11a5eac1b1e333f7dfe8684087859
 
 # GPS - op3
 vendor/bin/loc_launcher|e595c21bc60b8a4f8d9bbc09f1e91283703ba6ba
@@ -804,9 +804,9 @@ vendor/firmware/keymaste.b05
 vendor/firmware/keymaste.b06
 vendor/firmware/keymaste.mdt
 
-# Keystore
-vendor/lib/hw/keystore.msm8996.so
-vendor/lib64/hw/keystore.msm8996.so
+# Keystore - LA.UM.6.5.r1-02500-8x96.0
+-vendor/lib/hw/keystore.msm8996.so|bd92d1ccbc294e6bcb0fdb4018749646d1ba0193
+-vendor/lib64/hw/keystore.msm8996.so|ade812bb2991c103f6af397e9662460ed0e48d5f
 
 # Listen
 vendor/lib/hw/sound_trigger.primary.msm8996.so|3a28da3c2fc9c368ce04b141193102e9a3af38f4

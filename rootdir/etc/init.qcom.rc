@@ -946,7 +946,7 @@ on property:sys.boot_completed=1
 on property:gsm.sim.operator.numeric=*
     start op-prop
 
-service op-prop /system/bin/operator-properties
+service op-prop /system/vendor/bin/operator-properties
     class main
     disabled
     oneshot

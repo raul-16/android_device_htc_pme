@@ -813,19 +813,41 @@ vendor/lib/hw/sound_trigger.primary.msm8996.so|3a28da3c2fc9c368ce04b141193102e9a
 vendor/lib/libadpcmdec.so
 vendor/lib/libsmwrapper.so
 
-# Media
--vendor/lib/libgpustats.so
-lib/libOmxVpp.so
-lib/libvpplibrary.so
-vendor/lib/libI420colorconvert.so
-vendor/lib/libOmxAacDec.so
-vendor/lib/libOmxEvrcDec.so
-vendor/lib/libOmxQcelp13Dec.so
-vendor/lib/libmm-color-convertor.so
-vendor/lib/libmmosal.so
-vendor/lib/libvpphvx.so
-vendor/lib/libvqzip.so
--vendor/lib64/libgpustats.so
+# Media - LA.UM.6.5.r1-02500-8x96.0
+-vendor/lib/libgpustats.so|176395bf6055b3475080d9bae65684820bafab49
+vendor/lib/libI420colorconvert.so|38212d068cd62a91a7cf88337a9655c0fd2c46ca
+vendor/lib/libOmxAacDec.so|2d75de00c868659eaab22d3a38ff4acb5e15a79f
+vendor/lib/libOmxAlacDec.so|1fb6ac88b7086a4d21353f7d93db4431e9ed3250
+vendor/lib/libOmxAlacDecSw.so|bdf6cc236bd864d264754f5608c4655ed96558ee
+vendor/lib/libOmxAmrDec.so|636b30d83bda704c1127eaeb94413da4db79d3a3
+vendor/lib/libOmxAmrwbplusDec.so|7a51d8e8ca15959f61c81879aabdbd7d7e423697
+vendor/lib/libOmxApeDec.so|e22f6e5ae89c397eb66d7b5dc23f8677ca4786bb
+vendor/lib/libOmxApeDecSw.so|0d5e081f2634d0d375518e9227a5708586b2f648
+vendor/lib/libOmxEvrcDec.so|20320f64a288a74f28154eb6b53a6790034799ca
+vendor/lib/libOmxQcelp13Dec.so|ac8733bccd9080e4cd8f78164ea5601f6b37eeec
+vendor/lib/libOmxVideoDSMode.so|7d25cfdff92adf8c90aa5565fca60e705d3fb4aa
+vendor/lib/libOmxVpp.so|e732e95e48659f166368d5e4d9ca6d0502ed0290
+vendor/lib/libOmxWmaDec.so|b0a40d0485083ae1a1424dd20a6f9f4d174660fc
+vendor/lib/libmm-color-convertor.so|7b22d9452ece4d1d758dbc076ca59b43f5dac298
+vendor/lib/libvpphvx.so|b095e79409b7927f64845b9086b29a131a3f5d93
+vendor/lib/libvpplibrary.so|2e4573d902dbb8f59ee12709181dd9b21aa21347
+vendor/lib/libvqzip.so|be0c08dee3aaf0c0040d3ecbdda71b72dd4ee53f
+-vendor/lib64/libgpustats.so|34c19702c14ddfb22fe0caffb4a22f842efe206c
+vendor/lib64/libI420colorconvert.so|5c0dc1548bf7460af33748f5ebcc424d0fb4086a
+vendor/lib64/libOmxAacDec.so|f34177a3dc4c62abf2492c96da51f10322ab2645
+vendor/lib64/libOmxAlacDec.so|74af77a58c57824ce28f1cfc2b6ceb526f26a014
+vendor/lib64/libOmxAlacDecSw.so|776efbcf019e2cddb5c5d2d4d8dd09da022ce159
+vendor/lib64/libOmxAmrDec.so|4287f2b909a8124abcba326f27ab25bfdbd50206
+vendor/lib64/libOmxAmrwbplusDec.so|3ce0c4ec133fd1835908430578164f3ca0798b45
+vendor/lib64/libOmxApeDec.so|10215def0b32d0dba75e91c0dd567cba2818a1cb
+vendor/lib64/libOmxApeDecSw.so|be950c4f2df3c56729006a321af29a87617cd32c
+vendor/lib64/libOmxEvrcDec.so|688a524158e3f3611ea19b61861245582839d7b7
+vendor/lib64/libOmxQcelp13Dec.so|d729fa0178bc9dc19a9a53ed3fc416c3f6aaf6f4
+vendor/lib64/libOmxVpp.so|c649caa8d3f5c8f76724ee5f4433721456587aba
+vendor/lib64/libOmxWmaDec.so|672911ba58a4e551d5f4f0d6b2f6c003387993d0
+vendor/lib64/libmm-color-convertor.so|2efb05d595c2d55457d88897562115e340631fe6
+vendor/lib64/libvpphvx.so|1a83a5b32b4f65725a0d4485b402356dfbcd859c
+vendor/lib64/libvpplibrary.so|2c03f841e55630551a0c7eb18aa96c97b468374c
 
 # Mixed
 lib/libprojector.so

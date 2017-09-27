@@ -1019,13 +1019,13 @@ vendor/bin/thermal-engine|8598eb10cc3316f8fa00c9ba792b2102a5d646ed
 -vendor/lib64/libthermalclient.so|9beae9671d80ee9b1d47689ed32b5780a863cb77
 vendor/lib64/libthermalioctl.so|17a44f42569ce02e36f155109f459638471d54ba
 
-# Time services
--app/TimeService/TimeService.apk
-vendor/bin/time_daemon
--vendor/lib/libtime_genoff.so
--vendor/lib/libTimeService.so
--vendor/lib64/libtime_genoff.so
--vendor/lib64/libTimeService.so
+# Time services - LA.UM.6.5.r1-02500-8x96.0
+-vendor/app/TimeService/TimeService.apk|85ba3fe34ff9d25d8c3bf319285d6071ff61757a
+vendor/bin/time_daemon|52c7a76b6e36bcb5042cd2fa8da9aca029907691
+-vendor/lib/libTimeService.so|dabac329857d3e8a9e234cb2d0e40dbdcb23c236
+-vendor/lib/libtime_genoff.so|4e027cccb3e5bcbbe8c77fafce35a94c7d8aaae5
+-vendor/lib64/libTimeService.so|aabc4aca65203f0e32d6f5ca2e6bbb1ad3abef82
+-vendor/lib64/libtime_genoff.so|0f5b21c5d9abd69249774a7d5c2c5195558e549d
 
 # Widevine - LA.UM.6.5.r1-02500-8x96.0
 vendor/lib/mediadrm/libwvdrmengine.so|0d8245220b20a39963c59d7469dfa3b48bb6d83d

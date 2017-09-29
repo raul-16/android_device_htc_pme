@@ -26,6 +26,9 @@
 # Power management
 /sys/module/lpm_levels/parameters(/.*)?     u:object_r:sysfs_power_management:s0
 
+# BT
+/sys/module/htc_bdaddress/parameters/bdaddress                          u:object_r:sysfs_bluetooth_writable:s0
+
 # Properties
 /system/vendor/bin/operator-properties      u:object_r:operator-properties_exec:s0
 

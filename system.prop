@@ -37,7 +37,6 @@ ro.media.enc.jpeg.quality=100
 
 # CNE
 persist.cne.feature=1
-persist.cne.rat.wlan.chip.oem=nqc
 persist.dpm.feature=0
 
 # Enable stm events

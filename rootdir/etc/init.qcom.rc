@@ -690,10 +690,10 @@ service charger /charger
     seclabel u:r:healthd:s0
     writepid /dev/cpuset/system-background/tasks
 
-service dpmd /vendor/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
-    group system readproc
+service cnd /vendor/bin/cnd
+    class main
+    user system
+    group system wifi inet radio wakelock net_admin
     writepid /dev/cpuset/system-background/tasks
 
 service hvdcp_opti /system/vendor/bin/hvdcp_opti

@@ -81,7 +81,6 @@ LocEngAdapter::LocEngAdapter(LOC_API_ADAPTER_EVENT_MASK_T mask,
 {
     memset(&mFixCriteria, 0, sizeof(mFixCriteria));
     mFixCriteria.mode = LOC_POSITION_MODE_INVALID;
-    clearGnssSvUsedListData();
     LOC_LOGD("LocEngAdapter created");
 }
 
@@ -195,9 +194,11 @@ void LocEngAdapter::setXtraUserAgent() {
                 fclose(file);
 
                 // remove trailing spaces
-                size_t len = strlen(buf);
-                while (--len >= 0 && isspace(buf[len])) {
-                    buf[len] = '\0';
+                char *s;
+                s = buf + strlen(buf);
+                while (--s >= buf) {
+                    if (!isspace(*s)) break;
+                    *s = 0;
                 }
             }
 

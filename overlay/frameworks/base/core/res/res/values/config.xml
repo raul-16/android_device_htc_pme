@@ -15,32 +15,9 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- If this is true, the screen will fade off. -->
-    <bool name="config_animateScreenLights">false</bool>
-
-    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up.
-         The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool>
-
-    <!-- Indicate whether to allow the device to suspend when the screen is off
-         due to the proximity sensor.  This resource should only be set to true
-         if the sensor HAL correctly handles the proximity sensor as a wake-up source.
-         Otherwise, the device may fail to wake out of suspend reliably.
-         The default is false. -->
-    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
-
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
-
-    <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
-         for debouncing the light sensor.  Different constants are used to debounce the light sensor
-         when adapting to brighter or darker environments.  This parameter controls how quickly
-         brightness changes occur in response to an observed change in light level that exceeds the
-         hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -81,40 +58,6 @@
         <item>255</item>  <!-- 10000+ -->
     </integer-array>
 
-    <!-- When the screen is turned on, the previous estimate of the ambient light level at the time
-         the screen was turned off is restored and is used to determine the initial screen
-         brightness.
-
-         If this flag is true, then the ambient light level estimate will be promptly recomputed
-         after the warm-up interface and the screen brightness will be adjusted immediately.
-
-         If this flag is false, then the ambient light level estimate will be adjusted more
-         gradually in the same manner that normally happens when the screen is on according to the
-         brightening or dimming debounce thresholds.  As a result, it may take somewhat longer to
-         adapt to the environment.  This mode may be better suited for watches. -->
-    <bool name="config_autoBrightnessResetAmbientLuxAfterWarmUp">true</bool>
-
-    <!-- Minimum screen brightness allowed by the power manager. -->
-    <integer name="config_screenBrightnessDim">6</integer>
-
-    <!-- Screen brightness when dozing. -->
-    <integer name="config_screenBrightnessDoze">13</integer>
-
-    <!-- Default screen brightness setting.
-         Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">98</integer>
-
-    <!-- Default screen brightness for VR setting. Default value: 0x56 => 86. -->
-    <integer name="config_screenBrightnessForVrSettingDefault">86</integer>
-
-    <!-- Minimum screen brightness setting allowed by the power manager.
-         The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">4</integer>
-
-    <!-- Allow user to adjust button brightness from settings -->
-    <integer name="config_buttonBrightnessSettingDefault">110</integer>
-    <bool name="config_deviceHasVariableButtonBrightness">true</bool>
-
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
@@ -143,31 +86,12 @@
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
 
-    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">true</bool>
-
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">10</integer>
 
     <!-- When true use the linux /dev/input/event subsystem to detect the switch changes
          on the headphone/microphone jack. When false use the older uevent framework. -->
     <bool name="config_useDevInputEventForAudioJack">true</bool>
-
-    <!-- Defines the shutdown options shown in the reboot dialog. -->
-        <array name="shutdown_reboot_options" translatable="false">
-        <item>@string/reboot_reboot</item>
-        <item>@string/reboot_soft</item>
-        <item>@string/reboot_recovery</item>
-    </array>
-
-    <!-- Do not translate. Defines the shutdown actions passed to the kernel.
-         The first item should be empty for regular reboot. -->
-    <string-array name="shutdown_reboot_actions" translatable="false">
-        <item></item>
-        <item>soft_reboot</item>
-        <item>recovery</item>
-        <item>download</item>
-    </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
@@ -326,20 +250,6 @@
          Otherwise, the device may fail to wake out of suspend reliably.
          The default is false. -->
     <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
-
-    <!-- Hardware keys present on the device, stored as a bit field.
-         This integer should equal the sum of the corresponding value for each
-         of the following keys present:
-             1 - Home
-             2 - Back
-             4 - Menu
-             8 - Assistant (search)
-            16 - App switch
-            32 - Camera
-            64 - Volume rocker
-         For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareKeys">83</integer>
 
 	<!-- Control the behavior when the user long presses the home button.
             0 - Nothing

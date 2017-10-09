@@ -33,10 +33,10 @@
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
+#include <android-base/properties.h>
 #include "vendor_init.h"
 #include "property_service.h"
 #include "log.h"
-#include "util.h"
 
 /* Device specific properties */
 #include "htc-asia.h"
@@ -49,6 +49,8 @@
 #include "htc-tmobile_usa.h"
 #include "htc-unlocked.h"
 #include "htc-verizon.h"
+
+using android::base::GetProperty;
 
 void property_override(char const prop[], char const value[])
 {
@@ -67,7 +69,6 @@ static void load_properties(const char *original_data)
     char *key, *value, *eol, *sol, *tmp;
 
     if ((data = (char *) malloc(strlen(original_data)+1)) == NULL) {
-        ERROR("Out of memory!");
         return;
     }
 
@@ -106,14 +107,12 @@ void vendor_load_properties()
     std::string bootmid;
     std::string bootcid;
 
-    platform = property_get("ro.board.platform");
+    platform = GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
 
-    bootmid = property_get("ro.boot.mid");
-    bootcid = property_get("ro.boot.cid");
-
-    INFO("Found bootcid %s, bootmid %s\n", bootcid.c_str(), bootmid.c_str());
+    bootmid = GetProperty("ro.boot.mid", "");
+    bootcid = GetProperty("ro.boot.cid", "");
 
     if (is_variant_asia(bootcid)) {
         load_properties(htc_asia_properties);

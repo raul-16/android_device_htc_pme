@@ -178,10 +178,7 @@ PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl \
     gps.msm8996 \
     libcurl \
-    libgnsspps
-
-# GPS
-PRODUCT_PACKAGES += \
+    libgnsspps \
     libshim_gps
 
 PRODUCT_COPY_FILES += \

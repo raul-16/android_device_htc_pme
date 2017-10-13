@@ -376,3 +376,6 @@ PRODUCT_COPY_FILES += \
 # Virtual Reality
 PRODUCT_PACKAGES += \
     vr.msm8996
+
+# MSM8996 Headers
+PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom/msm8996/kernel-headers

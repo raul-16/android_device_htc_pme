@@ -174,9 +174,6 @@ on post-fs-data
     # Create directory for SSC/SLPI sensors
     mkdir /data/misc/sensors 0775 system system
 
-    # Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
-
     # Create directory for IMS services
     mkdir /data/shared 0755 system system
 
@@ -895,13 +892,6 @@ service wpa_supplicant /system/vendor/bin/wpa_supplicant \
     disabled
     oneshot
     writepid /dev/cpuset/system-background/tasks
-
-service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
-    class late_start
-    user root
-    group root
-    oneshot
-    disabled
 
 # Firmware linking to /firmware/image
 service fwnk-adsp  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp

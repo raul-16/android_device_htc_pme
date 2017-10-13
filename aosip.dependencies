@@ -2,21 +2,21 @@
   {
     "repository":  "Fagyi/htc_pme_kernel",
     "target_path": "kernel/htc/msm8996"
-    "branch":      "IceMan"
+    "branch":      "aosip-oreo"
   },
   {
-    "repository":  "LineageOS/android_device_qcom_common",
-    "target_path": "device/qcom/common",
-    "branch":      "cm-14.1"
-  },
-  {
-    "repository":  "TheMuppets/proprietary_vendor_qcom_binaries",
-    "target_path": "vendor/qcom/binaries",
-    "branch":      "cm-14.1"
+    "repository":  "LineageOS/android_hardware_cyanogen",
+    "target_path": "hardware/cyanogen",
+    "branch":      "lineage-15.0"
   },
   {
     "repository":  "Fagyi/proprietary_vendor_htc",
     "target_path": "vendor/htc",
-    "branch":      "cm-14.1"
+    "branch":      "aosip-oreo"
+  },
+  {
+    "repository":  "LineageOS/android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings",
+    "branch":      "lineage-15.0"
   }
 ]

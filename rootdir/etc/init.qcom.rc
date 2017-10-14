@@ -117,10 +117,22 @@ on post-fs-data
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/dsps 0771 system system
+    mkdir /data/vendor/tombstones 0771 system system
 
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
     mkdir /persist/tee 0700 system system
+
+    mkdir /data/vendor/misc 01771 system system
+
+    # Change lm related dirs
+    mkdir /data/vendor/lm 0700 root root
+
+    # Create directory used by media clients
+    mkdir /data/vendor/media 0770 mediacodec media
+
+    # Create directory used for camera
+    mkdir /data/vendor/camera 0770 camera camera
 
     mkdir /persist/bms 0700 root system
     restorecon_recursive /persist
@@ -129,6 +141,7 @@ on post-fs-data
     chown media_rw media_rw /data/media
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    mkdir /data/vendor/misc/bluetooth 0770 bluetooth bluetooth
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0770 wifi wifi
@@ -140,11 +153,16 @@ on post-fs-data
 
     # Create directory for audio
     mkdir /data/misc/audio 0770 audio audio
+    mkdir /data/vendor/misc/audio 0770 audio audio
     mkdir /data/misc/dts 0770 media audio
 
     # Create directory for audio delta files
     mkdir /data/misc/audio/acdbdata 0770 media audio
     mkdir /data/misc/audio/acdbdata/delta 0770 media audio
+    mkdir /data/vendor/misc/audio/acdbdata 0770 media audio
+    mkdir /data/vendor/miscaudio/acdbdata/delta 0770 media audio
+
+    mkdir /data/vendor/audio/ 0770 media audio
 
     # Create directory for camera
     mkdir /data/camera 0770 media camera
@@ -167,6 +185,7 @@ on post-fs-data
     # Create directory for display
     mkdir /data/misc/display 0770 system graphics
     mkdir /persist/display 0770 system graphics
+    mkdir /data/vendor/display 0770 system graphics
 
     # Create directory for fingerprint
     mkdir /data/fpc 0770 system system
@@ -178,7 +197,11 @@ on post-fs-data
     mkdir /data/shared 0755 system system
 
     # Create directory for IPA
-    mkdir /data/misc/ipa 0700 net_admin net_admin
+    mkdir /data/vendor/ipa 0770 radio radio
+    chmod 0770 /data/vendor/ipa
+
+    # Create directory for radio
+    mkdir /data/vendor/radio 0770 system radio
 
     # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
@@ -204,6 +227,8 @@ on post-fs-data
     # Create directory for NFC
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
+    mkdir /data/vendor/nfc 0770 nfc nfc
+    mkdir /data/vendor/nfc/param 0770 nfc nfc
 
     # Create PERFD deamon related dirs
     setprop ro.min_freq_0 384000
@@ -384,10 +409,14 @@ on boot
     # Create netmgr log dir
     mkdir /data/misc/netmgr 0770 radio radio
     chmod 0770 /data/misc/netmgr
+    mkdir /data/vendor/netmgr 0770 radio radio
+    chmod 0770 /data/vendor/netmgr
 
     # Create port-bridge log dir
     mkdir /data/misc/port_bridge 0770 radio radio
     chmod 0770 /data/misc/port_bridge
+    mkdir /data/vendor/port_bridge 0770 radio radio
+    chmod 0770 /data/vendor/port_bridge
 
     # Set graphic node permissions
     chown system graphics /sys/class/graphics/fb0/msm_cmd_autorefresh_en

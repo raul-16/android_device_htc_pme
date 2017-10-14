@@ -265,6 +265,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     messaging
 
+# Net
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.0 \
+    netutils-wrapper-1.0
+
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-impl \

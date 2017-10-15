@@ -219,11 +219,6 @@ on post-fs-data
     # Create directory for modem config
     mkdir /data/misc/radio/modem_config 0770 radio radio
 
-    # Mark the copy complete flag to not completed
-    write /data/misc/radio/copy_complete 0
-    chown radio radio /data/misc/radio/copy_complete
-    chmod 0660 /data/misc/radio/copy_complete
-
     # Create directory for NFC
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
@@ -247,14 +242,6 @@ on post-fs-data
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
 
-    # File flags for prebuilt ril db file
-    write /data/misc/radio/prebuilt_db_support 1
-    chown radio radio /data/misc/radio/prebuilt_db_support
-    chmod 0400 /data/misc/radio/prebuilt_db_support
-    write /data/misc/radio/db_check_done 0
-    chown radio radio /data/misc/radio/db_check_done
-    chmod 0660 /data/misc/radio/db_check_done
-
     # Create SWAP related dirs
     mkdir /data/system/swap 0770 root system
     chmod 2770 /data/system/swap
@@ -273,16 +260,22 @@ on post-fs-data
     mkdir /data/misc/SelfHost/socket/ 2770 system system
 
     # copy prebuilt qcril.db files always
-    copy /system/vendor/qcril.db /data/misc/radio/qcril_prebuilt.db
-    chown radio radio /data/misc/radio/qcril_prebuilt.db
-    chmod 0660 /data/misc/radio/qcril_prebuilt.db
+    copy /system/vendor/qcril.db /data/vendor/radio/qcril_prebuilt.db
+    chown radio radio /data/vendor/radio/qcril_prebuilt.db
+    chmod 0660 /data/vendor/radio/qcril_prebuilt.db
+
     # File flags for prebuilt ril db file
-    write /data/misc/radio/prebuilt_db_support 1
-    chown radio radio /data/misc/radio/prebuilt_db_support
-    chmod 0400 /data/misc/radio/prebuilt_db_support
-    write /data/misc/radio/db_check_done 0
-    chown radio radio /data/misc/radio/db_check_done
-    chmod 0660 /data/misc/radio/db_check_done
+    write /data/vendor/radio/prebuilt_db_support 1
+    chown radio radio /data/vendor/radio/prebuilt_db_support
+    chmod 0400 /data/vendor/radio/prebuilt_db_support
+    write /data/vendor/radio/db_check_done 0
+    chown radio radio /data/vendor/radio/db_check_done
+    chmod 0660 /data/vendor/radio/db_check_done
+
+    # Mark the copy complete flag to not completed
+    write /data/vendor/radio/copy_complete 0
+    chown radio radio /data/vendor/radio/copy_complete
+    chmod 0660 /data/vendor/radio/copy_complete
 
     # set aggressive read ahead during boot up.
     write /sys/block/dm-0/queue/read_ahead_kb 2048

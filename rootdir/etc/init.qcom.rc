@@ -773,6 +773,8 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.
 
 service netmgrd /system/bin/netmgrd
     class main
+    user root
+    group root wifi wakelock radio inet
     writepid /dev/cpuset/system-background/tasks
 
 #Start up peripheral manager

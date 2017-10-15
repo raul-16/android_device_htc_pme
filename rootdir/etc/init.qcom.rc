@@ -869,7 +869,7 @@ service qseecomd /system/bin/qseecomd
 service qti /system/vendor/bin/qti
     class main
     user radio
-    group radio net_raw diag usb net_admin
+    group radio diag usb
     writepid /dev/cpuset/system-background/tasks
 
 service rmt_storage /system/bin/rmt_storage

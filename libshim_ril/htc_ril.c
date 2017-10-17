@@ -19,7 +19,7 @@ int checkRequestInfo (struct RequestInfo *pRI)
      return 0;
 }
 
-extern "C" int
-vsnprintf() {
+int vsnprintf()
+{
   return 0;
 }

@@ -185,9 +185,6 @@ TARGET_PROVIDES_KEYMASTER := false
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
-# Linker
-LINKER_FORCED_SHIM_LIBS := /system/vendor/bin/slim_daemon|liblog_htc.so
-
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 

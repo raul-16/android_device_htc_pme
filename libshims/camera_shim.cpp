@@ -15,8 +15,14 @@
  */
 
 #include <string>
+#include <utils/Errors.h>
 #include <utils/RefBase.h>
+#include "gui/DisplayEventReceiver.h"
+#include <gui/IDisplayEventConnection.h>
+#include <gui/ISurfaceComposer.h>
+#include <private/gui/ComposerService.h>
 #include <gui/SurfaceComposerClient.h>
+#include <private/gui/BitTube.h>
 
 // GraphicBuffer(uint32_t inWidth, uint32_t inHeight, PixelFormat inFormat,
 //               uint32_t inUsage, std::string requestorName = "<Unknown>");
@@ -51,10 +57,20 @@ extern "C" {
     }
 }
 
-extern "C" void _ZN7android20DisplayEventReceiverC1ENS_16ISurfaceComposer11VsyncSourceE();
+extern "C" void _ZN7android10CameraFace19getFaceDetectResultEPhS1_PifiiS2_S2_() {}
 
-extern "C" void _ZN7android20DisplayEventReceiverC1Ev() {
-    _ZN7android20DisplayEventReceiverC1ENS_16ISurfaceComposer11VsyncSourceE;
+namespace android {
+
+DisplayEventReceiver::DisplayEventReceiver() {
+    status_t err;
+    sp<ISurfaceComposer> sf(ComposerService::getComposerService());
+    if (sf != NULL) {
+        mEventConnection = sf->createDisplayEventConnection(ISurfaceComposer::eVsyncSourceApp);
+        if (mEventConnection != NULL) {
+            mDataChannel = std::make_unique<gui::BitTube>();
+            err = mEventConnection->stealReceiveChannel(mDataChannel.get());
+        }
+    }
 }
 
-extern "C" void _ZN7android10CameraFace19getFaceDetectResultEPhS1_PifiiS2_S2_() {}
+}; // namespace android

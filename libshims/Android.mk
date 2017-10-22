@@ -21,13 +21,8 @@ LOCAL_SRC_FILES := \
   camera_shim.cpp
 
 LOCAL_SHARED_LIBRARIES := \
-    liblog \
-    libutils \
-    libgui \
-    libui
-
-LOCAL_C_INCLUDES := \
-    frameworks/native/include
+  libui \
+  libgui
 
 LOCAL_MODULE := libshim_camera
 LOCAL_MODULE_TAGS := optional

@@ -345,11 +345,11 @@ on boot
     chown system system /dev/voxpopuli/touch_min_freq_big
     chown system system /dev/voxpopuli/touch_min_freq_little
 
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/type
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt /dev/ttyHS0
+    chown bluetooth bluetooth /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
 
     chmod 0660 /dev/ttyHS2

@@ -980,7 +980,6 @@ vendor/lib64/libvoice-svc.so
 
 # Sensors
 bin/sensors.qcom
-etc/sensors/hals.conf
 etc/sensors/sensor_def_qcomdev.conf
 lib/hw/sensors.msm8996.so:vendor/lib/hw/sensors.msm8996.so
 lib64/hw/sensors.msm8996.so:vendor/lib64/hw/sensors.msm8996.so

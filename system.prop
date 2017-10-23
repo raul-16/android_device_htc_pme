@@ -158,6 +158,9 @@ ro.qti.sensors.mot_detect=false
 # SSC/SLPI sensor daemon
 ro.qualcomm.ssc=true
 
+# Storage
+ro.sys.sdcardfs=false
+
 # System prop for enabling/disabling Android XLAT
 persist.net.doxlat=true
 

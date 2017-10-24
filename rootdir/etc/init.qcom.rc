@@ -864,7 +864,7 @@ service rmt_storage /system/bin/rmt_storage
     user root
     writepid /dev/cpuset/system-background/tasks
 
-service sensors /system/bin/sensors.qcom
+service sensors /vendor/bin/sensors.qcom
     class core
     user root
     group root

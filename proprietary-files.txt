@@ -979,10 +979,10 @@ vendor/lib64/librcc.so
 vendor/lib64/libvoice-svc.so
 
 # Sensors
-bin/sensors.qcom
-etc/sensors/sensor_def_qcomdev.conf
-lib/hw/sensors.msm8996.so:vendor/lib/hw/sensors.msm8996.so
-lib64/hw/sensors.msm8996.so:vendor/lib64/hw/sensors.msm8996.so
+vendor/bin/sensors.qcom
+vendor/etc/sensors/sensor_def_qcomdev.conf
+vendor/lib/hw/sensors.msm8996.so
+vendor/lib64/hw/sensors.msm8996.so
 vendor/lib/libsensor1.so
 vendor/lib/sensor_calibrate.so
 vendor/lib64/libsensor1.so

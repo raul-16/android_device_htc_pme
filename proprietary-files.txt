@@ -83,23 +83,19 @@ vendor/lib/libaptXHD-1.0.0-rel-Android21-ARMv7A.so|d12efedab3681f5419ba9b79275e5
 vendor/lib/libaptXScheduler.so|6a0a2d564fde8434018b9840ce81d976b4d4ab28
 
 # Camera
-bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
+vendor/bin/mm-qcamera-daemon
 etc/camera/camera_config.xml
 etc/camera/imx377_htc_chromatix.xml
 etc/camera/ov12890eco_htc_chromatix.xml
 etc/camera/ov12890_htc_chromatix.xml
 etc/camera/s5k4e6_htc_chromatix.xml
-lib/hw/camera.msm8996.so:vendor/lib/hw/camera.msm8996.so
-lib/libawb_calibration.so:vendor/lib/libawb_calibration.so
-lib/libBeautyChat.so:vendor/lib/libBeautyChat.so
-lib/libcameraface.so:vendor/lib/libcameraface.so
-lib/libcamerapp.so:vendor/lib/libcamerapp.so
-lib/libhtc_facebeauty.so:vendor/lib/libhtc_facebeauty.so
-lib/libmmcamera_interface.so:vendor/lib/libmmcamera_interface.so
-lib/libmmjpeg_interface.so:vendor/lib/libmmjpeg_interface.so
-lib/libmm-qcamera.so:vendor/lib/libmm-qcamera.so
-lib/libqomx_core.so:vendor/lib/libqomx_core.so
-lib64/libawb_calibration.so
+
+vendor/lib64/libawb_calibration.so
+vendor/lib/hw/camera.msm8996.so
+vendor/lib/libawb_calibration.so
+vendor/lib/libBeautyChat.so
+vendor/lib/libcamerapp.so
+
 vendor/lib/libchromaflash.so
 vendor/lib/libcppf.so
 vendor/lib/libflash_pmic.so
@@ -107,19 +103,29 @@ vendor/lib/libjni_dualcamera.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegdmahw.so
 vendor/lib/libjpegehw.so
+vendor/lib/libmemalloc.so|bca57c2d5522a23b9878508e88bd1b627deb0539
+vendor/lib/libmmcamera_interface.so
 vendor/lib/libmmjpeg.so
+vendor/lib/libmmjpeg_interface.so
 vendor/lib/libmmqjpeg_codec.so
 vendor/lib/libmmqjpegdma.so
+vendor/lib/libmm-qcamera.so
+vendor/lib/libmorpho_movie_stabilizer4.so
+vendor/lib/libmorpho_hyperlapse_jni_v6.so
+vendor/lib/libmorpho_render_util_v6.so
 vendor/lib/libois_lc898122.so
 vendor/lib/libois_lc898123.so
 vendor/lib/liboptizoom.so
 vendor/lib/libpvr.so
+vendor/lib/libqomx_core.so
 vendor/lib/libqomx_jpegdec.so
 vendor/lib/libqomx_jpegenc_pipe.so
 vendor/lib/libqomx_jpegenc.so
 vendor/lib/libseemore.so
 vendor/lib/libtrueportrait.so
 vendor/lib/libubifocus.so
+vendor/lib64/libawb_calibration.so
+vendor/lib64/libmemalloc.so|d94b88084fb2cea1ce79ff4cd8e9cdec4aeca74c
 vendor/lib64/libpvr.so
 
 # Camera actuators
@@ -304,20 +310,20 @@ etc/hltof.bin
 etc/hltrd.bin
 
 # Camera postprocessing
-lib/libopencv_calib3d.so
-lib/libopencv_core.so
-lib/libopencv_features2d.so
-lib/libopencv_flann.so
-lib/libopencv_highgui.so
-lib/libopencv_imgcodecs.so
-lib/libopencv_imgproc.so
-lib/libopencv_java.so
-lib/libopencv_ml.so
-lib/libopencv_objdetect.so
-lib/libopencv_photo.so
-lib/libopencv_rsobjdetect.so
-lib/libopencv_video.so
-lib/libopencv_videoio.so
+vendor/lib/libopencv_calib3d.so
+vendor/lib/libopencv_core.so
+vendor/lib/libopencv_features2d.so
+vendor/lib/libopencv_flann.so
+vendor/lib/libopencv_highgui.so
+vendor/lib/libopencv_imgcodecs.so
+vendor/lib/libopencv_imgproc.so
+vendor/lib/libopencv_java.so
+vendor/lib/libopencv_ml.so
+vendor/lib/libopencv_objdetect.so
+vendor/lib/libopencv_photo.so
+vendor/lib/libopencv_rsobjdetect.so
+vendor/lib/libopencv_video.so
+vendor/lib/libopencv_videoio.so
 
 # Camera sensors
 vendor/lib/libmmcamera2_c2d_module.so

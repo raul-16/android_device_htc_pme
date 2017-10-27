@@ -678,7 +678,7 @@ service charger /charger
     seclabel u:r:healthd:s0
     writepid /dev/cpuset/system-background/tasks
 
-service dpmd /vendor/dpmd
+service dpmd /vendor/bin/dpmd
     class late_start
     socket dpmd stream 660 root system
     group system readproc

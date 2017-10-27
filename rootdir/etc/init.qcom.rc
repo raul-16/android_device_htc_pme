@@ -381,6 +381,9 @@ on boot
     #Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
+    # Create directory for radio
+    mkdir /data/vendor/radio 0770 system radio
+
     # Create netmgr log dir
     mkdir /data/misc/netmgr 0770 radio radio
     chmod 0770 /data/misc/netmgr
@@ -658,13 +661,13 @@ on boot
 
 # Services begin here
 
-service adsprpcd /system/bin/adsprpcd
+service adsprpcd /vendor/bin/adsprpcd
     class main
     user media
     group media
     writepid /dev/cpuset/foreground/tasks
 
-service audiod /system/bin/audiod
+service audiod /vendor/bin/audiod
    class late_start
    user system
    group system
@@ -675,7 +678,7 @@ service charger /charger
     seclabel u:r:healthd:s0
     writepid /dev/cpuset/system-background/tasks
 
-service dpmd /system/bin/dpmd
+service dpmd /vendor/dpmd
     class late_start
     socket dpmd stream 660 root system
     group system readproc
@@ -687,7 +690,7 @@ service hvdcp_opti /system/vendor/bin/hvdcp_opti
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service ims_rtp_daemon /system/bin/ims_rtp_daemon
+service ims_rtp_daemon /vendor/bin/ims_rtp_daemon
    class main
    user system
    socket ims_rtpd stream 0660 system radio
@@ -695,82 +698,82 @@ service ims_rtp_daemon /system/bin/ims_rtp_daemon
    disabled
    writepid /dev/cpuset/system-background/tasks
 
-on property:sys.ims.DATA_DAEMON_STATUS=1
+on property:vendor.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
 
-service imscmservice /system/bin/imscmservice
+service imscmservice /vendor/bin/imscmservice
     class main
     user system
-    group radio net_raw diag log
+    group radio diag log
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-on property:sys.ims.DATA_DAEMON_STATUS=1
+on property:vendor.ims.DATA_DAEMON_STATUS=1
     start imscmservice
 
-service imsdatadaemon /system/bin/imsdatadaemon
+service imsdatadaemon /vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
-    group system wifi radio inet net_raw log diag net_admin
+    group system wifi radio inet log diag
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-on property:sys.ims.QMI_DAEMON_STATUS=1
+on property:vendor.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
 
-service imsqmidaemon /system/bin/imsqmidaemon
+service imsqmidaemon /vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
     group radio net_raw log diag
     writepid /dev/cpuset/system-background/tasks
 
-service ipacm-diag /system/bin/ipacm-diag
+service ipacm-diag /vendor/bin/ipacm-diag
     class main
     user system
     socket ipacm_log_file dgram 660 system net_admin
     group net_admin diag
     writepid /dev/cpuset/system-background/tasks
 
-service ipacm /system/vendor/bin/ipacm
+service ipacm /vendor/bin/ipacm
     class main
     user net_admin
     group net_admin inet
     writepid /dev/cpuset/system-background/tasks
 
-service irsc_util /system/bin/irsc_util "/etc/sec_config"
+service irsc_util /vendor/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
+service loc_launcher /vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet diag wifi
     writepid /dev/cpuset/system-background/tasks
 
-service msm_irqbalance /system/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
+service msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     class main
     user root
     group root
     disabled
 
-service netmgrd /system/bin/netmgrd
+service netmgrd /vendor/bin/netmgrd
     class main
     user root
     group root wifi wakelock radio inet
     writepid /dev/cpuset/system-background/tasks
 
 #Start up peripheral manager
-service per_mgr /system/bin/pm-service
+service per_mgr /vendor/bin/pm-service
     class core
     user system
     group system net_raw
     ioprio rt 4
     writepid /dev/cpuset/system-background/tasks
 
-service per_proxy /system/bin/pm-proxy
+service per_proxy /vendor/bin/pm-proxy
     class core
     user system
     group system
@@ -783,14 +786,14 @@ on property:init.svc.per_mgr=running
 on property:sys.shutdown.requested=*
     stop per_proxy
 
-service perfd /system/vendor/bin/perfd
+service perfd /vendor/bin/perfd
     class main
     user root
     group root readproc
     socket perfd seqpacket 0666 root system
     writepid /dev/cpuset/system-background/tasks
 
-service iop /system/bin/iop
+service iop /vendor/bin/iop
     class main
     user root
     group root
@@ -798,13 +801,13 @@ service iop /system/bin/iop
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-service energy-awareness /system/bin/energy-awareness
+service energy-awareness /vendor/bin/energy-awareness
     class main
     user root
     group system
     oneshot
 
-service ppd /system/vendor/bin/mm-pp-dpps
+service ppd /vendor/bin/mm-pp-dpps
     class late_start
     user system
     group system graphics
@@ -830,7 +833,7 @@ on property:init.svc.zygote=running
 on property:init.svc.zygote=restarting
     stop ppd
 
-service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
+service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
@@ -847,19 +850,19 @@ service qmuxd /system/bin/qmuxd
     group radio audio bluetooth gps diag
     writepid /dev/cpuset/system-background/tasks
 
-service qseecomd /system/bin/qseecomd
+service qseecomd /vendor/bin/qseecomd
     class core
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service qti /system/vendor/bin/qti
+service qti /vendor/bin/qti
     class main
     user radio
     group radio diag usb
     writepid /dev/cpuset/system-background/tasks
 
-service rmt_storage /system/bin/rmt_storage
+service rmt_storage /vendor/bin/rmt_storage
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
@@ -870,7 +873,7 @@ service sensors /vendor/bin/sensors.qcom
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service thermal-engine /system/vendor/bin/thermal-engine
+service thermal-engine /vendor/bin/thermal-engine
     class main
     user root
     socket thermal-send-client stream 0666 system system
@@ -879,12 +882,12 @@ service thermal-engine /system/vendor/bin/thermal-engine
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service tftp_server /system/bin/tftp_server
+service tftp_server /vendor/bin/tftp_server
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
 
-service time_daemon /system/bin/time_daemon
+service time_daemon /vendor/bin/time_daemon
     class late_start
     user root
     group root

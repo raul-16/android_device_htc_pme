@@ -25,14 +25,14 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import init.qcom.usb.rc
+import /vendor/etc/init/hw/init.qcom.usb.rc
 
 on charger
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
     wait /dev/block/bootdevice
-    mount_all charger.fstab.qcom
+    mount_all /vendor/etc/charger.fstab.qcom
     start hvdcp_opti
 
 on early-init
@@ -90,8 +90,8 @@ on init
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    mount_all fstab.qcom
-    swapon_all fstab.qcom
+    mount_all /vendor/etc/fstab.qcom
+    swapon_all /vendor/etc/fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
     mkdir /firmware/wsd 0500 rfs rfs
@@ -309,7 +309,7 @@ on early-boot
 
 on boot
     # Bring up CPUs
-    exec - root root system -- /system/bin/init.power.sh
+    start power-sh
 
     # Add a cpuset for the camera daemon
     # we want all cores for camera
@@ -857,7 +857,14 @@ service qcamerasvr /vendor/bin/mm-qcamera-daemon
     group camera system inet input graphics
     writepid /dev/cpuset/system-background/tasks
 
-service qcom-sh /system/bin/sh /init.qcom.sh
+service power-sh /vendor/bin/init.power.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service qcom-sh /vendor/bin/init.qcom.sh
     class late_start
     user root
     oneshot
@@ -924,23 +931,23 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     writepid /dev/cpuset/system-background/tasks
 
 # Firmware linking to /firmware/image
-service fwnk-adsp  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp
+service fwnk-adsp  /vendor/bin/init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp
     class firmware-link
     oneshot
 
-service fwnk-cpe  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "cpe*" cpe
+service fwnk-cpe  /vendor/bin/init.qcom.firmware_links.sh /firmware/adsp /firmware/image "cpe*" cpe
     class firmware-link
     oneshot
 
-service fwnk-radio /system/bin/sh /init.qcom.firmware_links.sh /firmware/radio /firmware/image "modem* mba* radiover* version* qdsp6m* msadp*" radio
+service fwnk-radio /vendor/bin/init.qcom.firmware_links.sh /firmware/radio /firmware/image "modem* mba* radiover* version* qdsp6m* msadp*" radio
     class firmware-link
     oneshot
 
-service fwnk-sec  /system/bin/sh /init.qcom.firmware_links.sh /system/etc/firmware /firmware/image "keymaste* gpta*" sec
+service fwnk-sec  /vendor/bin/init.qcom.firmware_links.sh /system/etc/firmware /firmware/image "keymaste* gpta*" sec
     class firmware-link
     oneshot
 
-service fwnk-venus /system/bin/sh /init.qcom.firmware_links.sh /firmware/venus /firmware/image "venus*" venus
+service fwnk-venus /vendor/bin/init.qcom.firmware_links.sh /firmware/venus /firmware/image "venus*" venus
     class firmware-link
     oneshot
 

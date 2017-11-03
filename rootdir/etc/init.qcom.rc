@@ -253,15 +253,9 @@ on post-fs-data
     mkdir /data/vendor/nfc/param 0770 nfc nfc
 
     # Create PERFD deamon related dirs
-    setprop ro.min_freq_0 384000
-    mkdir /data/misc/perfd 0755 root system
-    chmod 2755 /data/misc/perfd
-    mkdir /data/system/perfd 0770 root system
-    rm /data/system/perfd/default_values
-    chmod 2770 /data/system/perfd
-
-    # Create IOP  deamon related dirs
-    mkdir /data/misc/iop 0770 root system
+    mkdir /data/vendor/perfd 0770 root system
+    chmod 2770 /data/vendor/perfd
+    rm /data/vendor/perfd/default_values
 
     # Create /data/vendor/time folder for time-services
     mkdir /data/vendor/time/ 0700 system system
@@ -807,16 +801,7 @@ on property:sys.shutdown.requested=*
 service perfd /vendor/bin/perfd
     class main
     user root
-    group root readproc
-    socket perfd seqpacket 0666 root system
-    writepid /dev/cpuset/system-background/tasks
-
-service iop /vendor/bin/iop
-    class main
-    user root
-    group root
-    socket iop seqpacket 0666 root system
-    disabled
+    group root system
     writepid /dev/cpuset/system-background/tasks
 
 service energy-awareness /vendor/bin/energy-awareness

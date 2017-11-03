@@ -128,6 +128,9 @@ persist.sys.wfd.virtual=0
 # Property to enable WFD WL solution
 ro.vendor.wl_library=libqti-wl.so
 
+# Property to enable display default color mode
+vendor.display.enable_default_color_mode=1
+
 # Property to enable VDS WFD solution
 persist.hwc.enable_vds=1
 

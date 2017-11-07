@@ -17,6 +17,12 @@ function copy() {
 write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
 write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
 
+# Adjust Schedutil tunables for better performance
+write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us "500"
+write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us "50000"
+write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us "500"
+write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us "50000"
+
 # Enable bus-dcvs
 for cpubw in /sys/class/devfreq/*qcom,cpubw* ; do
     write $cpubw/governor "bw_hwmon"

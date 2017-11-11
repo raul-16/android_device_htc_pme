@@ -54,6 +54,9 @@ on early-init
 on init
     export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/liblog_htc.so:/system/lib64/liblog.so|/system/lib64/liblog_htc.so:/system/vendor/lib/libBeautyChat.so|/system/vendor/lib/libshim_camera.so:/system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so:/system/vendor/lib/libizat_core.so|/system/vendor/lib/libshim_gps.so:/system/vendor/lib64/libizat_core.so|/system/vendor/lib64/libshim_gps.so:/system/lib/libpower.so|/system/vendor/lib/libshim_power.so:/system/lib64/libpower.so|/system/vendor/lib64/libshim_power.so:/system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so"
 
+    # Disable power saving
+    write /sys/module/lpm_levels/parameters/sleep_disabled Y
+
     # Set permissions for persist partition
     mkdir /persist 0771 root system
 
@@ -90,7 +93,6 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     mount_all /vendor/etc/fstab.qcom
-    swapon_all /vendor/etc/fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
     mkdir /firmware/wsd 0500 rfs rfs
@@ -128,14 +130,17 @@ on late-fs
     write /sys/block/mmcblk0/queue/iosched/slice_idle 0
     write /sys/block/mmcblk0/queue/nr_requests 256
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    write /sys/block/mmcblk0/queue/scheduler cfq
     write /sys/block/mmcblk0rpmb/queue/iostats 0
     write /sys/block/mmcblk0rpmb/queue/iosched/slice_idle 0
     write /sys/block/mmcblk0rpmb/queue/nr_requests 256
     write /sys/block/mmcblk0rpmb/queue/read_ahead_kb 2048
+    write /sys/block/mmcblk0rpmb/queue/scheduler cfq
     write /sys/block/mmcblk1/queue/iostats 0
     write /sys/block/mmcblk1/queue/iosched/slice_idle 0
     write /sys/block/mmcblk1/queue/nr_requests 256
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
+    write /sys/block/mmcblk1/queue/scheduler cfq
 
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
@@ -301,17 +306,60 @@ on early-boot
     write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
 
 on boot
-    # Bring up CPUs
-    start power-sh
+    # from init.power.sh
+    # disable thermal hotplug to switch governor
+    write /sys/module/msm_thermal/core_control/enabled 0
+
+    # bring back main cores CPU 0,2
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+
+    # EAS: Capping the min/max frequency
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
+
+    # if EAS is present, switch to schedutil governor (no effect if not EAS)
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
+
+    # Adjust Schedutil tunables for better performance
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us "500"
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us "50000"
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us "500"
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us "50000"
+
+    # re-enable thermal hotplug
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+    # Setting b.L scheduler parameters
+    write /proc/sys/kernel/sched_migration_fixup 1
+    write /proc/sys/kernel/sched_upmigrate 95
+    write /proc/sys/kernel/sched_downmigrate 90
+    write /proc/sys/kernel/sched_freq_inc_notify 400000
+    write /proc/sys/kernel/sched_freq_dec_notify 400000
+    write /proc/sys/kernel/sched_spill_nr_run 3
+    write /proc/sys/kernel/sched_init_task_load 100
 
     # Add a cpuset for the camera daemon
     # we want all cores for camera
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus "0-3"
+    write /dev/cpuset/camera-daemon/cpus 0-3
     write /dev/cpuset/camera-daemon/mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
+
+    # Update DVR cpusets to boot-time values.
+    write /dev/cpuset/kernel/cpus 0-3
+    write /dev/cpuset/system/cpus 0-3
+    write /dev/cpuset/system/performance/cpus 0-3
+    write /dev/cpuset/system/background/cpus 0-3
+    write /dev/cpuset/system/cpus 0-3
+    write /dev/cpuset/application/cpus 0-3
+    write /dev/cpuset/application/performance/cpus 0-3
+    write /dev/cpuset/application/background/cpus 0-3
+    write /dev/cpuset/application/cpus 0-3
 
     # set default schedTune value for foreground/top-app (only affects EAS)
     write /dev/stune/foreground/schedtune.prefer_idle 1
@@ -841,13 +889,6 @@ service qcamerasvr /vendor/bin/mm-qcamera-daemon
     group camera system inet input graphics
     writepid /dev/cpuset/system-background/tasks
 
-service power-sh /vendor/bin/init.power.sh
-    class main
-    user root
-    group root system
-    disabled
-    oneshot
-
 service qcom-sh /vendor/bin/init.qcom.sh
     class late_start
     user root
@@ -882,13 +923,13 @@ service sensors /vendor/bin/sensors.qcom
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service thermal-engine /vendor/bin/thermal-engine  -c /system/vendor/etc/thermal-engine.conf
+service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
     class main
     user root
+    group root system
     socket thermal-send-client stream 0666 system system
     socket thermal-recv-client stream 0660 system system
     socket thermal-recv-passive-client stream 0666 system system
-    group root system
     writepid /dev/cpuset/system-background/tasks
 
 service tftp_server /vendor/bin/tftp_server
@@ -940,34 +981,43 @@ on class_start:late_start
     # For modem config copy
     write /data/misc/radio/copy_complete 1
 
+on property:sys.post_boot.parsed=1
+    start perfd
+
 on property:sys.boot_completed=1
+    start power_sh
+    write /sys/module/lpm_levels/parameters/sleep_disabled N
+
     # Set BFQ I/O scheduler
-    setprop sys.io.scheduler "bfq"
+    write /sys/block/mmcblk0/queue/scheduler bfq
+    write /sys/block/mmcblk0rpmb/queue/scheduler bfq
+    write /sys/block/mmcblk1/queue/scheduler bfq
+
     # Set idle GPU to 133 Mhz
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
+
     # Disable boosting
     write /proc/sys/kernel/sched_boost 0
-    # Update foreground and background cpusets (goal is load balancing
-    # and UI responsiveness).
-    write /dev/cpuset/background/cpus "0"
-    write /dev/cpuset/system-background/cpus "0-2"
-    write /dev/cpuset/foreground/cpus "0-2"
-    write /dev/cpuset/top-app/cpus "0-3"
-    write /dev/kmsg "BOOT COMPLETED"
 
-    # end boot time fs tune
-    write /sys/block/dm-0/queue/iostats 1
-    write /sys/block/dm-0/queue/nr_requests 128
-    write /sys/block/dm-0/queue/read_ahead_kb 128
-    write /sys/block/mmcblk0/queue/iostats 1
-    write /sys/block/mmcblk0/queue/nr_requests 128
-    write /sys/block/mmcblk0/queue/read_ahead_kb 128
-    write /sys/block/mmcblk0rpmb/queue/iostats 1
-    write /sys/block/mmcblk0rpmb/queue/nr_requests 128
-    write /sys/block/mmcblk0rpmb/queue/read_ahead_kb 128
-    write /sys/block/mmcblk1/queue/iostats 1
-    write /sys/block/mmcblk1/queue/nr_requests 128
-    write /sys/block/mmcblk1/queue/read_ahead_kb 128
+    # Update cpusets now that boot is complete and we want better load balancing
+    write /dev/cpuset/top-app/cpus 0-3
+    write /dev/cpuset/foreground/cpus 0-2
+    write /dev/cpuset/background/cpus 0
+    write /dev/cpuset/system-background/cpus 0-2
+
+    # Update DVR cpusets to runtime values.
+    write /dev/cpuset/kernel/cpus 0,1
+    write /dev/cpuset/system/performance/cpus 2
+    write /dev/cpuset/system/background/cpus 0
+    write /dev/cpuset/system/cpus 0,2
+    write /dev/cpuset/application/performance/cpus 3
+    write /dev/cpuset/application/background/cpus 1
+    write /dev/cpuset/application/cpus 1,3
+
+    # Enable ZRAM on boot_complete
+    swapon_all /vendor/etc/fstab.qcom
+
+    write /dev/kmsg "BOOT COMPLETED"
 
 on property:gsm.sim.operator.numeric=*
     start op-prop

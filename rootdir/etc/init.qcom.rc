@@ -1026,3 +1026,10 @@ service op-prop /system/vendor/bin/operator-properties
     class main
     disabled
     oneshot
+
+service power_sh /vendor/bin/init.power.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot

@@ -344,8 +344,7 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-service \
     libshim_power \
     power.msm8996 \
-    thermal.msm8996 \
-    libdumpstate.msm8996
+    thermal.msm8996
 
 # Prebuilts
 PRODUCT_COPY_FILES += \
@@ -353,7 +352,7 @@ PRODUCT_COPY_FILES += \
 
 # Dumpstate
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.msm8996
+    android.hardware.dumpstate@1.0-service.pme
 
 # Properties
 PRODUCT_PACKAGES += \

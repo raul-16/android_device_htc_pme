@@ -25,7 +25,8 @@
 /(vendor|system/vendor)/bin/init\.radio\.sh                         u:object_r:init_radio_exec:s0
 
 # Power management
-/sys/module/lpm_levels/parameters(/.*)?     u:object_r:sysfs_power_management:s0
+/sys/module/lpm_levels/parameters(/.*)?                              u:object_r:sysfs_power_management:s0
+/vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service.pme         u:object_r:hal_dumpstate_impl_exec:s0
 
 # BT
 /sys/module/htc_bdaddress/parameters/bdaddress                          u:object_r:sysfs_bluetooth_writable:s0

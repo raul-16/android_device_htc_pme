@@ -328,9 +328,9 @@ on boot
 
     # Adjust Schedutil tunables for better performance
     write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us "500"
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us "50000"
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us "500"
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us "50000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us "8000"
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us "2000"
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us "6000"
 
     # re-enable thermal hotplug
     write /sys/module/msm_thermal/core_control/enabled 1
@@ -379,13 +379,13 @@ on boot
     write /dev/voxpopuli/enable_interaction_boost   1
     write /dev/voxpopuli/fling_min_boost_duration   250
     write /dev/voxpopuli/fling_max_boost_duration   2500
-    write /dev/voxpopuli/fling_boost_topapp         10
-    write /dev/voxpopuli/fling_min_freq_big         1036
-    write /dev/voxpopuli/fling_min_freq_little      1036
-    write /dev/voxpopuli/touch_boost_duration       250
+    write /dev/voxpopuli/fling_boost_topapp         5
+    write /dev/voxpopuli/fling_min_freq_big         729
+    write /dev/voxpopuli/fling_min_freq_little      729
+    write /dev/voxpopuli/touch_boost_duration       50
     write /dev/voxpopuli/touch_boost_topapp         0
-    write /dev/voxpopuli/touch_min_freq_big         1036
-    write /dev/voxpopuli/touch_min_freq_little      1036
+    write /dev/voxpopuli/touch_min_freq_big         729
+    write /dev/voxpopuli/touch_min_freq_little      729
     chmod 0644 /dev/voxpopuli/enable_interaction_boost
     chmod 0644 /dev/voxpopuli/fling_min_boost_duration
     chmod 0644 /dev/voxpopuli/fling_max_boost_duration

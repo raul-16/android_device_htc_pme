@@ -42,12 +42,16 @@ else
 fi
 
 if [ "$variant" == "spr" ]; then
-   better_copy "/system/etc/gps.conf.sprint" "/system/etc/gps.conf"
+   better_copy "/system/vendor/etc/gps.conf.sprint" "/system/vendor/etc/gps.conf"
 else
-   better_copy "/system/etc/gps.conf.default" "/system/etc/gps.conf"
+   better_copy "/system/vendor/etc/gps.conf.default" "/system/vendor/etc/gps.conf"
 fi
 
+# Clean-up
+rm -rf "/system/vendor/etc/gps.conf.sprint"
+rm -rf "/system/vendor/etc/gps.conf.default"
+
 chmod 0644 /system/vendor/lib64/libril-qc-qmi-1.so
-chmod 0644 /system/etc/gps.conf
+chmod 0644 /system/vendor/etc/gps.conf
 
 done

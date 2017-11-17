@@ -764,7 +764,7 @@ service adsprpcd /vendor/bin/adsprpcd
     user media
     group media
 
-service audiod /vendor/bin/audiod
+service audiod /system/bin/audiod
    class late_start
    user system
    group system

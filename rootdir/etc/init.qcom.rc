@@ -273,10 +273,6 @@ on post-fs-data
     # Create directory for IMS services
     mkdir /data/shared 0755 system system
 
-    # Create directory for IPA
-    mkdir /data/vendor/ipa 0770 radio radio
-    chmod 0770 /data/vendor/ipa
-
     # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
@@ -824,17 +820,6 @@ service imsqmidaemon /vendor/bin/imsqmidaemon
     user system
     socket ims_qmid stream 0660 system radio
     group radio net_raw log diag
-
-service ipacm-diag /vendor/bin/ipacm-diag
-    class main
-    user system
-    socket ipacm_log_file dgram 660 system net_admin
-    group net_admin diag
-
-service ipacm /vendor/bin/ipacm
-    class main
-    user net_admin
-    group net_admin inet
 
 service irsc_util /vendor/bin/irsc_util "/etc/sec_config"
     class main

@@ -16,10 +16,15 @@
 
 set -e
 
-# Helper functions
-copy()
+better_copy()
 {
-  LD_LIBRARY_PATH=/system/lib /system/bin/toybox cp --preserve=a "$1" "$2"
+  cp -dp "$1" "$2"
+  # symlinks don't have a context
+  if [ ! -L "$1" ]; then
+    # it is assumed that every label starts with 'u:object_r' and has no white-spaces
+    local context=`ls -Z "$1" | grep -o 'u:object_r:[^ ]*' | head -1`
+    chcon -v "$context" "$2"
+  fi
 }
 
 # Detect variant and copy its specific-blobs/items
@@ -31,15 +36,15 @@ case $modelid in
 esac
 
 if [ "$variant" == "vzw" ] || [ "$variant" == "spr" ]; then
-   copy "/system/vendor/lib64/libril-qc-qmi-1-cdma.so" "/system/vendor/lib64/libril-qc-qmi-1.so"
+   better_copy "/system/vendor/lib64/libril-qc-qmi-1-cdma.so" "/system/vendor/lib64/libril-qc-qmi-1.so"
 else
-   copy "/system/vendor/lib64/libril-qc-qmi-1-default.so" "/system/vendor/lib64/libril-qc-qmi-1.so"
+   better_copy "/system/vendor/lib64/libril-qc-qmi-1-default.so" "/system/vendor/lib64/libril-qc-qmi-1.so"
 fi
 
 if [ "$variant" == "spr" ]; then
-   copy "/system/vendor/etc/gps.conf.sprint" "/system/vendor/etc/gps.conf"
+   better_copy "/system/vendor/etc/gps.conf.sprint" "/system/vendor/etc/gps.conf"
 else
-   copy "/system/vendor/etc/gps.conf.default" "/system/vendor/etc/gps.conf"
+   better_copy "/system/vendor/etc/gps.conf.default" "/system/vendor/etc/gps.conf"
 fi
 
 # Clean-up

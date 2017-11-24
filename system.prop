@@ -1,26 +1,26 @@
 # Audio
-audio_hal.period_size=240
 af.fast_track_multiplier=2
 audio.ds1.metainfo.key=273
-dmid=-1286820014
-ro.qc.sdk.audio.fluencetype=fluence
-persist.audio.fluence.voicecall=true
-persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=true
-tunnel.audio.encode=false
-audio.offload.disable=true
-audio.offload.buffer.size.kb=1024
-audio.offload.video=true
-audio.offload.pcm.16bit.enable=false
-audio.offload.pcm.24bit.enable=false
 audio.deep_buffer.media=true
-use.voice.path.for.pcm.voip=true
-audio.offload.multiaac.enable=false
-audio.offload.passthrough=false
-audio.offload.multiple.enabled=false
-ro.qc.sdk.audio.ssr=false
-audio.safx.pbe.enabled=true
-audio.parser.ip.buffer.size=262144
+audio.offload.disable=true
+audio.offload.video=true
+dmid=-1286820014
+persist.vendor.audio.fluence.voicecall=true
+persist.vendor.audio.fluence.voicerec=false
+persist.vendor.audio.fluence.speaker=true
+ro.vendor.audio.sdk.fluencetype=fluence
+ro.vendor.audio.sdk.ssr=false
+vendor.audio.tunnel.encode=false
+vendor.audio.offload.buffer.size.kb=1024
+vendor.audio.offload.pcm.16bit.enable=false
+vendor.audio.offload.pcm.24bit.enable=false
+vendor.audio_hal.period_size=240
+vendor.audio.offload.multiaac.enable=false
+vendor.audio.offload.passthrough=false
+vendor.audio.offload.multiple.enabled=false
+vendor.audio.safx.pbe.enabled=true
+vendor.audio.parser.ip.buffer.size=262144
+vendor.voice.path.for.pcm.voip=true
 
 # Bluetooth
 ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress

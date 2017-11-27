@@ -8,6 +8,7 @@ dmid=-1286820014
 persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
 persist.vendor.audio.fluence.speaker=true
+ro.audio.flinger_standbytime_ms=300
 ro.vendor.audio.sdk.fluencetype=fluence
 ro.vendor.audio.sdk.ssr=false
 vendor.audio.tunnel.encode=false

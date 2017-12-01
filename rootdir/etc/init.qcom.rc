@@ -300,8 +300,15 @@ on post-fs-data
     rm /data/system/perfd/default_values
     chmod 2770 /data/system/perfd
 
+    # Create vpp directory
+    mkdir /data/vendor/vpp 0770 media media
+
     # Create /data/vendor/time folder for time-services
     mkdir /data/vendor/time/ 0700 system system
+
+    # create QDMA dropbox
+    mkdir /data/vendor/qdmastats 0700 system system
+    mkdir /data/vendor/qdma 0770 system system
 
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
@@ -443,8 +450,8 @@ on boot
     chown system system /dev/voxpopuli/touch_min_freq_big
     chown system system /dev/voxpopuli/touch_min_freq_little
 
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/type
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /dev/ttyHS0

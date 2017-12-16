@@ -19,6 +19,7 @@
 
 #include "CameraProvider.h"
 #include "CameraDevice_3_2.h"
+#include <cutils/properties.h>
 #include <string.h>
 #include <utils/Trace.h>
 
@@ -35,6 +36,7 @@ const char *kLegacyProviderName = "legacy/0";
 // "device@<version>/legacy/<id>"
 const std::regex kDeviceNameRE("device@([0-9]+\\.[0-9]+)/legacy/(.+)");
 const char *kHAL3_2 = "3.2";
+const char *kHAL3_3 = "3.3";
 const int kMaxCameraDeviceNameLen = 128;
 const int kMaxCameraIdLen = 16;
 
@@ -138,8 +140,9 @@ int CameraProvider::getCameraDeviceVersion(const hidl_string& deviceName) {
     if (!match) {
         return -1;
     }
-    if (deviceVersion == kHAL3_2) {
-        // maybe switched to 3.4 or define the hidl version enum later
+    if (deviceVersion == kHAL3_3) {
+        return CAMERA_DEVICE_API_VERSION_3_3;
+    } else if (deviceVersion == kHAL3_2) {
         return CAMERA_DEVICE_API_VERSION_3_2;
     }
     return 0;
@@ -155,8 +158,8 @@ std::string CameraProvider::getHidlDeviceName(
     }
     const char* versionStr = kHAL3_2;
     char deviceName[kMaxCameraDeviceNameLen];
-    snprintf(deviceName, sizeof(deviceName), "device@%s/legacy/%s",
-            versionStr, cameraId.c_str());
+    snprintf(deviceName, sizeof(deviceName), "device@%d.%d/legacy/%s",
+            versionMajor, versionMinor, cameraId.c_str());
     return deviceName;
 }
 
@@ -198,6 +201,19 @@ bool CameraProvider::initialize() {
         ALOGE("Could not set camera module callback: %d (%s)", err, strerror(-err));
         mModule.clear();
         return true;
+    }
+
+    mPreferredHal3MinorVersion = property_get_int32("ro.camera.wrapper.hal3TrebleMinorVersion", 3);
+    ALOGV("Preferred HAL 3 minor version is %d", mPreferredHal3MinorVersion);
+    switch(mPreferredHal3MinorVersion) {
+        case 2:
+        case 3:
+            // OK
+            break;
+        default:
+            ALOGW("Unknown minor camera device HAL version %d in property "
+                    "'camera.wrapper.hal3TrebleMinorVersion', defaulting to 3", mPreferredHal3MinorVersion);
+            mPreferredHal3MinorVersion = 3;
     }
 
     mNumberOfLegacyCameras = mModule->getNumberOfCameras();

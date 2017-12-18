@@ -119,7 +119,6 @@ BOARD_CUSTOM_BT_CONFIG := $(DEVICE_PATH)/bluetooth/libbt_vndcfg.txt
 
 # Camera
 TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_ext
-TARGET_USES_NON_TREBLE_CAMERA := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # CNE and DPM

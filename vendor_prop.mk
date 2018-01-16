@@ -146,7 +146,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.enable-qcp=true \
     media.stagefright.enable-scan=true \
     mmp.enable.3g2=true \
-    media.aac_51_output_enabled=true \
     mm.enable.sec.smoothstreaming=true \
     media.settings.xml=/vendor/etc/media_profiles_V1_0.xml \
     mm.enable.qcom_parser=1048575 \

@@ -34,9 +34,9 @@
 #include <sys/_system_properties.h>
 
 #include <android-base/properties.h>
+#include <android-base/logging.h>
 #include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
 
 /* Device specific properties */
 #include "htc-asia.h"
@@ -51,6 +51,7 @@
 #include "htc-verizon.h"
 
 using android::base::GetProperty;
+using android::init::property_set;
 
 void property_override(char const prop[], char const value[])
 {

@@ -407,6 +407,8 @@ PRODUCT_PACKAGES += \
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
+    ipacm \
+    IPACM_cfg.xml \
     libwpa_client \
     hostapd \
     wificond \

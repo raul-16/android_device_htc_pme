@@ -210,7 +210,6 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.full
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/pme/releasetools
 
 # RIL
-PROTOBUF_SUPPORTED := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk

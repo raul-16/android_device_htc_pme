@@ -156,8 +156,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-pme \
     android.hardware.camera.provider@2.4-service \
     libcameraface \
-    libshim_camera \
-    SnapdragonCamera
+    libshim_camera
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \

@@ -40,7 +40,7 @@ $(ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "ADSP firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /firmware/adsp/$(notdir $@) $@
+	$(hide) ln -sf /vendor/firmware/adsp/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(ADSP_SYMLINKS)
 
@@ -106,7 +106,7 @@ $(SLPI_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "SLPI firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /firmware/slpi/$(notdir $@) $@
+	$(hide) ln -sf /vendor/firmware/slpi/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(SLPI_SYMLINKS)
 
@@ -118,7 +118,7 @@ $(VENUS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "VENUS firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /firmware/venus/$(notdir $@) $@
+	$(hide) ln -sf /vendor/firmware/venus/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(VENUS_SYMLINKS)
 

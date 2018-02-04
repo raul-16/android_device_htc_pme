@@ -46,7 +46,7 @@ on early-init
     mkdir /firmware/radio 0771 system system
     mkdir /firmware/slpi 0771 system system
     mkdir /firmware/venus 0771 system system
-    mkdir /firmware/wsd 0500 rfs rfs
+    mkdir /firmware/wsd 0500 oem_2951 oem_2951
 
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
@@ -138,7 +138,6 @@ on fs
     mount_all /vendor/etc/fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
-    mkdir /firmware/wsd 0500 rfs rfs
     wait /dev/block/bootdevice/by-name/rfg_3
     mount vfat /dev/block/bootdevice/by-name/rfg_3 /firmware/wsd ro shortname=lower,uid=3012,gid=3012,dmask=277,fmask=377
 
@@ -792,7 +791,7 @@ service ims_rtp_daemon /vendor/bin/ims_rtp_daemon
    class main
    user system
    socket ims_rtpd stream 0660 system radio
-   group radio net_raw diag inet log
+   group radio net_raw oem_2950 inet log
    disabled
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
@@ -801,7 +800,7 @@ on property:vendor.ims.DATA_DAEMON_STATUS=1
 service imscmservice /vendor/bin/imscmservice
     class main
     user system
-    group radio diag log
+    group radio oem_2950 log
     disabled
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
@@ -811,7 +810,7 @@ service imsdatadaemon /vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
-    group system wifi radio inet log diag
+    group system wifi radio inet net_raw log oem_2950 net_admin
     disabled
 
 on property:vendor.ims.QMI_DAEMON_STATUS=1
@@ -821,7 +820,18 @@ service imsqmidaemon /vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
-    group radio net_raw log diag
+    group radio net_raw log oem_2950
+
+service ipacm-diag /system/vendor/bin/ipacm-diag
+    class main
+    user system
+    socket ipacm_log_file dgram 660 system net_admin
+    group net_admin oem_2950
+
+service ipacm /system/vendor/bin/ipacm
+    class main
+    user net_admin
+    group net_admin inet
 
 service irsc_util /vendor/bin/irsc_util "/etc/sec_config"
     class main
@@ -831,7 +841,7 @@ service irsc_util /vendor/bin/irsc_util "/etc/sec_config"
 service loc_launcher /vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps inet diag wifi
+    group gps inet oem_2950 wifi
 
 service msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     class main
@@ -913,7 +923,7 @@ service qcom-sh /vendor/bin/init.qcom.sh
 service qmuxd /system/bin/qmuxd
     class core
     user root
-    group radio audio bluetooth gps diag
+    group radio audio bluetooth gps oem_2950
 
 service qseecomd /vendor/bin/qseecomd
     class core
@@ -923,7 +933,7 @@ service qseecomd /vendor/bin/qseecomd
 service qti /vendor/bin/qti
     class main
     user radio
-    group radio diag usb
+    group radio oem_2950 usb
 
 service rmt_storage /vendor/bin/rmt_storage
     class core

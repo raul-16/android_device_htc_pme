@@ -973,24 +973,16 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-# Firmware linking to /firmware/image
-service fwnk-adsp  /vendor/bin/init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp
+# Firmware linking to /firmware/image or /system/vendor/firmware since O
+service fwnk-adsp  /vendor/bin/init.qcom.firmware_links.sh /firmware/adsp /system/vendor/firmware/image "adsp*"
     class firmware-link
     oneshot
 
-service fwnk-cpe  /vendor/bin/init.qcom.firmware_links.sh /firmware/adsp /firmware/image "cpe*" cpe
+service fwnk-radio /vendor/bin/init.qcom.firmware_links.sh /firmware/radio /firmware/image "modem* mba* radiover* version* qdsp6m*"
     class firmware-link
     oneshot
 
-service fwnk-radio /vendor/bin/init.qcom.firmware_links.sh /firmware/radio /firmware/image "modem* mba* radiover* version* qdsp6m* msadp*" radio
-    class firmware-link
-    oneshot
-
-service fwnk-sec  /vendor/bin/init.qcom.firmware_links.sh /system/etc/firmware /firmware/image "keymaste* gpta*" sec
-    class firmware-link
-    oneshot
-
-service fwnk-venus /vendor/bin/init.qcom.firmware_links.sh /firmware/venus /firmware/image "venus*" venus
+service fwnk-venus /vendor/bin/init.qcom.firmware_links.sh /firmware/venus /system/vendor/firmware/image "venus*"
     class firmware-link
     oneshot
 

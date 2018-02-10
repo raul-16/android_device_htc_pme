@@ -545,6 +545,12 @@ vendor/lib64/libcneqmiutils.so|41bf6f87336faaee239a3047b1fdac3f742ebde9
 vendor/lib64/libwqe.so|0ca87bc277c645fea7dbfd50504f7a6097c08d98
 vendor/lib64/libxml.so|b966ad575b2078dd09a0e5fdc2fb428a1ffe31fc
 
+# DPM
+bin/dpm
+framework/com.qti.dpmframework.jar
+framework/dpm.jar
+framework/dpmapi.jar
+
 # DRM - LA.UM.6.5.r1-02500-8x96.0
 vendor/bin/qseecomd|7bc811273b0d12680ce57dec24c5f0262fda4c16
 vendor/lib/libQSEEComAPI.so|7062cdfb83a986d44190d6fd9762da43d508e10a

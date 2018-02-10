@@ -773,6 +773,11 @@ service cnd /vendor/bin/cnd
     user system
     group system wifi inet radio wakelock net_admin
 
+service dpmd /system/bin/dpmd
+    class late_start
+    socket dpmd stream 660 root system
+    group system readproc
+
 service hvdcp_opti /vendor/bin/hvdcp_opti
     class main
     user root

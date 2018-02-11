@@ -773,7 +773,7 @@ service cnd /vendor/bin/cnd
     user system
     group system wifi inet radio wakelock net_admin
 
-service dpm /system/bin/dpm
+service dpmd /system/bin/dpmd
     class late_start
     socket dpmd stream 660 root system
     group system readproc

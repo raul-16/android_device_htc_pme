@@ -15,7 +15,11 @@
 /dev/block/platform/soc/7464900.sdhci/by-name/recovery      /recovery          emmc    defaults                                                                                          defaults
 /dev/block/platform/soc/7464900.sdhci/by-name/frp           /persistent        emmc    defaults                                                                                          defaults
 /dev/block/platform/soc/7464900.sdhci/by-name/misc          /misc              emmc    defaults                                                                                          defaults
-/dev/block/platform/soc/7464900.sdhci/by-name/radio         /firmware/image    vfat    ro,uid=1000,gid=1000,fmask=0337,dmask=0227,shortname=lower					  wait
+/dev/block/platform/soc/7464900.sdhci/by-name/adsp          /firmware/adsp     vfat    ro,uid=1000,gid=1000,fmask=0337,dmask=0227,shortname=lower					  wait
+/dev/block/platform/soc/7464900.sdhci/by-name/radio         /firmware/radio    vfat    ro,uid=1000,gid=1000,fmask=0337,dmask=0227,shortname=lower					  wait
+/dev/block/platform/soc/7464900.sdhci/by-name/slpi          /firmware/slpi     vfat    ro,uid=1000,gid=1000,fmask=0337,dmask=0227,shortname=lower					  wait
+/dev/block/platform/soc/7464900.sdhci/by-name/venus         /firmware/venus    vfat    ro,uid=1000,gid=1000,fmask=0337,dmask=0227,shortname=lower					  wait
+
 
 /devices/soc/74a4900.sdhci/mmc_host/mmc*    auto               auto    defaults                                                                                          voldmanaged=sdcard1:auto,noemulatedsd,encryptable=userdata
 /devices/soc/6a00000.ssusb/6a00000.dwc3*    auto               auto    defaults                                                                                          voldmanaged=usb:auto

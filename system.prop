@@ -76,9 +76,6 @@ dev.pm.dyn_samplingrate=1
 persist.demo.hdmirotationlock=false
 sdm.debug.disable_skip_validate=1
 
-# DPM
-persist.dpm.feature=0
-
 # Factory Reset Protection
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
 

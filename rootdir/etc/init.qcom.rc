@@ -897,6 +897,11 @@ service netmgrd /vendor/bin/netmgrd
     class main
     disabled
 
+service htcnetd /system/bin/htcnetd
+    class main
+    socket htcnetd stream 0660 root inet
+    user root
+
 service perfd /vendor/bin/perfd
     class main
     user root

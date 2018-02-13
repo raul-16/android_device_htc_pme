@@ -794,6 +794,9 @@ vendor/firmware/usb_typec_otp_ad.img
 # HVDCP 3.0 charger
 vendor/bin/hvdcp_opti
 
+# HTC Network
+system/bin/htcnetd
+
 # IPA
 vendor/bin/ipacm-diag
 

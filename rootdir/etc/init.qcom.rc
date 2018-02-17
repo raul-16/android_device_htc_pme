@@ -187,14 +187,36 @@ on post-fs
 on post-fs-data
     # Create directory for tombstone
     mkdir /data/tombstones 0771 system system
+    mkdir /data/vendor/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/dsps 0771 system system
-    mkdir /data/vendor/tombstones 0771 system system
 
+    mkdir /persist/alarm 0770 system system
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+    mkdir /persist/bms 0700 root system
+    mkdir /persist/data 0700 system system
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
+    mkdir /persist/display 0770 system graphics
+    mkdir /persist/drm 0770 system system
+    mkdir /persist/misc 0770 system system
+    mkdir /persist/qti_fp 0700 system system
     mkdir /persist/tee 0700 system system
+    mkdir /persist/time 0770 system system
+    mkdir /persist/secnvm 0770 system system
+    mkdir /persist/sensors 0775 sensors sensors
+    mkdir /persist/vpp 0770 media media
+
+    restorecon_recursive /persist
+
+    # SSC/SLPI sensors
+    chmod 0775 /persist/sensors
+    chmod 0664 /persist/sensors/sensors_settings
+    chown system root /persist/sensors/sensors_settings
+
+    mkdir /data/vendor/ramdump 0771 root system
+    mkdir /data/vendor/ramdump/bluetooth 0770 bluetooth bluetooth
 
     mkdir /data/vendor/misc 01771 system system
 
@@ -207,33 +229,45 @@ on post-fs-data
     # Create directory used for camera
     mkdir /data/vendor/camera 0770 camera camera
 
-    mkdir /persist/bms 0700 root system
-    restorecon_recursive /persist
-
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
     mkdir /data/vendor/misc/bluetooth 0770 bluetooth bluetooth
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/sockets 0770 wifi wifi
+    mkdir /data/vendor/wifi/hostapd 0770 wifi wifi
+    mkdir /data/vendor/wifi/hostapd/ctrl 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/vendor/wifi/wigig_hostapd 0770 wifi wifi
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/misc/dhcp 0777 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
+    # Create the directory to save firmware log
+    mkdir /data/wifi_log 0775 wifi wifi
+
+    # Create the directory to save brcm wifi log
+    mkdir /data/wifi_log/brcm_mem_dump_fw 0777 wifi wifi
+    mkdir /data/wifi_log/brcm_mem_dump_bg 0777 wifi wifi
+
+    # Chown and chgrp for firmware_patch
+    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
+
     # Create directory for audio
-    mkdir /data/misc/audio 0770 audio audio
     mkdir /data/vendor/misc/audio 0770 audio audio
     mkdir /data/misc/dts 0770 media audio
 
     # Create directory for audio delta files
-    mkdir /data/misc/audio/acdbdata 0770 media audio
-    mkdir /data/misc/audio/acdbdata/delta 0770 media audio
     mkdir /data/vendor/misc/audio/acdbdata 0770 media audio
-    mkdir /data/vendor/miscaudio/acdbdata/delta 0770 media audio
+    mkdir /data/vendor/misc/audio/acdbdata/delta 0770 media audio
+    mkdir /data/vendor/audio/acdbdata 0770 media audio
+    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
 
     mkdir /data/vendor/audio/ 0770 media audio
 
@@ -257,7 +291,6 @@ on post-fs-data
 
     # Create directory for display
     mkdir /data/misc/display 0770 system graphics
-    mkdir /persist/display 0770 system graphics
     mkdir /data/vendor/display 0770 system graphics
 
     # Create ipacm log dir
@@ -297,12 +330,12 @@ on post-fs-data
     mkdir /data/vendor/nfc/param 0770 nfc nfc
 
     # Create PERFD deamon related dirs
-    setprop ro.min_freq_0 384000
-    mkdir /data/misc/perfd 0755 root system
-    chmod 2755 /data/misc/perfd
-    mkdir /data/system/perfd 0770 root system
-    rm /data/system/perfd/default_values
-    chmod 2770 /data/system/perfd
+    mkdir /data/vendor/perfd 0770 root system
+    chmod 2770 /data/vendor/perfd
+    rm /data/vendor/perfd/default_values
+
+    # Create IOP  deamon related dirs
+    mkdir /data/vendor/iop 0770 root system
 
     # Create vpp directory
     mkdir /data/vendor/vpp 0770 media media
@@ -313,6 +346,12 @@ on post-fs-data
     # create QDMA dropbox
     mkdir /data/vendor/qdmastats 0700 system system
     mkdir /data/vendor/qdma 0770 system system
+
+    # Create directory for apps access via QTEEConnector
+    mkdir /data/vendor/qtee 0770 system system
+
+    # Create directory for voiceprint
+    mkdir /data/misc/qvop 0771 system system
 
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
@@ -337,6 +376,25 @@ on post-fs-data
 
     chown radio radio /carrier
     chown radio radio /carrier/htcril.db
+
+    # Mark the copy complete flag to not completed
+    write /data/vendor/radio/copy_complete 0
+    chown radio radio /data/vendor/radio/copy_complete
+    chmod 0660 /data/vendor/radio/copy_complete
+
+# +SSD_RIL:change path of qcril.db
+    # copy prebuilt qcril.db files always
+    copy /vendor/radio/qcril_database/qcril.db /carrier/qcril_prebuilt.db
+    chown radio radio /carrier/qcril_prebuilt.db
+    chmod 0660 /carrier/qcril_prebuilt.db
+# -SSD_RIL:change path of qcril.db
+    # File flags for prebuilt ril db file
+    write /data/vendor/radio/prebuilt_db_support 1
+    chown radio radio /data/vendor/radio/prebuilt_db_support
+    chmod 0400 /data/vendor/radio/prebuilt_db_support
+    write /data/vendor/radio/db_check_done 0
+    chown radio radio /data/vendor/radio/db_check_done
+    chmod 0660 /data/vendor/radio/db_check_done
 
     setprop vold.post_fs_data_done 1
 
@@ -424,12 +482,6 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
-    mkdir /persist/drm 0770 system system
-    mkdir /persist/bluetooth 0770 bluetooth bluetooth
-    mkdir /persist/misc 0770 system system
-    mkdir /persist/alarm 0770 system system
-    mkdir /persist/time 0770 system system
-
     # Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
@@ -444,14 +496,10 @@ on boot
     mkdir /data/vendor/radio 0770 system radio
 
     # Create netmgr log dir
-    mkdir /data/misc/netmgr 0770 radio radio
-    chmod 0770 /data/misc/netmgr
     mkdir /data/vendor/netmgr 0770 radio radio
     chmod 0770 /data/vendor/netmgr
 
     # Create port-bridge log dir
-    mkdir /data/misc/port_bridge 0770 radio radio
-    chmod 0770 /data/misc/port_bridge
     mkdir /data/vendor/port_bridge 0770 radio radio
     chmod 0770 /data/vendor/port_bridge
 
@@ -472,11 +520,6 @@ on boot
     # Set HTC debug driver permissions
     chown root system /proc/driver/hdf
     chmod 0664 /proc/driver/hdf
-
-    # SSC/SLPI sensors
-    chmod 0775 /persist/sensors
-    chmod 0664 /persist/sensors/sensors_settings
-    chown system root /persist/sensors/sensors_settings
 
     # Set display permissions
     chown system graphics /sys/class/leds/lcd-backlight/cabc_level_ctl
@@ -712,9 +755,6 @@ on boot
     chown root system /sys/kernel/dload/emmc_dload
     chmod 0660 /sys/kernel/dload/emmc_dload
 
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-
     # Bluetooth MAC address
     chown bluetooth bluetooth /sys/module/htc_bdaddress/parameters/bdaddress
 
@@ -735,10 +775,10 @@ service cnd /vendor/bin/cnd
     user system
     group system wifi inet radio wakelock net_admin
 
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
-    group system readproc
+service dpmQmiMgr /system/vendor/bin/dpmQmiMgr
+    class main
+    user system
+    group system
 
 service hvdcp_opti /vendor/bin/hvdcp_opti
     class main
@@ -961,7 +1001,7 @@ service tftp_server /vendor/bin/tftp_server
     user root
 
 service time_daemon /vendor/bin/time_daemon
-    class late_start
+    class main
     user root
     group root
 

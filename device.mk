@@ -357,7 +357,8 @@ PRODUCT_COPY_FILES += \
 # Prebuilts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/org.apache.http.legacy.jar:system/framework/org.apache.http.legacy.jar \
-    $(LOCAL_PATH)/prebuilt/matlog.apk:system/app/Matlog.apk
+    $(LOCAL_PATH)/prebuilt/matlog.apk:system/app/Matlog.apk \
+    $(LOCAL_PATH)/prebuilt/totalcommander.apk:system/app/TotalCommander.apk
 
 # Dumpstate
 PRODUCT_PACKAGES += \

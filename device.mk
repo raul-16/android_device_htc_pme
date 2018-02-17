@@ -347,13 +347,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service \
-    android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service \
-    libshim_power \
-    power.msm8996 \
-    thermal.msm8996
+    android.hardware.power@1.0-service-qti
 
 # Powerhint
 PRODUCT_COPY_FILES += \
@@ -417,6 +411,12 @@ PRODUCT_BOOT_JARS += \
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
     textclassifier.smartselection.bundle
+
+# Thermal
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service \
+    thermal.msm8996
 
 # Seccomp
 PRODUCT_COPY_FILES += \

@@ -68,6 +68,19 @@ $(MISC_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(MISC_SYMLINKS)
 
+MC_IMAGES := \
+    mc_v2.b00 mc_v2.b01 mc_v2.b02 mc_v2.b03 mc_v2.b04 mc_v2.b05 \
+    mc_v2.b06 mc_v2.mdt
+
+MC_SYMLINKS := $(addprefix $(TARGET_ROOT_OUT)/firmware/image/,$(notdir $(MC_IMAGES)))
+$(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "MC firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /system/etc/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(MC_SYMLINKS)
+
 MODEM_IMAGES := \
     modem.b00 modem.b01 modem.b02 modem.b03 modem.b04 modem.b05 \
     modem.b06 modem.b07 modem.b08 modem.b09 modem.b10 modem.b11 \

@@ -73,7 +73,7 @@ MC_IMAGES := \
     mc_v2.b06 mc_v2.mdt
 
 MC_SYMLINKS := $(addprefix $(TARGET_ROOT_OUT)/firmware/image/,$(notdir $(MC_IMAGES)))
-$(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+$(MC_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "MC firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@

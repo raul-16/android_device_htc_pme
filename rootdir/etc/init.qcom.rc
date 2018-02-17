@@ -125,9 +125,6 @@ on init
     chown media media /sys/class/power_supply/battery/play_music
     chmod 0220 /sys/class/power_supply/battery/play_music
 
-    # Create Power HAL tunables
-    mkdir /dev/voxpopuli 0555 system system
-
     # Setup zram options
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
@@ -370,20 +367,10 @@ on boot
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu2/online 1
 
-    # EAS: Capping the min/max frequency
+    # Capping the min/max frequency
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
-
-    # if EAS is present, switch to schedutil governor (no effect if not EAS)
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
-
-    # Adjust Schedutil tunables for better performance
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us "500"
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us "8000"
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us "2000"
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us "6000"
 
     # re-enable thermal hotplug
     write /sys/module/msm_thermal/core_control/enabled 1
@@ -416,49 +403,6 @@ on boot
     write /dev/cpuset/application/performance/cpus 0-3
     write /dev/cpuset/application/background/cpus 0-3
     write /dev/cpuset/application/cpus 0-3
-
-    # set default schedTune value for foreground/top-app (only affects EAS)
-    write /dev/stune/foreground/schedtune.prefer_idle 1
-    write /dev/stune/foreground/schedtune.boost 0
-    write /dev/stune/background/schedtune.boost 0
-    write /dev/stune/background/schedtune.prefer_idle 0
-    write /dev/stune/top-app/schedtune.boost 0
-    write /dev/stune/top-app/schedtune.prefer_idle 1
-    write /dev/stune/schedtune.boost 0
-    write /dev/stune/schedtune.prefer_idle 0
-
-    # Set Power HAL tunables
-
-    write /dev/voxpopuli/enable_interaction_boost   1
-    write /dev/voxpopuli/fling_min_boost_duration   250
-    write /dev/voxpopuli/fling_max_boost_duration   2500
-    write /dev/voxpopuli/fling_boost_topapp         5
-    write /dev/voxpopuli/fling_min_freq_big         729
-    write /dev/voxpopuli/fling_min_freq_little      729
-    write /dev/voxpopuli/touch_boost_duration       50
-    write /dev/voxpopuli/touch_boost_topapp         0
-    write /dev/voxpopuli/touch_min_freq_big         729
-    write /dev/voxpopuli/touch_min_freq_little      729
-    chmod 0644 /dev/voxpopuli/enable_interaction_boost
-    chmod 0644 /dev/voxpopuli/fling_min_boost_duration
-    chmod 0644 /dev/voxpopuli/fling_max_boost_duration
-    chmod 0644 /dev/voxpopuli/fling_boost_topapp
-    chmod 0644 /dev/voxpopuli/fling_min_freq_big
-    chmod 0644 /dev/voxpopuli/fling_min_freq_little
-    chmod 0644 /dev/voxpopuli/touch_boost_duration
-    chmod 0644 /dev/voxpopuli/touch_boost_topapp
-    chmod 0644 /dev/voxpopuli/touch_min_freq_big
-    chmod 0644 /dev/voxpopuli/touch_min_freq_little
-    chown system system /dev/voxpopuli/enable_interaction_boost
-    chown system system /dev/voxpopuli/fling_min_boost_duration
-    chown system system /dev/voxpopuli/fling_max_boost_duration
-    chown system system /dev/voxpopuli/fling_boost_topapp
-    chown system system /dev/voxpopuli/fling_min_freq_big
-    chown system system /dev/voxpopuli/fling_min_freq_little
-    chown system system /dev/voxpopuli/touch_boost_duration
-    chown system system /dev/voxpopuli/touch_boost_topapp
-    chown system system /dev/voxpopuli/touch_min_freq_big
-    chown system system /dev/voxpopuli/touch_min_freq_little
 
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/state

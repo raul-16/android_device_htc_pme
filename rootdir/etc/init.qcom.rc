@@ -401,6 +401,11 @@ on post-fs-data
     # set aggressive read ahead during boot up.
     write /sys/block/dm-0/queue/read_ahead_kb 2048
 
+    start ipacm-diag
+    start ipacm
+    start qti
+    start netmgrd
+
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 

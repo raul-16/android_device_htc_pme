@@ -763,6 +763,9 @@ on boot
     # Bluetooth MAC address
     chown bluetooth bluetooth /sys/module/htc_bdaddress/parameters/bdaddress
 
+    # To prevent permission denied error for telephony
+    chmod 0644 /proc/cmdline
+
 # Services begin here
 
 service adsprpcd /vendor/bin/adsprpcd

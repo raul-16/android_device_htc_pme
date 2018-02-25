@@ -52,6 +52,8 @@ on early-init
     chmod 0755 /sys/kernel/debug
 
 on init
+    export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/liblog_htc.so:/system/lib64/liblog.so|/system/lib64/liblog_htc.so:/system/vendor/lib/libBeautyChat.so|/system/vendor/lib/libshim_camera.so:/system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so:/system/vendor/lib/libizat_core.so|/system/vendor/lib/libshim_gps.so:/system/vendor/lib64/libizat_core.so|/system/vendor/lib64/libshim_gps.so:/system/lib/libpower.so|/system/vendor/lib/libshim_power.so:/system/lib64/libpower.so|/system/vendor/lib64/libshim_power.so:/system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so"
+
     # Disable power saving
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
@@ -281,6 +283,9 @@ on post-fs-data
     mkdir /data/dpm 0771 system system
     chown system system /data/dpm
 
+    mkdir /data/dpm/fdMgr 0771 system system
+    chown system system /data/dpm/fdMgr
+
     mkdir /data/dpm/nsrm 0771 system system
     chown system system /data/dpm/nsrm
 
@@ -328,6 +333,11 @@ on post-fs-data
     mkdir /data/vendor/nfc/param 0770 nfc nfc
 
     # Create PERFD deamon related dirs
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    rm /data/system/perfd/default_values
+    chmod 2770 /data/system/perfd
     mkdir /data/vendor/perfd 0770 root system
     chmod 2770 /data/vendor/perfd
     rm /data/vendor/perfd/default_values
@@ -761,6 +771,9 @@ on boot
     # Bluetooth MAC address
     chown bluetooth bluetooth /sys/module/htc_bdaddress/parameters/bdaddress
 
+    # To prevent permission denied error for telephony
+    chmod 0644 /proc/cmdline
+
 # Services begin here
 
 service adsprpcd /vendor/bin/adsprpcd
@@ -792,13 +805,13 @@ service imsqmidaemon /vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
-    group radio log diag
+    group radio log diag oem_2901
 
 service imsdatadaemon /vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
-    group system wifi radio inet log diag
+    group system wifi radio inet log diag oem_2901
     disabled
 
 service pd_mapper /vendor/bin/pd-mapper
@@ -818,13 +831,13 @@ on property:vendor.ims.QMI_DAEMON_STATUS=1
 service ims_rtp_daemon /vendor/bin/ims_rtp_daemon
     class main
     user system
-    group radio diag inet log
+    group radio diag inet log oem_2901
     disabled
 
 service imsrcsservice /vendor/bin/imsrcsd
     class main
     user system
-    group radio diag inet log
+    group radio diag inet log oem_2901
     disabled
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
@@ -833,16 +846,14 @@ on property:vendor.ims.DATA_DAEMON_STATUS=1
 
 service ipacm-diag /vendor/bin/ipacm-diag
     class main
-    user radio
-    socket ipacm_log_file dgram 660 radio radio
-    group radio diag oem_2901
-    disabled
+    user system
+    socket ipacm_log_file dgram 660 system net_admin
+    group net_admin diag oem_2901
 
 service ipacm /vendor/bin/ipacm
     class main
-    user radio
-    group radio inet
-    disabled
+    user net_admin
+    group net_admin inet diag oem_2901
 
 service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core
@@ -852,7 +863,7 @@ service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
 service loc_launcher /vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps inet diag wifi
+    group gps inet diag wifi oem_2901
 
 service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     class core
@@ -882,7 +893,8 @@ on property:sys.shutdown.requested=*
 
 service netmgrd /vendor/bin/netmgrd
     class main
-    disabled
+    user root
+    group root wifi wakelock radio inet
 
 service htcnetd /system/bin/htcnetd
     class main
@@ -964,8 +976,7 @@ service qmuxd /vendor/bin/qmuxd
     class core
 # -SSD_RIL:Set qmuxd as class core to avoid QMI send fail problem
     user root
-    group radio audio bluetooth gps nfc diag
-    disabled
+    group radio audio bluetooth gps nfc diag oem_2901
 
 service qseecomd /vendor/bin/qseecomd
     class core
@@ -975,8 +986,7 @@ service qseecomd /vendor/bin/qseecomd
 service qti /vendor/bin/qti
     class main
     user radio
-    group radio oem_2901 diag usb net_admin
-    disabled
+    group radio net_raw diag oem_2901 usb net_admin
 
 service rmt_storage /vendor/bin/rmt_storage
     class core

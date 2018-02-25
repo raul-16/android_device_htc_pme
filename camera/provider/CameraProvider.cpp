@@ -156,7 +156,9 @@ std::string CameraProvider::getHidlDeviceName(
             deviceVersion != CAMERA_DEVICE_API_VERSION_3_4 ) {
         return hidl_string("");
     }
-    const char* versionStr = kHAL3_2;
+    bool isV1 = deviceVersion == CAMERA_DEVICE_API_VERSION_3_2;
+    int versionMajor = isV1 ? 1 : 3;
+    int versionMinor = isV1 ? 0 : mPreferredHal3MinorVersion;
     char deviceName[kMaxCameraDeviceNameLen];
     snprintf(deviceName, sizeof(deviceName), "device@%d.%d/legacy/%s",
             versionMajor, versionMinor, cameraId.c_str());

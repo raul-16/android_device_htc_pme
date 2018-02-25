@@ -46,7 +46,7 @@ on early-init
     mkdir /firmware/radio 0771 system system
     mkdir /firmware/slpi 0771 system system
     mkdir /firmware/venus 0771 system system
-    mkdir /firmware/wsd 0500 oem_2951 oem_2951
+    mkdir /firmware/wsd 0500 oem_3012 oem_3012
 
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug

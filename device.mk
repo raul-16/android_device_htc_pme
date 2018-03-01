@@ -407,6 +407,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Telephony
 PRODUCT_PACKAGES += \
+    com.android.ims.rcsmanager.xml \
+    com.android.ims.rcsmanager \
     ims-ext-common \
     telephony-ext
 

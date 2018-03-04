@@ -358,10 +358,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/matlog.apk:system/app/Matlog.apk \
     $(LOCAL_PATH)/prebuilt/totalcommander.apk:system/app/TotalCommander.apk
 
-# Dumpstate
-PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.pme
-
 # RCS
 PRODUCT_PACKAGES += \
     rcs_service_aidl \

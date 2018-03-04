@@ -1,7 +1,8 @@
 # Audio
 af.fast_track_multiplier=2
+av.offload.enable=false
 audio.offload.disable=true
-audio.offload.video=true
+audio.offload.video=false
 audio.deep_buffer.media=true
 htc.audio.debug.printlow=1
 htc.audio.hdaudio.videoplayback=1
@@ -18,12 +19,12 @@ vendor.audio.dolby.ds2.hardbypass=1
 vendor.audio_hal.period_size=240
 vendor.audio.hw.aac.encoder=true
 vendor.audio.offload.buffer.size.kb=1024
-vendor.audio.offload.multiaac.enable=true
+vendor.audio.offload.multiaac.enable=false
 vendor.audio.offload.multiple.enabled=false
 vendor.audio.offload.pcm.16bit.enable=false
 vendor.audio.offload.pcm.24bit.enable=false
 vendor.audio.offload.passthrough=false
-vendor.audio.offload.track.enable=true
+vendor.audio.offload.track.enable=false
 vendor.audio.parser.ip.buffer.size=262144
 vendor.audio.safx.pbe.enabled=true
 vendor.audio.use.sw.alac.decoder=true

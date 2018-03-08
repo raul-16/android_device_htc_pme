@@ -33,7 +33,7 @@
 #define UNUSED __attribute__ ((unused))
 
 #include <linux/ioctl.h>
-#include <sound/htc_ioctl.h>
+#include <sound/htc_audio_ioctl.h>
 
 struct tfaS {
     struct mixer *mixer;

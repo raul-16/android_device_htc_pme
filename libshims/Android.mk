@@ -14,35 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-# Camera
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-  camera_shim.cpp
-
-LOCAL_SHARED_LIBRARIES := \
-  libui \
-  libgui
-
-LOCAL_MODULE := libshim_camera
-LOCAL_MODULE_TAGS := optional
-LOCAL_MULTILIB := 32
-LOCAL_PROPRIETARY_MODULE := true
-
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-    CameraFace.cpp
-
-LOCAL_MODULE := libcameraface
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_PROPRIETARY_MODULE := true
-
-include $(BUILD_SHARED_LIBRARY)
-
+# GPS
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
@@ -56,6 +28,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
+# RIL
 LOCAL_SRC_FILES := \
     ril_shim.cpp
 
@@ -67,6 +40,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
+# PERF - FPC
 LOCAL_SRC_FILES := \
     perf.c
 

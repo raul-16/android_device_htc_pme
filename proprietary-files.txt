@@ -873,25 +873,44 @@ vendor/firmware/libpn548_fw.so
 vendor/lib64/libconnctrl.so
 vendor/lib64/libQtiTether.so
 
-# Perf - LA.UM.6.5.r1-02500-8x96.0
-lib/libqti_performance.so|6824e099b456ff3021906c80f4574315fa955c20
-lib/libqti-perfd-client_system.so|cb72ea4bbd6190b640befc035a8293c9ca1260ab
-lib/vendor.qti.hardware.perf@1.0.so|bf9adef7e841e7966473f531f15d17ad00f4b058
-lib64/libqti_performance.so|a9b4706bbbbfc5887d29e4ce3b11b2d30053ebb0
-lib64/libqti-perfd-client_system.so|4bae51ec2a08b9a94cd256108ccce03f965cac35
-lib64/vendor.qti.hardware.perf@1.0.so|359bcc1d9f3e8776de2317f64ac5942dfc3613de
-vendor/bin/energy-awareness|fa8efd67299b9adf0663858c25f6d740923e4c1b
-vendor/bin/msm_irqbalance|449f276872c1290490b4cddd594047819448e1cf
-vendor/bin/hw/vendor.qti.hardware.perf@1.0-service|53ef6854f02ac6776f08cf6d0cd0d530d2712d77
-vendor/etc/init/vendor.qti.hardware.perf@1.0-service.rc|b50182aadab2e31409df61c523d0fb914a394e43
-vendor/lib/libperfgluelayer.so|64ab1e249f245c5beb6c8f83cd6bf499ec10065b
-vendor/lib/libqti-perfd.so|8efd1fceeeebfd36d33ab20fc94d62802f7e144d
-vendor/lib/libqti-perfd-client.so|bf0489c1d3709abc2a466ce9acbc1d1d0dac39f8
-vendor/lib/vendor.qti.hardware.perf@1.0_vendor.so|b14ffe580529265c3dc55fbfab1198a5a53feee0
-vendor/lib64/libperfgluelayer.so|f00e509689bb3427e29a566cc466d1b0858adb75
-vendor/lib64/libqti-perfd.so|a74a54a4e4d69634d8ae9cfb4ecdaa030be9b7a5
-vendor/lib64/libqti-perfd-client.so|bc08c389e99d674c8884051359e1d1450368ed3d
-vendor/lib64/vendor.qti.hardware.perf@1.0_vendor.so|c9c36d1a2b616fad80c7f0379647688c2ff18114
+# Perf
+lib/libqti-perfd-client_system.so
+lib/vendor.qti.hardware.iop@1.0.so
+lib/vendor.qti.hardware.perf@1.0.so
+lib64/libqti-perfd-client_system.so
+lib64/vendor.qti.hardware.iop@1.0.so
+lib64/vendor.qti.hardware.perf@1.0.so
+vendor/bin/hw/vendor.qti.hardware.iop@1.0-service
+vendor/bin/hw/vendor.qti.hardware.perf@1.0-service
+vendor/etc/init/vendor.qti.hardware.iop@1.0-service.rc
+vendor/etc/init/vendor.qti.hardware.perf@1.0-service.rc
+vendor/etc/perf/perf-profile0.conf
+vendor/etc/perf/perf-profile1.conf
+vendor/etc/perf/perf-profile2.conf
+vendor/etc/perf/perf-profile3.conf
+vendor/etc/perf/perf-profile4.conf
+vendor/etc/perf/perf-profile5.conf
+vendor/etc/perf/perf-profile6.conf
+vendor/lib/hw/vendor.qti.hardware.iop@1.0-impl.so
+vendor/lib/libfeedbackhandler.so
+vendor/lib/libperfgluelayer.so
+vendor/lib/libqti-iopd-client.so
+vendor/lib/libqti-iopd.so
+vendor/lib/libqti-perfd-client.so
+vendor/lib/libqti-perfd.so
+vendor/lib/libqti-util.so
+vendor/lib/vendor.qti.hardware.iop@1.0_vendor.so
+vendor/lib/vendor.qti.hardware.perf@1.0_vendor.so
+vendor/lib64/hw/vendor.qti.hardware.iop@1.0-impl.so
+vendor/lib64/libfeedbackhandler.so
+vendor/lib64/libperfgluelayer.so
+vendor/lib64/libqti-iopd-client.so
+vendor/lib64/libqti-iopd.so
+vendor/lib64/libqti-perfd-client.so
+vendor/lib64/libqti-perfd.so
+vendor/lib64/libqti-util.so
+vendor/lib64/vendor.qti.hardware.iop@1.0_vendor.so
+vendor/lib64/vendor.qti.hardware.perf@1.0_vendor.so
 
 # Peripheral manager
 vendor/bin/pm-proxy
@@ -1018,12 +1037,11 @@ vendor/lib/sensor_calibrate.so
 vendor/lib64/libsensor1.so
 vendor/lib64/sensor_calibrate.so
 
-# Thermal - LA.UM.6.5.r1-02500-8x96.0
-vendor/etc/thermal-engine.conf
-vendor/bin/thermal-engine|8598eb10cc3316f8fa00c9ba792b2102a5d646ed
--vendor/lib/libthermalclient.so|e14cd4d090e52394cb5a39912e71b50091873bcb
--vendor/lib64/libthermalclient.so|9beae9671d80ee9b1d47689ed32b5780a863cb77
-vendor/lib64/libthermalioctl.so|17a44f42569ce02e36f155109f459638471d54ba
+# Thermal
+vendor/bin/thermal-engine
+-vendor/lib/libthermalclient.so
+-vendor/lib64/libthermalclient.so
+vendor/lib64/libthermalioctl.so
 
 # Time services - LA.UM.6.5.r1-02500-8x96.0
 -vendor/app/TimeService/TimeService.apk|85ba3fe34ff9d25d8c3bf319285d6071ff61757a

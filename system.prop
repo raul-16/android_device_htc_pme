@@ -186,7 +186,7 @@ ro.sys.sdcardfs=false
 persist.net.doxlat=false
 
 # Time-services
-persist.timed.enable=true
+persist.delta_time.enable=true
 
 # Wifi
 wifi.interface=wlan0

@@ -929,12 +929,6 @@ on property:persist.sys.htcdebugflag=0
     setprop persist.log.tag.ip6tables W
     setprop persist.log.tag.DnsProxyListener W
 
-service perfd /vendor/bin/perfd
-    class main
-    user root
-    group root system
-    writepid /dev/cpuset/system-background/tasks
-
 service energy-awareness /vendor/bin/energy-awareness
     class main
     user root

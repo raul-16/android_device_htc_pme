@@ -604,6 +604,16 @@ vendor/firmware/widevine.b05
 vendor/firmware/widevine.b06
 vendor/firmware/widevine.mdt
 
+# DRM - Qualcomm Trusted Execution Enviornment
+lib/vendor.qti.hardware.qteeconnector@1.0.so
+lib64/vendor.qti.hardware.qteeconnector@1.0.so
+vendor/bin/hw/vendor.qti.hardware.qteeconnector@1.0-service
+vendor/etc/init/vendor.qti.hardware.qteeconnector@1.0-service.rc
+vendor/lib/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
+vendor/lib/vendor.qti.hardware.qteeconnector@1.0_vendor.so
+vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.qteeconnector@1.0_vendor.so
+
 # Fingerprint
 etc/firmware/htc_fpc_ta.b00
 etc/firmware/htc_fpc_ta.b01

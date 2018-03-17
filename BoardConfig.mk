@@ -19,8 +19,6 @@ BOARD_VENDOR := htc
 
 DEVICE_PATH := device/htc/pme
 
-TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
-
 # Asserts
 TARGET_OTA_ASSERT_DEVICE := pme,pmeuhl,pmewhl,pmewl,pmeul,htc_pmeuhl,htc_pmewhl,htc_pmewl,htc_pmeul
 
@@ -119,8 +117,10 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_CUSTOM_BT_CONFIG := $(DEVICE_PATH)/bluetooth/libbt_vndcfg.txt
 
 # Camera
-TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_ext
+TARGET_USES_QTI_CAMERA2CLIENT := true
+BOARD_QTI_CAMERA_32BIT_ONLY := true
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_CAMERASERVICE_CLOSES_NATIVE_HANDLES := true
 
 # CNE and DPM
 BOARD_USES_QCNE := true

@@ -115,6 +115,7 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio_amplifier.msm8996 \
     libaudio-resampler \
+    libaudioroute \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
@@ -174,21 +175,25 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.0-service \
     vendor.display.color@1.0-service \
     vendor.display.color@1.0-impl \
-    vendor.display.config@1.0 \
-    vendor.display.config@1.0_vendor \
+    vendor.display.config@1.1 \
+    vendor.display.config@1.1_vendor \
     copybit.msm8996 \
     gralloc.msm8996 \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     libdisplayconfig \
+    libhwc2on1adapter \
+    libgenlock \
     libjni_livedisplay \
     liboverlay \
+    libqdMetaData \
     libqdMetaData.system \
     libtinyxml
 
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-service \
+    android.hardware.drm@1.0-service.widevine \
     android.hardware.drm@1.0-impl
 
 # Fingerprint
@@ -226,6 +231,7 @@ PRODUCT_COPY_FILES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
+    android.hardware.health@1.0-convert \
     android.hardware.health@1.0-service
 
 # HIDL
@@ -262,6 +268,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/fpc1020.kl:system/usr/keylayout/fpc1020.kl \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(LOCAL_PATH)/keylayout/cypress-cap-sensor.kl:system/usr/keylayout/cypress-cap-sensor.kl
+
+# IPv6
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
 
 # IRQ
 PRODUCT_COPY_FILES += \
@@ -354,13 +365,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/matlog.apk:system/app/Matlog.apk \
     $(LOCAL_PATH)/prebuilt/totalcommander.apk:system/app/TotalCommander.apk
 
-# RCS
-PRODUCT_PACKAGES += \
-    rcs_service_aidl \
-    rcs_service_aidl.xml \
-    rcs_service_api \
-    rcs_service_api.xml
-
 # Properties
 PRODUCT_PACKAGES += \
     operator-properties
@@ -368,6 +372,13 @@ PRODUCT_PACKAGES += \
 # QMI
 PRODUCT_PACKAGES += \
     libjson
+
+# RCS
+PRODUCT_PACKAGES += \
+    rcs_service_aidl \
+    rcs_service_aidl.xml \
+    rcs_service_api \
+    rcs_service_api.xml
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -404,7 +415,7 @@ PRODUCT_BOOT_JARS += \
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
-    textclassifier.smartselection.bundle
+    textclassifier.smartselection.bundle1
 
 # Thermal
 PRODUCT_PACKAGES += \
@@ -427,7 +438,8 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # Wifi
 PRODUCT_PACKAGES += \

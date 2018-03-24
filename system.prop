@@ -111,7 +111,7 @@ media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 mm.enable.qcom_parser=1048575
 persist.mm.enable.prefetch=true
 # Set default power mode to low power for encoder
-vidc.debug.perf.mode=2
+vendor.vidc.debug.perf.mode=2
 # Disable PQ feature by default
 vendor.vidc.enc.disable.pq=true
 # Additional i/p buffer in case of encoder DCVS

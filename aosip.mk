@@ -36,4 +36,4 @@ $(call inherit-product-if-exists, vendor/htc/pme/pme-vendor.mk)
 
 # Device Fingerprint
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=htc/pmewl_00617/htc_pmewl:7.0/NRD90M/831921.8:user/release-keys
+    BUILD_FINGERPRINT=htc/pmeuhl_00401/htc_pmeuhl:8.0.0/OPR1.170623.027/1012001.2:user/release-keys

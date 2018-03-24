@@ -92,6 +92,9 @@ persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
 ro.gps.agps_provider=1
 
+# IMS
+service.qti.ims.enabled=1
+
 # Media | system props for the MM modules
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true

@@ -112,6 +112,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     sdm.debug.disable_skip_validate=1 \
     sdm.perf_hint_window=50 \
     debug.sf.recomputecrop=0 \
+    vendor.display.disable_rotator_downscale=1 \
     ro.sf.lcd_density=640
 
 # IMS

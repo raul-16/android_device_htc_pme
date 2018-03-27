@@ -976,10 +976,10 @@ on property:init.svc.zygote=restarting
     stop ppd
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class main
+    class late_start
     user camera
     group camera system inet input graphics
-    writepid /dev/cpuset/system-background/tasks
+    writepid /dev/cpuset/camera-daemon/tasks
 
 service qcom-sh /vendor/bin/init.qcom.sh
     class late_start

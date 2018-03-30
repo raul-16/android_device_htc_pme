@@ -5,18 +5,18 @@
     "branch":      "aosip-oreo"
   },
   {
-    "repository":  "LineageOS/android_hardware_cyanogen",
-    "target_path": "hardware/cyanogen",
-    "branch":      "lineage-15.0"
-  },
-  {
     "repository":  "Fagyi/proprietary_vendor_htc",
     "target_path": "vendor/htc",
-    "branch":      "aosip-oreo"
+    "branch":      "aosip-oreo-stable-mr1"
   },
   {
     "repository":  "LineageOS/android_packages_resources_devicesettings",
     "target_path": "packages/resources/devicesettings",
-    "branch":      "lineage-15.0"
+    "branch":      "lineage-15.1"
+  },
+  {
+    "remote"   :   "aosip",
+    "repository":  "platform_packages_apps_SnapdragonCamera",
+    "target_path": "packages/apps/SnapdragonCamera"
   }
 ]

@@ -39,12 +39,12 @@ ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress
 
 # Camera
 camera.disable_zsl_mode=1
-camera2.portability.force_api=1
+Camera.no_navigation_bar=true
+persist.camera.tuning_spec=htc
 persist.ts.postmakeup=false
 persist.ts.rtmakeup=false
-Camera.no_navigation_bar=true
-# Increase jpg quality to 100%
-ro.media.enc.jpeg.quality=100
+persist.camera.preview.ubwc=0
+persist.camera.video.ubwc=0
 
 # CNE
 persist.cne.feature=1

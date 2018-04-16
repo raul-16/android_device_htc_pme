@@ -1,1 +1,1 @@
-add_lunch_combo aosip_pme-userdebug
+add_lunch_combo lineage_pme-userdebug

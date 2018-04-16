@@ -88,7 +88,7 @@ AUDIO_FEATURE_ENABLED_AAC_ADTS_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
 AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true
-AUDIO_FEATURE_ENABLED_SSR := true
+AUDIO_FEATURE_ENABLED_SSR := false
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
 AUDIO_FEATURE_ENABLED_SND_MONITOR := true
 AUDIO_FEATURE_ENABLED_DTS_EAGLE := false
@@ -113,6 +113,9 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_CUSTOM_BT_CONFIG := $(DEVICE_PATH)/bluetooth/libbt_vndcfg.txt
+
+# Camera
+TARGET_USES_QTI_CAMERA_DEVICE := true
 
 # CNE and DPM
 BOARD_USES_QCNE := true
@@ -149,7 +152,7 @@ TARGET_HW_DISK_ENCRYPTION := true
 
 # Filesystem
 TARGET_ALLOW_LEGACY_AIDS := true
-TARGET_FS_CONFIG_GEN := device/htc/pme/config.fs
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 TARGET_EXFAT_DRIVER := exfat
 
 # GPS
@@ -161,8 +164,8 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 
 # HIDL
-DEVICE_MANIFEST_FILE := device/htc/pme/manifest.xml
-DEVICE_MATRIX_FILE   := device/htc/pme/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
@@ -174,6 +177,10 @@ TARGET_PROVIDES_KEYMASTER := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
+
+# Lineage Hardware
+BOARD_HARDWARE_CLASS += \
+    $(DEVICE_PATH)/lineagehw
 
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
@@ -203,14 +210,23 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.full
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Release
-TARGET_RELEASETOOLS_EXTENSIONS := device/htc/pme/releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 
 # RIL
 TARGET_RIL_VARIANT := caf
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
+#-include device/lineage/sepolicy/qcom/sepolicy.mk
 # BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+
+# SHIMS
+TARGET_LD_SHIM_LIBS := /system/lib/liblog.so|/system/lib/liblog_htc.so \
+    /system/lib64/liblog.so|/system/lib64/liblog_htc.so \
+    /system/vendor/lib/libizat_core.so|/system/vendor/lib/libshim_gps.so \
+    /system/vendor/lib64/libizat_core.so|/system/vendor/lib64/libshim_gps.so \
+    /system/lib/libpower.so|/system/vendor/lib/libshim_power.so \
+    /system/lib64/libpower.so|/system/vendor/lib64/libshim_power.so \
+    /system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so
 
 # Treble
 #PRODUCT_FULL_TREBLE_OVERRIDE := true

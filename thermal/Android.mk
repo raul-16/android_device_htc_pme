@@ -1,5 +1,4 @@
-#
-# Copyright 2016 The Android Open Source Project
+# Copyright (C) 2015 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +11,33 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_CFLAGS := -Wno-unused-parameter
+
+LOCAL_MODULE := thermal.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_RELATIVE_PATH := hw
+LOCAL_PROPRIETARY_MODULE := true
+
+ifeq ($(call is-board-platform-in-list,msm8998), true)
 LOCAL_SRC_FILES := thermal.c
+LOCAL_SRC_FILES += thermal-8998.c
+SUPPORT_THERMAL_HAL:=1
+endif
+
+ifeq ($(call is-board-platform-in-list,sdm845), true)
+LOCAL_SRC_FILES := thermal.c
+LOCAL_SRC_FILES += thermal-845.c
+SUPPORT_THERMAL_HAL:=1
+endif
+
+ifeq ($(SUPPORT_THERMAL_HAL),)
+LOCAL_SRC_FILES := thermal-default.c
+endif
+
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_OWNER := qcom
-LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE := thermal.msm8996
+LOCAL_CFLAGS := -Wno-unused-parameter
+
 include $(BUILD_SHARED_LIBRARY)

@@ -1,4 +1,6 @@
 /*
+ * Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ * Not a contribution
  * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,166 +31,70 @@
 #define MAX_LENGTH                    50
 
 #define CPU_USAGE_FILE                "/proc/stat"
-#define TEMPERATURE_FILE_FORMAT       "/sys/class/thermal/thermal_zone%d/temp"
 #define CPU_ONLINE_FILE_FORMAT        "/sys/devices/system/cpu/cpu%d/online"
+#define CPU_PRESENT_FILE              "/sys/devices/system/cpu/present"
 
-#define BATTERY_SENSOR_NUM            29
-#define GPU_SENSOR_NUM                14
-#define SKIN_SENSOR_NUM               24
+const char * __attribute__ ((weak)) get_cpu_label(unsigned int cpu_num) {
+    ALOGD("Entering %s",__func__);
+    static const char * cpu_label = "cpu";
+    return cpu_label;
+}
 
-const int CPU_SENSORS[] = {4, 6, 9, 11};
-
-#define CPU_NUM                       (sizeof(CPU_SENSORS) / sizeof(int))
-// Sum of CPU_NUM + 3 for GPU, BATTERY, and SKIN.
-#define TEMPERATURE_NUM               7
-
-//qcom, therm-reset-temp
-#define CPU_SHUTDOWN_THRESHOLD        115
-//qcom,freq-mitigation-temp
-#define CPU_THROTTLING_THRESHOLD      95
-#define BATTERY_SHUTDOWN_THRESHOLD    60
-// device/google/marlin/thermal-engine-marlin.conf
-#define SKIN_THROTTLING_THRESHOLD     47
-#define SKIN_SHUTDOWN_THRESHOLD       60
-#define VR_THROTTLED_BELOW_MIN        58
-
-#define GPU_LABEL                     "GPU"
-#define BATTERY_LABEL                 "battery"
-#define SKIN_LABEL                    "skin"
-
-const char *CPU_LABEL[] = {"CPU0", "CPU1", "CPU2", "CPU3"};
-
-/**
- * Reads device temperature.
- *
- * @param sensor_num Number of sensor file with temperature.
- * @param type Device temperature type.
- * @param name Device temperature name.
- * @param mult Multiplier used to translate temperature to Celsius.
- * @param throttling_threshold Throttling threshold for the temperature.
- * @param shutdown_threshold Shutdown threshold for the temperature.
- * @param out Pointer to temperature_t structure that will be filled with current
- *     values.
- *
- * @return 0 on success or negative value -errno on error.
- */
-static ssize_t read_temperature(int sensor_num, int type, const char *name, float mult,
-        float throttling_threshold, float shutdown_threshold, float vr_throttling_threshold,
-        temperature_t *out) {
+size_t __attribute__ ((weak)) get_num_cpus() {
+    ALOGD("Entering %s",__func__);
     FILE *file;
-    char file_name[MAX_LENGTH];
-    float temp;
+    char *line = NULL;
+    size_t len = 0;
+    static size_t cpus = 0;
+    ssize_t read;
 
-    sprintf(file_name, TEMPERATURE_FILE_FORMAT, sensor_num);
-    file = fopen(file_name, "r");
+    if(cpus) return cpus;
+
+    file = fopen(CPU_PRESENT_FILE, "r");
     if (file == NULL) {
         ALOGE("%s: failed to open: %s", __func__, strerror(errno));
-        return -errno;
+        return 0;
     }
-    if (1 != fscanf(file, "%f", &temp)) {
-        fclose(file);
-        ALOGE("%s: failed to read a float: %s", __func__, strerror(errno));
-        return errno ? -errno : -EIO;
+
+    if ((read = getline(&line, &len, file)) != -1) {
+        if (strnlen(line, read) < 3 || strncmp(line, "0-", 2) != 0 || !isdigit(line[2]))
+            ALOGE("%s: Incorrect cpu present file format", __func__);
+        else
+            cpus = atoi(&line[2]) + 1;
+
+        free(line);
     }
+    else
+        ALOGE("%s: failed to read cpu present file: %s", __func__, strerror(errno));
 
     fclose(file);
+    return cpus;
+}
 
-    (*out) = (temperature_t) {
-        .type = type,
-        .name = name,
-        .current_value = temp * mult,
-        .throttling_threshold = throttling_threshold,
-        .shutdown_threshold = shutdown_threshold,
-        .vr_throttling_threshold = vr_throttling_threshold
-    };
-
+ssize_t __attribute__ ((weak)) get_temperatures(thermal_module_t *module, temperature_t *list, size_t size) {
+    ALOGD("Entering %s",__func__);
     return 0;
 }
 
-static ssize_t get_cpu_temperatures(temperature_t *list, size_t size) {
-    size_t cpu;
-
-    for (cpu = 0; cpu < CPU_NUM; cpu++) {
-        if (cpu >= size) {
-            break;
-        }
-        // tsens_tz_sensor[4,6,9,11]: temperature in decidegrees Celsius.
-        ssize_t result = read_temperature(CPU_SENSORS[cpu], DEVICE_TEMPERATURE_CPU, CPU_LABEL[cpu],
-                0.1, CPU_THROTTLING_THRESHOLD, CPU_SHUTDOWN_THRESHOLD, CPU_THROTTLING_THRESHOLD,
-                &list[cpu]);
-        if (result != 0) {
-            return result;
-        }
-    }
-    return cpu;
-}
-
-static ssize_t get_temperatures(thermal_module_t *module, temperature_t *list, size_t size) {
-    ssize_t result = 0;
-    size_t current_index = 0;
-
-    if (list == NULL) {
-        return TEMPERATURE_NUM;
-    }
-
-    result = get_cpu_temperatures(list, size);
-    if (result < 0) {
-        return result;
-    }
-    current_index += result;
-
-    // GPU temperature.
-    if (current_index < size) {
-        // tsens_tz_sensor14: temperature in decidegrees Celsius.
-        result = read_temperature(GPU_SENSOR_NUM, DEVICE_TEMPERATURE_GPU, GPU_LABEL, 0.1,
-                UNKNOWN_TEMPERATURE, UNKNOWN_TEMPERATURE, UNKNOWN_TEMPERATURE,
-                &list[current_index]);
-        if (result < 0) {
-            return result;
-        }
-        current_index++;
-    }
-
-    // Battery temperature.
-    if (current_index < size) {
-        // tsens_tz_sensor29: battery: temperature in millidegrees Celsius.
-        result = read_temperature(BATTERY_SENSOR_NUM, DEVICE_TEMPERATURE_BATTERY, BATTERY_LABEL,
-                0.001, UNKNOWN_TEMPERATURE, BATTERY_SHUTDOWN_THRESHOLD, UNKNOWN_TEMPERATURE,
-                &list[current_index]);
-        if (result < 0) {
-            return result;
-        }
-        current_index++;
-    }
-
-    // Skin temperature.
-    if (current_index < size) {
-        // tsens_tz_sensor24: temperature in Celsius.
-        result = read_temperature(SKIN_SENSOR_NUM, DEVICE_TEMPERATURE_SKIN, SKIN_LABEL, 1.,
-                SKIN_THROTTLING_THRESHOLD, SKIN_SHUTDOWN_THRESHOLD, VR_THROTTLED_BELOW_MIN,
-                &list[current_index]);
-        if (result < 0) {
-            return result;
-        }
-        current_index++;
-    }
-    return TEMPERATURE_NUM;
-}
-
 static ssize_t get_cpu_usages(thermal_module_t *module, cpu_usage_t *list) {
+    ALOGD("Entering %s",__func__);
     int vals, cpu_num, online;
     ssize_t read;
     uint64_t user, nice, system, idle, active, total;
     char *line = NULL;
     size_t len = 0;
     size_t size = 0;
+    size_t cpus = 0;
     char file_name[MAX_LENGTH];
     FILE *file;
     FILE *cpu_file;
 
-    if (list == NULL) {
-        return CPU_NUM;
-    }
+    cpus = get_num_cpus();
+    if (!cpus)
+        return errno ? -errno : -EIO;
+
+    if (list == NULL)
+        return cpus;
 
     file = fopen(CPU_USAGE_FILE, "r");
     if (file == NULL) {
@@ -197,7 +103,6 @@ static ssize_t get_cpu_usages(thermal_module_t *module, cpu_usage_t *list) {
     }
 
     while ((read = getline(&line, &len, file)) != -1) {
-        // Skip non "cpu[0-9]" lines.
         if (strnlen(line, read) < 4 || strncmp(line, "cpu", 3) != 0 || !isdigit(line[3])) {
             free(line);
             line = NULL;
@@ -212,7 +117,7 @@ static ssize_t get_cpu_usages(thermal_module_t *module, cpu_usage_t *list) {
         line = NULL;
         len = 0;
 
-        if (vals != 5 || size == CPU_NUM) {
+        if (vals != 5 || size == cpus) {
             if (vals != 5) {
                 ALOGE("%s: failed to read CPU information from file: %s", __func__,
                         strerror(errno));
@@ -245,7 +150,7 @@ static ssize_t get_cpu_usages(thermal_module_t *module, cpu_usage_t *list) {
         fclose(cpu_file);
 
         list[size] = (cpu_usage_t) {
-            .name = CPU_LABEL[size],
+            .name = get_cpu_label(size),
             .active = active,
             .total = total,
             .is_online = online
@@ -255,11 +160,12 @@ static ssize_t get_cpu_usages(thermal_module_t *module, cpu_usage_t *list) {
     }
     fclose(file);
 
-    if (size != CPU_NUM) {
+    if (size != cpus) {
         ALOGE("/proc/stat file has incorrect format.");
         return -EIO;
     }
-    return CPU_NUM;
+
+    return cpus;
 }
 
 static struct hw_module_methods_t thermal_module_methods = {
@@ -272,7 +178,7 @@ thermal_module_t HAL_MODULE_INFO_SYM = {
         .module_api_version = THERMAL_HARDWARE_MODULE_API_VERSION_0_1,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = THERMAL_HARDWARE_MODULE_ID,
-        .name = "MSM8996 Thermal HAL",
+        .name = "Thermal HAL",
         .author = "The Android Open Source Project",
         .methods = &thermal_module_methods,
     },

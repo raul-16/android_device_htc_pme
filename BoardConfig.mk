@@ -110,6 +110,7 @@ BOARD_USES_QCNE := true
 
 # CPU
 ENABLE_SCHEDBOOST := true
+TARGET_USES_INTERACTION_BOOST := true
 
 # Dex
 ifeq ($(HOST_OS),linux)

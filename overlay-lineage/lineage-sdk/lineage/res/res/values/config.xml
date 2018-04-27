@@ -26,7 +26,7 @@
          LIGHTS_ADJUSTABLE_NOTIFICATION_LED_BRIGHTNESS = 32
          For example, a device support pulsating, RGB notification and
          battery LEDs would set this config to 11. -->
-    <integer name="config_deviceLightCapabilities">11</integer>
+    <integer name="config_deviceLightCapabilities">107</integer>
 
     <!-- Corresponds to color balance level of zero, this is the native
          display temperature -->

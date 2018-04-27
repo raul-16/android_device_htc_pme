@@ -803,7 +803,7 @@ service cnd /vendor/bin/cnd
     user system
     group system wifi inet radio wakelock net_admin
 
-service dpmQmiMgr /vendor/bin/dpmQmiMgr
+service dpm /vendor/bin/dpm
     class main
     user system
     group system

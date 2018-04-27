@@ -1,0 +1,13 @@
+libqti-perfd-client.so
+lib-ims-rcscmjni.so
+lib-imsrcscm.so
+lib-imsrcscmclient.so
+lib-imsrcscmservice.so
+libadsprpc.so
+libcdsprpc.so
+libsdsprpc.so
+libqvrservice_client.so
+libtzcom.so
+libMcClient.so
+libMcRegistry.so
+libOpenCL.so

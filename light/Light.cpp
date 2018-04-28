@@ -46,16 +46,19 @@ static constexpr uint32_t MODE_BLINK = 0x2;
 static constexpr uint32_t MODE_SHIFT = 24;
 static constexpr uint32_t MODE_MASK = 0x0f000000;
 
-Light::Light(std::ofstream&& backlight, std::ofstream&& indicator) :
+Light::Light(std::ofstream&& backlight, std::ofstream&& buttonlight, std::ofstream&& indicator) :
     mBacklight(std::move(backlight)),
+    mButtonlight(std::move(buttonlight)),
     mIndicator(std::move(indicator)) {
     auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
     auto backlightFn(std::bind(&Light::setBacklight, this, std::placeholders::_1));
     auto batteryFn(std::bind(&Light::setBatteryLight, this, std::placeholders::_1));
+    auto buttonFn(std::bind(&Light::setButtonLight, this, std::placeholders::_1));
     auto notifFn(std::bind(&Light::setNotificationLight, this, std::placeholders::_1));
     mLights.emplace(std::make_pair(Type::ATTENTION, attnFn));
     mLights.emplace(std::make_pair(Type::BACKLIGHT, backlightFn));
     mLights.emplace(std::make_pair(Type::BATTERY, batteryFn));
+    mLights.emplace(std::make_pair(Type::BUTTONS, buttonFn));
     mLights.emplace(std::make_pair(Type::NOTIFICATIONS, notifFn));
 }
 
@@ -102,6 +105,11 @@ void Light::setBatteryLight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     mBatteryState = state;
     setSpeakerBatteryLightLocked();
+}
+
+void Light::setButtonLight(const LightState& state) {
+    std::lock_guard<std::mutex> lock(mLock);
+    mButtonlight << (state.color & 0xff) << std::endl;
 }
 
 void Light::setNotificationLight(const LightState& state) {

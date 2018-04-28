@@ -30,6 +30,7 @@ using android::hardware::light::V2_0::ILight;
 using android::hardware::light::V2_0::implementation::Light;
 
 const static std::string kBacklightPath = "/sys/class/leds/lcd-backlight/brightness";
+const static std::string kButtonlightPath = "/sys/class/leds/button-backlight/brightness";
 const static std::string kIndicatorPath = "/sys/class/leds/indicator/ModeRGB";
 
 int main() {
@@ -40,6 +41,13 @@ int main() {
         return -error;
     }
 
+    std::ofstream buttonlight(kButtonlightPath);
+    if (!buttonlight) {
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", kButtonlightPath.c_str(), error, strerror(error));
+        return -error;
+    }
+
     std::ofstream indicator(kIndicatorPath);
     if (!indicator) {
         int error = errno;
@@ -47,7 +55,7 @@ int main() {
         return -error;
     }
 
-    android::sp<ILight> service = new Light(std::move(backlight), std::move(indicator));
+    android::sp<ILight> service = new Light(std::move(backlight), std::move(buttonlight), std::move(indicator));
 
     configureRpcThreadpool(1, true);
 

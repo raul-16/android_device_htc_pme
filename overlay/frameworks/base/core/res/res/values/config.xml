@@ -334,10 +334,13 @@
     <!-- Make things go fast -->
     <bool name="config_ui_enableFadingMarquee">false</bool>
 
-    <!-- VoLTE settings as per stock -->
+    <!-- VoLTE settings -->
     <bool name="config_device_volte_available">true</bool>
+    <bool name="config_device_vt_available">true</bool>
+    <bool name="config_device_wfc_ims_available">true</bool>
     <bool name="config_carrier_volte_available">true</bool>
     <bool name="config_carrier_volte_tty_supported">true</bool>
+    <bool name="config_carrier_wfc_ims_available">true</bool>
 
     <!-- ImsService package name to bind to by default, if config_dynamic_bind_ims is true -->
     <string name="config_ims_package">org.codeaurora.ims</string>

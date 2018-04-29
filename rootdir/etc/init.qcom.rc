@@ -883,11 +883,11 @@ service loc_launcher /vendor/bin/loc_launcher
     class late_start
     group gps inet diag wifi oem_2901
 
-# service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
-#    class core
-#    user root
-#    group root
-#    disabled
+service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
+    class core
+    user root
+    group root
+    disabled
 
 # Start up peripheral manager
 service per_mgr /vendor/bin/pm-service

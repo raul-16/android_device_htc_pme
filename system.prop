@@ -43,8 +43,7 @@ Camera.no_navigation_bar=true
 persist.camera.tuning_spec=htc
 persist.ts.postmakeup=false
 persist.ts.rtmakeup=false
-persist.camera.preview.ubwc=0
-persist.camera.video.ubwc=0
+vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap
 
 # CNE
 persist.cne.feature=1

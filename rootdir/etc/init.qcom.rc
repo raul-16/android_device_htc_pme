@@ -348,6 +348,11 @@ on post-fs-data
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
+    # for CwMcuSensor
+    mkdir /data/vendor/sensor
+    chown root system /data/vendor/sensor
+    chmod 0770 /data/vendor/sensor
+
     # RIDL data
     mkdir /data/misc/SelfHost/ 0710 system shell
     mkdir /data/misc/SelfHost/QCLogs/ 2750 system shell
@@ -1080,6 +1085,21 @@ service power_sh /vendor/bin/init.power.sh
     group root system
     disabled
     oneshot
+
+# HTC Camera - BEGIN
+on property:persist.sys.htcdebugflag=1
+    setprop persist.log.tag.QCamera V
+    setprop persist.log.tag.mm-camera V
+    setprop persist.log.tag.camera-HTC-AEC V
+    setprop persist.log.tag.QCamera2HWI V
+    setprop persist.log.tag.EXT_REF V
+
+on property:persist.sys.htcdebugflag=0
+    setprop persist.log.tag.QCamera W
+    setprop persist.log.tag.mm-camera W
+    setprop persist.log.tag.camera-HTC-AEC W
+    setprop persist.log.tag.QCamera2HWI W
+    setprop persist.log.tag.EXT_REF W
 
 # Triggers start here
 on class_start:late_start

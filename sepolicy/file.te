@@ -2,6 +2,8 @@ type carrier_file, fs_type, contextmount_type;
 type forceencrypt_block_device, dev_type;
 type sysfs_fingerprint, fs_type, sysfs_type;
 type vibeamp_sysfs, fs_type, sysfs_type;
+type perfd_data_file, file_type, data_file_type;
+
 type proc_irq, fs_type;
 type proc_kernel_sched, fs_type;
 

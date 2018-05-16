@@ -108,6 +108,9 @@ TARGET_CAMERASERVICE_CLOSES_NATIVE_HANDLES := true
 # CNE and DPM
 BOARD_USES_QCNE := true
 
+# CPU
+ENABLE_SCHEDBOOST := true
+
 # Dex
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)

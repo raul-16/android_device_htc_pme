@@ -49,8 +49,6 @@ on early-init
     mkdir /firmware/venus 0771 system system
     mkdir /firmware/wsd 0500 oem_2903 oem_2903
 
-    mount debugfs debugfs /sys/kernel/debug
-    chmod 0755 /sys/kernel/debug
     chown root system /dev/kmsg
     chmod 0620 /dev/kmsg
 
@@ -76,6 +74,56 @@ on init
 
     # Enable boosting on boot, which disabled when device is booted
     write /proc/sys/kernel/sched_boost 1
+
+    # Setup cpusets used by the VR services.
+    mkdir /dev/cpuset/kernel 0750 root system
+    write /dev/cpuset/kernel/cpus 0
+    write /dev/cpuset/kernel/mems 0
+    chown system system /dev/cpuset/kernel/tasks
+    chmod 0660 /dev/cpuset/kernel/tasks
+
+    mkdir /dev/cpuset/system 0750 root system
+    write /dev/cpuset/system/cpus 0
+    write /dev/cpuset/system/mems 0
+    chown system system /dev/cpuset/system/tasks
+    chmod 0660 /dev/cpuset/system/tasks
+
+    mkdir /dev/cpuset/system/performance 0750 root system
+    write /dev/cpuset/system/performance/cpus 0
+    write /dev/cpuset/system/performance/mems 0
+    chown system system /dev/cpuset/system/performance/tasks
+    chmod 0660 /dev/cpuset/system/performance/tasks
+
+    mkdir /dev/cpuset/system/background 0750 root system
+    write /dev/cpuset/system/background/cpus 0
+    write /dev/cpuset/system/background/mems 0
+    chown system system /dev/cpuset/system/background/tasks
+    chmod 0660 /dev/cpuset/system/background/tasks
+
+    mkdir /dev/cpuset/application 0750 root system
+    write /dev/cpuset/application/cpus 0
+    write /dev/cpuset/application/mems 0
+    chown system system /dev/cpuset/application/tasks
+    chmod 0660 /dev/cpuset/application/tasks
+
+    mkdir /dev/cpuset/application/performance 0750 root system
+    write /dev/cpuset/application/performance/cpus 0
+    write /dev/cpuset/application/performance/mems 0
+    chown system system /dev/cpuset/application/performance/tasks
+    chmod 0660 /dev/cpuset/application/performance/tasks
+
+    mkdir /dev/cpuset/application/background 0750 root system
+    write /dev/cpuset/application/background/cpus 0
+    write /dev/cpuset/application/background/mems 0
+    chown system system /dev/cpuset/application/background/tasks
+    chmod 0660 /dev/cpuset/application/background/tasks
+
+    # set default schedTune value for foreground/top-app (only affects EAS)
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+    write /dev/stune/rt/schedtune.boost 30
+    write /dev/stune/rt/schedtune.prefer_idle 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -258,9 +306,12 @@ on post-fs-data
     mkdir /data/vendor/nfc/param 0770 nfc nfc
 
     # Create PERFD deamon related dirs
-    mkdir /data/vendor/perfd 0770 root system
-    chmod 2770 /data/vendor/perfd
-    rm /data/vendor/perfd/default_values
+    setprop ro.min_freq_0 384000
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    rm /data/system/perfd/default_values
+    chmod 2770 /data/system/perfd
 
     # Create IOP  deamon related dirs
     mkdir /data/vendor/iop 0770 root system

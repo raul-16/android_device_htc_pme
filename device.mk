@@ -241,8 +241,7 @@ PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-service-qti \
     libcurl \
     libgnss \
-    libgnsspps \
-    libshim_gps
+    libgnsspps
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \

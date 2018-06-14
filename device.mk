@@ -266,10 +266,6 @@ PRODUCT_PACKAGES += \
     android.hidl.manager@1.0 \
     android.hidl.manager@1.0-java
 
-# HTC Logging functions
-PRODUCT_PACKAGES += \
-    liblog_htc
-
 # Init
 PRODUCT_PACKAGES += \
     charger.fstab.qcom \

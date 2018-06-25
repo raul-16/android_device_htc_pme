@@ -844,10 +844,16 @@ service ppd /vendor/bin/mm-pp-dpps
     writepid /dev/cpuset/system-background/tasks
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class late_start
+    class main
     user camera
     group camera system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
+
+on property:init.svc.media=restarting
+    restart qcamerasvr
+
+on property:init.svc.servicemanager=restarting
+    restart qcamerasvr
 
 service qcom-sh /vendor/bin/init.qcom.sh
     class late_start

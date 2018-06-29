@@ -447,6 +447,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/releasetools/variants.sh:install/bin/variants.sh
 
+# Vendor security patch level
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.lineage.build.vendor_security_patch=2017-12-01
+
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \

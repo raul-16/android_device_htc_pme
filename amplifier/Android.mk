@@ -5,9 +5,10 @@ include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := \
 	liblog libutils libcutils libtinyalsa
 
+LOCAL_HEADER_LIBRARIES += libhardware_headers
+
 LOCAL_C_INCLUDES := \
        external/tinyalsa/include \
-       hardware/libhardware/include \
        $(call project-path-for,qcom-audio)/hal
 
 LOCAL_SRC_FILES := \

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016, The CyanogenMod Project
+ *               2017-2018 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include <cutils/log.h>
+#include <log/log.h>
 #include <tinyalsa/asoundlib.h>
 #include "tfa.h"
 
@@ -32,7 +33,7 @@
 
 #define UNUSED __attribute__ ((unused))
 
-#include <linux/ioctl.h>
+#include <sys/ioctl.h>
 #include <sound/htc_audio_ioctl.h>
 
 struct tfaS {

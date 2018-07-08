@@ -15,7 +15,7 @@ LOCAL_C_INCLUDES := \
        external/tinyalsa/include \
        external/tinycompress/include \
        hardware/libhardware/include \
-       system/media/audio_route/include
+       system/media/audio_route/include \
        $(call project-path-for,qcom-audio)/hal \
        $(call project-path-for,qcom-audio)/hal/audio_extn
 

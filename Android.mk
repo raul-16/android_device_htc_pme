@@ -33,7 +33,7 @@ include $(CLEAR_VARS)
 
 ADSP_IMAGES := \
     adsp.b00 adsp.b01 adsp.b02 adsp.b03 adsp.b04 adsp.b05 adsp.b06 adsp.b07 \
-    adsp.b08 adsp.b09 adsp.b10 adsp.b11 adsp.mdt adspver.cfg buildid.cfg
+    adsp.b08 adsp.b09 adsp.mdt adspver.cfg buildid.cfg
 
 ADSP_SYMLINKS := $(addprefix $(TARGET_ROOT_OUT)/firmware/image/,$(notdir $(ADSP_IMAGES)))
 $(ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -123,12 +123,12 @@ ALL_DEFAULT_INSTALLED_MODULES += $(SLPI_SYMLINKS)
 VENUS_IMAGES := \
     venus.b00 venus.b01 venus.b02 venus.b03 venus.b04 venus.mbn venus.mdt
 
-VENUS_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(VENUS_IMAGES)))
+VENUS_SYMLINKS := $(addprefix $(TARGET_ROOT_OUT)/firmware/image/,$(notdir $(VENUS_IMAGES)))
 $(VENUS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "VENUS firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /firmware/venus/$(notdir $@) $@
+	$(hide) ln -sf /vendor/firmware/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(VENUS_SYMLINKS)
 
@@ -136,7 +136,7 @@ WIDEVINE_IMAGES := \
     widevine.b00 widevine.b01 widevine.b02 widevine.b03 widevine.b04 \
     widevine.b05 widevine.b06 widevine.mdt
 
-WIDEVINE_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(WIDEVINE_IMAGES)))
+WIDEVINE_SYMLINKS := $(addprefix $(TARGET_ROOT_OUT)/firmware/image/,$(notdir $(WIDEVINE_IMAGES)))
 $(WIDEVINE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "WIDEVINE firmware link: $@"
 	@mkdir -p $(dir $@)

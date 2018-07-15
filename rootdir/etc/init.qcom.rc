@@ -770,6 +770,18 @@ service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     user root
     oneshot
 
+service ipacm /vendor/bin/ipacm
+    class main
+    user radio
+    group radio inet
+    writepid /dev/cpuset/system-background/tasks
+
+service ipacm-diag /vendor/bin/ipacm-diag
+    class main
+    user radio
+    socket ipacm_log_file dgram 660 radio radio
+    group radio diag oem_2950
+
 service loc_launcher /vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start

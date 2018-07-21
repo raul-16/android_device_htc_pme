@@ -1049,11 +1049,11 @@ vendor/bin/thermal-engine
 -vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so
 
-# Time services - LA.UM.6.5.r1-02500-8x96.0
--vendor/app/TimeService/TimeService.apk|85ba3fe34ff9d25d8c3bf319285d6071ff61757a
-vendor/bin/time_daemon|52c7a76b6e36bcb5042cd2fa8da9aca029907691
-vendor/lib64/libtime_genoff.so
-vendor/lib64/libTimeService.so|aabc4aca65203f0e32d6f5ca2e6bbb1ad3abef82
+# Time services - from bardock-pro - OPM1.171019.011
+-vendor/app/TimeService/TimeService.apk|5055619766db32fe499cda86b892c9f3081219c5
+vendor/bin/time_daemon|8ea7d65a65c1d50afc6553ad52848b454c62563d
+vendor/lib/libtime_genoff.so|0493e009e6627cc63b43258dcf1a5ee6980475ee
+vendor/lib64/libtime_genoff.so|7683a85cae9f17cd535e8960fceda1d6831074a0
 
 # Widevine - LA.UM.6.5.r1-02500-8x96.0
 vendor/lib/mediadrm/libwvdrmengine.so|0d8245220b20a39963c59d7469dfa3b48bb6d83d

@@ -899,6 +899,16 @@ service energy-awareness /vendor/bin/energy-awareness
     group system
     oneshot
 
+service perfd /vendor/bin/perfd
+    class main
+    user root
+    group root system
+    writepid /dev/cpuset/system-background/tasks
+    disabled
+
+on property:sys.post_boot.parsed=1
+    start perfd
+
 service ppd /vendor/bin/mm-pp-dpps
     class hal
     user system

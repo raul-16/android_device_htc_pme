@@ -38,6 +38,7 @@
 #define INTERACTIVE_GOVERNOR "interactive"
 #define MSMDCVS_GOVERNOR "msm-dcvs"
 #define SCHED_GOVERNOR "sched"
+#define SCHEDUTIL_GOVERNOR "schedutil"
 
 #define HINT_HANDLED (0)
 #define HINT_NONE (-1)
@@ -50,6 +51,9 @@ enum CPU_GOV_CHECK {
     CPU2 = 2,
     CPU3 = 3
 };
+
+const char * eas_governors[];
+int is_eas_governor(const char *governor);
 
 #define UNUSED(x) UNUSED_ ## x __attribute__((__unused__))
 

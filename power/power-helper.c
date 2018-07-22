@@ -430,7 +430,7 @@ void power_hint(power_hint_t hint, void *data)
             s_previous_duration = duration;
 
             // Scheduler is EAS.
-            if (true || strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) {
+            if (true || is_eas_governor(governor)) {
                 // Setting the value of foreground schedtune boost to 50 and
                 // scaling_min_freq to 1100MHz.
                 int resources[] = {0x40800000, 1100, 0x40800100, 1100, 0x42C0C000, 0x32, 0x41800000, 0x33};

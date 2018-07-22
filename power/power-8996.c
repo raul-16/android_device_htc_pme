@@ -104,8 +104,7 @@ static int process_cam_preview_hint(void *metadata)
                     resource_values, sizeof(resource_values)/sizeof(resource_values[0]));
             ALOGI("Cam Preview hint start");
             return HINT_HANDLED;
-        } else if ((strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) &&
-                (strlen(governor) == strlen(SCHED_GOVERNOR))) {
+        } else if (is_eas_governor(governor)) {
             /*
              * lower bus BW to save power
              *   0x41810000: low power ceil mpbs = 2500
@@ -122,8 +121,7 @@ static int process_cam_preview_hint(void *metadata)
     } else if (cam_preview_metadata.state == 0) {
         if (((strncmp(governor, INTERACTIVE_GOVERNOR, strlen(INTERACTIVE_GOVERNOR)) == 0) &&
                 (strlen(governor) == strlen(INTERACTIVE_GOVERNOR))) ||
-            ((strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) &&
-                (strlen(governor) == strlen(SCHED_GOVERNOR)))) {
+            is_eas_governor(governor)) {
             undo_hint_action(cam_preview_metadata.hint_id);
             ALOGI("Cam Preview hint stop");
             return HINT_HANDLED;
@@ -150,7 +148,7 @@ static int process_boost(int boost_handle, int duration)
         ALOGE("Can't obtain scaling governor.");
         return -1;
     }
-    if (strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) {
+    if (is_eas_governor(governor)) {
         launch_resources = eas_launch_resources;
         launch_resources_size = sizeof(eas_launch_resources) / sizeof(eas_launch_resources[0]);
     } else if (strncmp(governor, INTERACTIVE_GOVERNOR,
@@ -209,8 +207,7 @@ static int process_video_encode_hint(void *metadata)
                     resource_values, sizeof(resource_values)/sizeof(resource_values[0]));
             ALOGD("Video Encode hint start");
             return HINT_HANDLED;
-        } else if ((strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) &&
-                (strlen(governor) == strlen(SCHED_GOVERNOR))) {
+        } else if (is_eas_governor(governor)) {
 
             /* 1. bus DCVS set to V2 config:
              *    0x41810000: low power ceil mpbs - 2500
@@ -231,8 +228,7 @@ static int process_video_encode_hint(void *metadata)
         // boost handle is intentionally not released, release_request(boost_handle);
         if (((strncmp(governor, INTERACTIVE_GOVERNOR, strlen(INTERACTIVE_GOVERNOR)) == 0) &&
                 (strlen(governor) == strlen(INTERACTIVE_GOVERNOR))) ||
-            ((strncmp(governor, SCHED_GOVERNOR, strlen(SCHED_GOVERNOR)) == 0) &&
-                (strlen(governor) == strlen(SCHED_GOVERNOR)))) {
+            is_eas_governor(governor)) {
             undo_hint_action(DEFAULT_VIDEO_ENCODE_HINT_ID);
             ALOGD("Video Encode hint stop");
             return HINT_HANDLED;

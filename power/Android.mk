@@ -24,7 +24,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_MODULE := android.hardware.power@1.0-service.pme
 LOCAL_INIT_RC := android.hardware.power@1.0-service.pme.rc
-LOCAL_SRC_FILES := service.cpp Power.cpp power-helper.c metadata-parser.c utils.c list.c hint-data.c
+LOCAL_SRC_FILES := service.cpp Power.cpp power-helper.c metadata-parser.c utils.c list.c hint-data.c power-common.c
 
 # Include target-specific files.
 ifeq ($(call is-board-platform-in-list, msm8996), true)

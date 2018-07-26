@@ -22,8 +22,8 @@ LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE_OWNER := qcom
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_MODULE := android.hardware.power@1.1-service.pme
-LOCAL_INIT_RC := android.hardware.power@1.1-service.pme.rc
+LOCAL_MODULE := android.hardware.power@1.0-service.pme
+LOCAL_INIT_RC := android.hardware.power@1.0-service.pme.rc
 LOCAL_SRC_FILES := service.cpp Power.cpp power-helper.c metadata-parser.c utils.c list.c hint-data.c power-common.c
 
 # Include target-specific files.
@@ -35,10 +35,6 @@ ifeq ($(TARGET_USES_INTERACTION_BOOST),true)
     LOCAL_CFLAGS += -DINTERACTION_BOOST
 endif
 
-#ifneq ($(TARGET_USES_AOSP),true)
-#    LOCAL_CFLAGS += -DEXTRA_POWERHAL_HINTS
-#endif
-
 LOCAL_SHARED_LIBRARIES := \
     libbase \
     libcutils \
@@ -46,7 +42,7 @@ LOCAL_SHARED_LIBRARIES := \
     libhidltransport \
     liblog \
     libutils \
-    android.hardware.power@1.1 \
+    android.hardware.power@1.0 \
 
 LOCAL_HEADER_LIBRARIES := \
     libhardware_headers

@@ -4,9 +4,6 @@ on init
     write /sys/block/mmcblk1/bdi/read_ahead_kb 512
     write /sys/module/lpm_levels/parameters/sleep_disabled "Y"
 
-    # Drop write bit from cpu_max_freq so that libqti-perfd can't set it
-    chmod 0444 /sys/module/msm_performance/parameters/cpu_max_freq
-
 on boot
     # Bring back main cores CPU 0,2
     write /sys/devices/system/cpu/cpu0/online 1

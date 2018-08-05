@@ -1,0 +1,380 @@
+# Copyright (c) 2009-2012, 2014-2017, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+on charger
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    wait /dev/block/bootdevice
+    mount_all /vendor/etc/charger.fstab.qcom
+    start hvdcp_opti
+
+on early-init
+    symlink /data/tombstones /tombstones
+
+    mkdir /carrier 0771 radio radio
+    mkdir /dev/radio 0770 radio radio
+    mkdir /dsp 0771 media media
+    chown system system /firmware/image
+    mkdir /firmware/adsp 0771 system system
+    mkdir /firmware/radio 0771 system system
+    mkdir /firmware/slpi 0771 system system
+    mkdir /firmware/venus 0771 system system
+    mkdir /firmware/wsd 0500 oem_2903 oem_2903
+
+on early-boot
+    # SSR setup
+    write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys3/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys4/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
+
+on boot
+    # To prevent permission denied error for telephony
+    chmod 0644 /proc/cmdline
+
+    # Wifi firmware reload path
+    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
+
+    # Set graphic node permissions
+    chown system graphics /sys/class/graphics/fb0/msm_cmd_autorefresh_en
+    chown system graphics /sys/class/graphics/fb0/idle_time
+    chown system graphics /sys/class/graphics/fb0/dyn_pu
+    chown system graphics /sys/class/graphics/fb0/modes
+    chown system graphics /sys/class/graphics/fb0/mode
+    chown system graphics /sys/class/graphics/fb1/hpd
+    chmod 0664 /sys/class/graphics/fb0/msm_cmd_autorefresh_en
+    chmod 0664 /sys/class/graphics/fb0/idle_time
+    chmod 0664 /sys/class/graphics/fb0/dyn_pu
+    chmod 0664 /sys/class/graphics/fb0/modes
+    chmod 0664 /sys/class/graphics/fb0/mode
+    chmod 0664 /sys/class/graphics/fb1/hpd
+
+    # Set HTC debug driver permissions
+    chown root system /proc/driver/hdf
+    chmod 0664 /proc/driver/hdf
+
+    # Set display permissions
+    chown system graphics /sys/class/leds/lcd-backlight/cabc_level_ctl
+    chown system graphics /sys/class/leds/lcd-backlight/color_temp_ctl
+    chown system graphics /sys/class/leds/lcd-backlight/color_profile_ctl
+    chown system system /sys/class/leds/lcd-backlight/burst_switch
+    chown system system /sys/class/leds/lcd-backlight-nits/brightness
+
+    # HDMI
+    chmod 644 /sys/class/graphics/fb1/hpd
+    chmod 644 /sys/class/graphics/fb1/res_info
+    chmod 644 /sys/class/graphics/fb1/vendor_name
+    chmod 644 /sys/class/graphics/fb1/product_description
+    chmod 644 /sys/class/graphics/fb1/video_mode
+    chmod 644 /sys/class/graphics/fb1/format_3d
+    chmod 644 /sys/class/graphics/fb1/s3d_mode
+    chmod 644 /sys/class/graphics/fb1/dynamic_fps
+    chmod 644 /sys/class/graphics/fb1/msm_fb_dfps_mode
+    chmod 644 /sys/class/graphics/fb1/cec/enable
+    chmod 644 /sys/class/graphics/fb1/cec/logical_addr
+    chmod 644 /sys/class/graphics/fb1/cec/rd_msg
+    chmod 644 /sys/class/graphics/fb1/pa
+    chmod 600 /sys/class/graphics/fb1/cec/wr_msg
+    chmod 644 /sys/class/graphics/fb1/hdcp/tp
+    chown system graphics /sys/class/graphics/fb1/hpd
+    chown system graphics /sys/class/graphics/fb1/res_info
+    chown system graphics /sys/class/graphics/fb1/vendor_name
+    chown system graphics /sys/class/graphics/fb1/product_description
+    chown system graphics /sys/class/graphics/fb1/video_mode
+    chown system graphics /sys/class/graphics/fb1/format_3d
+    chown system graphics /sys/class/graphics/fb1/s3d_mode
+    chown system graphics /sys/class/graphics/fb1/dynamic_fps
+    chown system graphics /sys/class/graphics/fb1/msm_fb_dfps_mode
+    chown system graphics /sys/class/graphics/fb1/cec/enable
+    chown system graphics /sys/class/graphics/fb1/cec/logical_addr
+    chown system graphics /sys/class/graphics/fb1/cec/rd_msg
+    chown system graphics /sys/class/graphics/fb1/pa
+    chown system graphics /sys/class/graphics/fb1/cec/wr_msg
+    chown system graphics /sys/class/graphics/fb1/hdcp/tp
+    symlink /sys/dev/graphics/fb1 /sys/devices/virtual/switch/hdmi
+
+    # HTC SSD Battery
+    chown system system /sys/class/power_supply/battery/full_level_dis_batt_chg
+    chmod 0220 /sys/class/power_supply/battery/full_level_dis_batt_chg
+    chown radio radio /sys/class/power_supply/battery/phone_call
+    chmod 0660 /sys/class/power_supply/battery/phone_call
+    chown media media /sys/class/power_supply/battery/play_music
+    chmod 0220 /sys/class/power_supply/battery/play_music
+    chown radio radio /sys/class/power_supply/battery/network_search
+    chmod 0220 /sys/class/power_supply/battery/network_search
+    chown system system /sys/class/power_supply/battery/navigation
+    chmod 0220 /sys/class/power_supply/battery/navigation
+    chown system system /sys/class/power_supply/battery/disable_limit_chg
+    chmod 0220 /sys/class/power_supply/battery/disable_limit_chg
+
+    # Capacitive key disabler permissions
+    chown system system /sys/devices/soc/757a000.i2c/i2c-6/6-0064/disable_key
+
+    # HTC Camera - for Flashlight Restriction
+    chown system system /sys/camera_led_status/led_hotspot_status
+    chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
+
+    # Laser
+    chown system system /sys/class/htc_laser/laser/iio/buffer/enable
+    chown system system /sys/class/htc_laser/laser/iio/buffer/length
+    chown system system /sys/class/htc_laser/laser/iio/trigger/current_trigger
+    chmod 660 /sys/class/htc_laser/laser/iio/buffer/enable
+    chmod 660 /sys/class/htc_laser/laser/iio/buffer/length
+    chmod 660 /sys/class/htc_laser/laser/iio/trigger/current_trigger
+
+    chown system system /sys/devices/virtual/htc_laser/laser/enable
+    chown system system /sys/devices/virtual/htc_laser/laser/batch
+    chown system system /sys/devices/virtual/htc_laser/laser/flush
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_power
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_hwid
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_range
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_compensation
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_offset
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_xtalk
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_offset_calibrate
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_xtalk_calibrate
+    chown system system /sys/devices/virtual/htc_laser/laser/laser_cali_status
+    chown system system /sys/devices/virtual/htc_laser/laser/enable_ps_sensor
+
+    chmod 660 /sys/devices/virtual/htc_laser/laser/enable
+    chmod 660 /sys/devices/virtual/htc_laser/laser/batch
+    chmod 660 /sys/devices/virtual/htc_laser/laser/flush
+    chmod 660 /sys/devices/virtual/htc_laser/laser/laser_power
+    chmod 440 /sys/devices/virtual/htc_laser/laser/laser_hwid
+    chmod 440 /sys/devices/virtual/htc_laser/laser/laser_range
+    chmod 660 /sys/devices/virtual/htc_laser/laser/laser_compensation
+    chmod 660 /sys/devices/virtual/htc_laser/laser/laser_offset
+    chmod 660 /sys/devices/virtual/htc_laser/laser/laser_xtalk
+    chmod 440 /sys/devices/virtual/htc_laser/laser/laser_offset_calibrate
+    chmod 660 /sys/devices/virtual/htc_laser/laser/laser_xtalk_calibrate
+    chmod 440 /sys/devices/virtual/htc_laser/laser/laser_cali_status
+    chmod 660 /sys/devices/virtual/htc_laser/laser/enable_ps_sensor
+
+    # SensorHUB
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
+
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ap_calibrator_data_acc_rl
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc_rl
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_barometer
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_gyro
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_light
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_mag
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_proximity
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_en
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_acc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_gyro
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_mag
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ps_canc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ps_autok_thd
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ls_leveltolux
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ls_mechanism
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_barometer
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_kadc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/delay_ms
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/enable
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/batch_enable
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/flush
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/firmware_version
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/hall_sensor
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_hub_rdata
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/facedown_enabled
+    chown system gesture_motion /sys/class/htc_sensorhub/sensor_hub/gesture_motion
+    chown system system /sys/class/htc_sensorhub/sensor_hub/mcu_wakeup
+    chown system system /sys/class/htc_sensorhub/sensor_hub/dbg_flag
+    chown system gesture_motion /sys/class/htc_sensorhub/sensor_hub/edge_thd
+    chown system gesture_motion /sys/android_edge/hw_version
+    chown system system /sys/android_edge/gadc
+    chown system system /sys/class/htc_sensorhub/sensor_hub/vbus_time
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/vibrate_ms
+
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/ap_calibrator_data_acc_rl
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc_rl
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_barometer
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_gyro
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_light
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_mag
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_proximity
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_en
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_acc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_gyro
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_mag
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/ps_canc
+    chmod 660 /sys/devices/virtual/htc_sensorhub/sensor_hub/ps_autok_thd
+    chmod 444 /sys/devices/virtual/htc_sensorhub/sensor_hub/ls_leveltolux
+    chmod 444 /sys/devices/virtual/htc_sensorhub/sensor_hub/ls_mechanism
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_barometer
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_kadc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/delay_ms
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/enable
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/batch_enable
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/flush
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/firmware_version
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/hall_sensor
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_hub_rdata
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/facedown_enabled
+    chmod 664 /sys/class/htc_sensorhub/sensor_hub/gesture_motion
+    chmod 664 /sys/class/htc_sensorhub/sensor_hub/mcu_wakeup
+    chmod 664 /sys/class/htc_sensorhub/sensor_hub/dbg_flag
+    chmod 664 /sys/class/htc_sensorhub/sensor_hub/edge_thd
+    chmod 664 /sys/android_edge/hw_version
+    chmod 664 /sys/android_edge/gadc
+    chmod 440 /sys/class/htc_sensorhub/sensor_hub/vbus_time
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/vibrate_ms
+
+    # G-Sensor Calibration USER
+    chown system system /sys/class/htc_g_sensor/g_sensor/g_sensor_user_offset
+    chmod 0220 /sys/class/htc_g_sensor/g_sensor/g_sensor_user_offset
+
+    # PL-sensor(CPU) \ Common Interface(MCU)
+    chown system system /sys/class/optical_sensors/proximity/p_status
+    chown system system /sys/class/optical_sensors/proximity/ps_info
+    chown radio radio /sys/class/optical_sensors/proximity/ps_adc
+    chmod 444 /sys/class/optical_sensors/proximity/p_status
+    chmod 444 /sys/class/optical_sensors/proximity/ps_info
+    chmod 444 /sys/class/optical_sensors/proximity/ps_adc
+
+    # LED
+    chown system system /sys/class/leds/indicator/ModeRGB
+    chown system system /sys/class/leds/indicator/brightness
+    chown system system /sys/class/leds/indicator/device
+    chown system system /sys/class/leds/indicator/max_brightness
+    chown system system /sys/class/leds/indicator/power
+
+    # Flashlight
+    chown system system /sys/class/leds/flashlight/brightness
+    chown vte    vte    /dev/vte_flt
+    chmod 0660 /dev/vte_flt
+
+    # For Flashlight Restriction
+    chown system system /sys/camera_led_status/led_hotspot_status
+
+    # IIO
+    chown system system /dev/iio:device0
+    chown system system /dev/iio:device1
+    chmod 660 /dev/iio:device0
+    chmod 660 /dev/iio:device1
+
+    # Set touch permissions
+    chown system system /sys/android_touch/glove_setting
+
+    # Set cap permissions
+    chown system system /sys/android_cap/glove_setting
+
+on post-fs-data
+    # Add a cpuset for the camera daemon
+    # We want all cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-3
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
+
+    # Create folder for mm-qcamera-daemon
+    mkdir /data/vendor/camera 0770 camera camera
+
+    # Create directory for tombstone
+    mkdir /data/tombstones 0771 system system
+    mkdir /data/vendor/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+
+    mkdir /data/misc/dts 0770 media audio
+    mkdir /data/misc/seemp 0700 system system
+    mkdir /data/misc/tloc/ 0700 system drmrpc
+    mkdir /data/misc/qvr 0770 system system
+    mkdir /data/misc/audio_pp 0771 media audio
+    mkdir /data/misc/mcRegistry 0775 system system
+    mkdir /data/misc/mcRegistry/TbStorage 0700 system system
+    symlink /persist/tee/00000000.authtokcont.backup /data/misc/mcRegistry/00000000.authtokcont.backup
+    export MC_AUTH_TOKEN_PATH /data/misc/mcRegistry
+    mkdir /data/usf 0700 system system
+
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+    mkdir /persist/tee 0700 system system
+    mkdir /persist/qti_fp 0700 system system
+
+    # SSC/SLPI sensors
+    mkdir /persist/sensors
+    chown root system /persist/sensors
+    chmod 0775 /persist/sensors
+    chown root system /persist/sensors/sensors_settings
+    chmod 0664 /persist/sensors/sensors_settings
+    chown root system /persist/sensors/sns.reg
+    chmod 0664 /persist/sensors/sns.reg
+
+on fs
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    mount_all /vendor/etc/fstab.qcom
+
+    # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
+    wait /dev/block/bootdevice/by-name/rfg_3
+    mount vfat /dev/block/bootdevice/by-name/rfg_3 /firmware/wsd ro shortname=lower,uid=3012,gid=3012,dmask=277,fmask=377
+
+    # Mount cradio image
+    mkdir /firmware/cradio 0771 system system
+    wait /dev/block/bootdevice/by-name/cradio
+    mount vfat /dev/block/bootdevice/by-name/cradio /firmware/cradio ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+
+    # symlink firmware to /firmware/image
+    wait /system/bin/sh
+    class_start firmware-link
+    wait /firmware/image/.adsp_done
+    wait /firmware/image/.radio_done
+    wait /firmware/image/.sec_done
+    wait /firmware/image/.venus_done
+    setprop ro.boot.firmware.cpe 1
+
+    # HTC feature: Support multiple firmware image mount points
+    write /sys/module/firmware_class/parameters/fw_path /firmware/adsp,/firmware/radio,/firmware/slpi,/firmware/venus,/firmware/wsd,/vendor/firmware
+
+    mkdir /persist/data 0700 system system
+    mkdir /persist/bms 0700 root system
+    restorecon_recursive /persist
+
+on property:init.svc.bootanim=running
+    write /sys/class/leds/wled/brightness 4095

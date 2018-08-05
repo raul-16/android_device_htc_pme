@@ -256,10 +256,11 @@ PRODUCT_PACKAGES += \
     init.qcom.power.rc \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
-    init.recovery.qcom.rc \
-    ueventd.qcom.rc \
     init.qcom.sh \
-    init.qcom.firmware_links.sh
+    init.qcom.firmware_links.sh \
+    init.recovery.qcom.rc \
+    init.target.rc \
+    ueventd.qcom.rc
 
 # Input
 PRODUCT_COPY_FILES += \

@@ -1,3 +1,4 @@
 subdirs = [
+    "libhtcril_db",
     "light",
 ]

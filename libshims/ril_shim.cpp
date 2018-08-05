@@ -15,6 +15,6 @@
  */
 
  extern "C" int
- checkRequestInfo(struct RequestInfo* pRI) {
-   return 0;
- }
+checkRequestInfo(struct RequestInfo*) {
+  return 0;
+}

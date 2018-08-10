@@ -24,4 +24,6 @@
 #define BLUETOOTH_QTI_SW                TRUE
 #define BTM_WBS_INCLUDED                FALSE
 
+#undef PROPERTY_VALUE_MAX
+
 #endif

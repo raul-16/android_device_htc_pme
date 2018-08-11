@@ -90,6 +90,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/com.htc.software.market.xml:system/etc/permissions/com.htc.software.market.xml \
     $(LOCAL_PATH)/configs/htcsenseframework.xml:system/etc/permissions/htcsenseframework.xml
 
+# Vendor properties
+-include $(LOCAL_PATH)/vendor_prop.mk
+
 # Additional native libraries
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/public.libraries_system.txt:system/etc/public.libraries.txt \

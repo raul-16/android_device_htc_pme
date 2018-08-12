@@ -26,7 +26,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#define LOG_NDEBUG 1
+#define LOG_NIDEBUG 0
 
 #include <dlfcn.h>
 #include <fcntl.h>
@@ -34,19 +34,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 #include "utils.h"
 #include "list.h"
 #include "hint-data.h"
 #include "power-common.h"
 
-#define LOG_TAG "QCOM PowerHAL"
-#include <log/log.h>
+#define LOG_TAG "Vox Populi PowerHAL"
+#include <utils/Log.h>
 
-#ifndef INTERACTION_BOOST
 #define INTERACTION_BOOST
-#endif
 
 char scaling_gov_path[4][80] ={
     "sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
@@ -209,7 +206,7 @@ void interaction(int duration, int num_args, int opt_list[])
 #ifdef INTERACTION_BOOST
     static int lock_handle = 0;
 
-    if (duration < 0 || num_args < 1 || opt_list[0] == 0)
+    if (duration < 0 || num_args < 1 || opt_list[0] == NULL)
         return;
 
     if (qcopt_handle) {
@@ -225,7 +222,7 @@ void interaction(int duration, int num_args, int opt_list[])
 int interaction_with_handle(int lock_handle, int duration, int num_args, int opt_list[]) 
 {
 #ifdef INTERACTION_BOOST
-    if (duration < 0 || num_args < 1 || opt_list[0] == 0)
+    if (duration < 0 || num_args < 1 || opt_list[0] == NULL)
         return 0;
 
     if (qcopt_handle) {

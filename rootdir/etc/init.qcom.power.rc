@@ -4,6 +4,9 @@ on init
     write /sys/block/mmcblk1/bdi/read_ahead_kb 512
     write /sys/module/lpm_levels/parameters/sleep_disabled "Y"
 
+    # Create Power HAL tunables
+    mkdir /dev/voxpopuli 0555 system system
+
 on boot
     # Bring back main cores CPU 0,2
     write /sys/devices/system/cpu/cpu0/online 1
@@ -25,6 +28,38 @@ on boot
     write /dev/stune/schedtune.boost 0
     write /dev/stune/schedtune.prefer_idle 0
 
+    # Set Power HAL tunables
+    write /dev/voxpopuli/enable_interaction_boost   1
+    write /dev/voxpopuli/fling_min_boost_duration   200
+    write /dev/voxpopuli/fling_max_boost_duration   2500
+    write /dev/voxpopuli/fling_boost_topapp         5
+    write /dev/voxpopuli/fling_min_freq_big         729
+    write /dev/voxpopuli/fling_min_freq_little      729
+    write /dev/voxpopuli/touch_boost_duration       200
+    write /dev/voxpopuli/touch_boost_topapp         0
+    write /dev/voxpopuli/touch_min_freq_big         729
+    write /dev/voxpopuli/touch_min_freq_little      729
+    chmod 0644 /dev/voxpopuli/enable_interaction_boost
+    chmod 0644 /dev/voxpopuli/fling_min_boost_duration
+    chmod 0644 /dev/voxpopuli/fling_max_boost_duration
+    chmod 0644 /dev/voxpopuli/fling_boost_topapp
+    chmod 0644 /dev/voxpopuli/fling_min_freq_big
+    chmod 0644 /dev/voxpopuli/fling_min_freq_little
+    chmod 0644 /dev/voxpopuli/touch_boost_duration
+    chmod 0644 /dev/voxpopuli/touch_boost_topapp
+    chmod 0644 /dev/voxpopuli/touch_min_freq_big
+    chmod 0644 /dev/voxpopuli/touch_min_freq_little
+    chown system system /dev/voxpopuli/enable_interaction_boost
+    chown system system /dev/voxpopuli/fling_min_boost_duration
+    chown system system /dev/voxpopuli/fling_max_boost_duration
+    chown system system /dev/voxpopuli/fling_boost_topapp
+    chown system system /dev/voxpopuli/fling_min_freq_big
+    chown system system /dev/voxpopuli/fling_min_freq_little
+    chown system system /dev/voxpopuli/touch_boost_duration
+    chown system system /dev/voxpopuli/touch_boost_topapp
+    chown system system /dev/voxpopuli/touch_min_freq_big
+    chown system system /dev/voxpopuli/touch_min_freq_little
+
 on property:sys.boot_completed=1
 
     # Disable thermal & BCL core_control
@@ -36,22 +71,19 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2150400
 
-    # Online CPU2
-    write /sys/devices/system/cpu/cpu2/online 1
-
     # if EAS is present, switch to schedutil governor (no effect if not EAS)
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
 
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 500
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 8000
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 2000
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 500
     write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 0
     write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 2000
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 6000
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 500
     write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable 0
 
     # Re-enable thermal and BCL hotplug
-    write /sys/module/msm_thermal/core_control/enabled 1
+    # write /sys/module/msm_thermal/core_control/enabled 1
 
     # Input boost configuration
     write /sys/module/cpu_boost/parameters/input_boost_freq "0:0 2:0"
@@ -101,7 +133,7 @@ on property:sys.boot_completed=1
     setprop sys.post_boot.parsed 1
 
     # Set I/O squeduler
-    setprop sys.io.scheduler "bfq"
+    setprop sys.io.scheduler "cfq"
 
     # Set GPU idle frequency to 133 MHz
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
@@ -111,12 +143,12 @@ on property:sys.boot_completed=1
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/max_freq 624000000
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/min_freq 133000000
 
-    # Update cpusets now that boot is complete and we want better load balancing
+    # Update foreground and background cpusets
     write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/foreground/boost/cpus 0-2
-    write /dev/cpuset/foreground/cpus 0-2
+    write /dev/cpuset/foreground/boost/cpus 0-1,3
+    write /dev/cpuset/foreground/cpus 0-1,3
     write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/system-background/cpus 0-1
 
 on charger
     write /sys/devices/system/cpu/cpu2/online 0

@@ -1,30 +1,27 @@
-# Copyright (C) 2017 The Android Open Source Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Copyright (C) 2017  Joshua Choo
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(call is-vendor-board-platform,QCOM),true)
+# HAL module implemenation stored in
+# hw/<POWERS_HARDWARE_MODULE_ID>.<ro.hardware>.so
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE_OWNER := qcom
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_MODULE := android.hardware.power@1.0-service.pme
-LOCAL_INIT_RC := android.hardware.power@1.0-service.pme.rc
-LOCAL_SRC_FILES := service.cpp Power.cpp power-helper.c metadata-parser.c utils.c list.c hint-data.c power-common.c
+LOCAL_SHARED_LIBRARIES := liblog libcutils libdl
+LOCAL_SRC_FILES := power.c metadata-parser.c utils.c list.c hint-data.c power-common.c
 
 # Include target-specific files.
 ifeq ($(call is-board-platform-in-list, msm8996), true)
@@ -35,17 +32,23 @@ ifeq ($(TARGET_USES_INTERACTION_BOOST),true)
     LOCAL_CFLAGS += -DINTERACTION_BOOST
 endif
 
-LOCAL_SHARED_LIBRARIES := \
-    libbase \
-    libcutils \
-    libhidlbase \
-    libhidltransport \
-    liblog \
-    libutils \
-    android.hardware.power@1.0 \
+#ifneq ($(TARGET_USES_AOSP),true)
+#    LOCAL_CFLAGS += -DEXTRA_POWERHAL_HINTS
+#endif
 
-LOCAL_HEADER_LIBRARIES := \
-    libhardware_headers
-
-include $(BUILD_EXECUTABLE)
+# Double tap to wake
+ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
+LOCAL_CFLAGS += -DTAP_TO_WAKE_NODE=\"$(TARGET_TAP_TO_WAKE_NODE)\"
 endif
+
+# High Brightness Mode
+ifneq ($(TARGET_HIGH_BRIGHTNESS_MODE_NODE),)
+ifneq ($(POWER_FEATURE_HIGH_BRIGHTNESS_MODE),)
+LOCAL_CFLAGS += -DHIGH_BRIGHTNESS_MODE_NODE=\"$(TARGET_HIGH_BRIGHTNESS_MODE_NODE)\"
+LOCAL_CFLAGS += -DPOWER_FEATURE_HIGH_BRIGHTNESS_MODE=$(POWER_FEATURE_HIGH_BRIGHTNESS_MODE)
+endif
+endif
+
+LOCAL_MODULE := power.$(TARGET_BOARD_PLATFORM)
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)

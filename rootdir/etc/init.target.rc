@@ -306,7 +306,7 @@ on post-fs-data
     chown nfc nfc /dev/pn544
 
     # Create PERFD deamon related dirs
-    setprop ro.min_freq_0 307000
+    setprop ro.min_freq_0 307200
     mkdir /data/misc/perfd 0755 root system
     chmod 2755 /data/misc/perfd
     mkdir /data/system/perfd 0770 root system

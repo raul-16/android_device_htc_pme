@@ -1,4 +1,4 @@
-#!/vendor/bin/sh
+#!/system/bin/sh
 # Copyright (c) 2011, Code Aurora Forum. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,8 @@ DEST=$2
 PATTERN=$3
 
 # No path is set up at this point so we have to do it here.
-export PATH=/vendor/bin
+PATH=/sbin:/system/sbin:/system/bin:/system/xbin:/vendor/bin:/system/vendor/bin
+export PATH
 
 # Check for images and set up symlinks
 cd $SRC

@@ -373,7 +373,7 @@ on fs
     setprop ro.boot.firmware.cpe 1
 
     # HTC feature: Support multiple firmware image mount points
-    write /sys/module/firmware_class/parameters/fw_path /firmware/adsp,/firmware/radio,/firmware/slpi,/firmware/venus,/firmware/wsd,/vendor/firmware
+    write /sys/module/firmware_class/parameters/fw_path /firmware/image,/firmware/adsp,/firmware/radio,/firmware/slpi,/firmware/venus,/firmware/wsd,/vendor/firmware
 
     mkdir /persist/data 0700 system system
     mkdir /persist/bms 0700 root system
@@ -381,3 +381,26 @@ on fs
 
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
+
+# Services begin here
+# Firmware linking to /firmware/image
+service fwnk-adsp  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp
+    class firmware-link
+    oneshot
+
+service fwnk-cpe  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "cpe*" cpe
+    class firmware-link
+    oneshot
+
+service fwnk-radio /system/bin/sh /init.qcom.firmware_links.sh /firmware/radio /firmware/image "modem* mba* radiover* version* qdsp6m* msadp*" radio
+    class firmware-link
+    oneshot
+
+service fwnk-sec  /system/bin/sh /init.qcom.firmware_links.sh /system/etc/firmware /firmware/image "keymaste* gpta*" sec
+    class firmware-link
+    oneshot
+
+service fwnk-venus /system/bin/sh /init.qcom.firmware_links.sh /firmware/venus /firmware/image "venus*" venus
+    class firmware-link
+    oneshot
+

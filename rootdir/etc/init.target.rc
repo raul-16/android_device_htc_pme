@@ -46,6 +46,9 @@ on early-init
     mkdir /firmware/venus 0771 system system
     mkdir /firmware/wsd 0500 oem_2903 oem_2903
 
+    # Link /vendor to /system/vendor for devices without a vendor partition.
+    symlink /system/vendor /vendor
+
 on early-boot
     # SSR setup
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"

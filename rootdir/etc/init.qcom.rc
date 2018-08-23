@@ -545,34 +545,6 @@ service netmgrd /vendor/bin/netmgrd
     class main
     writepid /dev/cpuset/system-background/tasks
 
-service htcnetd /system/bin/htcnetd
-    class main
-    socket htcnetd stream 0660 root inet
-    user root
-    writepid /dev/cpuset/system-background/tasks
-
-on property:persist.sys.htcdebugflag=1
-    setprop persist.log.tag.dnsmasq V
-    setprop persist.log.tag.Netd V
-    setprop persist.log.tag.NetdConnector V
-    setprop persist.log.tag.IptablesRestoreController V
-    setprop persist.log.tag.BandwidthController V
-    setprop persist.log.tag.NetUtilsWrapper V
-    setprop persist.log.tag.iptables V
-    setprop persist.log.tag.ip6tables V
-    setprop persist.log.tag.DnsProxyListener V
-
-on property:persist.sys.htcdebugflag=0
-    setprop persist.log.tag.dnsmasq W
-    setprop persist.log.tag.Netd W
-    setprop persist.log.tag.NetdConnector W
-    setprop persist.log.tag.IptablesRestoreController W
-    setprop persist.log.tag.BandwidthController W
-    setprop persist.log.tag.NetUtilsWrapper W
-    setprop persist.log.tag.iptables W
-    setprop persist.log.tag.ip6tables W
-    setprop persist.log.tag.DnsProxyListener W
-
 service energy-awareness /vendor/bin/energy-awareness
     class main
     user root
@@ -692,21 +664,6 @@ service op-prop /vendor/bin/operator-properties
     class main
     disabled
     oneshot
-
-# HTC Camera - BEGIN
-on property:persist.sys.htcdebugflag=1
-    setprop persist.log.tag.QCamera V
-    setprop persist.log.tag.mm-camera V
-    setprop persist.log.tag.camera-HTC-AEC V
-    setprop persist.log.tag.QCamera2HWI V
-    setprop persist.log.tag.EXT_REF V
-
-on property:persist.sys.htcdebugflag=0
-    setprop persist.log.tag.QCamera W
-    setprop persist.log.tag.mm-camera W
-    setprop persist.log.tag.camera-HTC-AEC W
-    setprop persist.log.tag.QCamera2HWI W
-    setprop persist.log.tag.EXT_REF W
 
 # Triggers start here
 on class_start:late_start

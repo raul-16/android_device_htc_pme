@@ -1,5 +1,5 @@
 # Audio
-af.fast_track_multiplier=2
+af.fast_track_multiplier=1
 av.offload.enable=false
 audio.offload.disable=true
 audio.offload.video=false
@@ -10,7 +10,6 @@ persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
 persist.vendor.audio.fluence.speaker=true
 persist.vendor.bt.enable.splita2dp=false
-ro.audio.flinger_standbytime_ms=300
 ro.config.media_vol_steps=25
 ro.config.vc_call_vol_steps=7
 ro.vendor.audio.sdk.ssr=false
@@ -19,7 +18,7 @@ vendor.audio.dmid=-1286820014
 vendor.audio.dolby.ds2.enabled=1
 vendor.audio.dolby.ds2.hardbypass=1
 vendor.audio.flac.sw.decoder.24bit=true
-vendor.audio_hal.period_size=240
+vendor.audio_hal.period_size=192
 vendor.audio.hw.aac.encoder=true
 vendor.audio.offload.buffer.size.kb=1024
 vendor.audio.offload.multiaac.enable=false
@@ -61,9 +60,6 @@ persist.data.mode=concurrent
 
 # Default pd_enable value
 persist.sys.pd_enable=0
-
-# Disable rotator split feature
-sdm.debug.disable_rotator_split=1
 
 # DRM
 drm.service.enabled=true

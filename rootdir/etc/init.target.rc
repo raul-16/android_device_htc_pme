@@ -222,13 +222,13 @@ on boot
     chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/hall_sensor
     chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_hub_rdata
     chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/facedown_enabled
-    chown system gesture_motion /sys/class/htc_sensorhub/sensor_hub/gesture_motion
-    chown system system /sys/class/htc_sensorhub/sensor_hub/mcu_wakeup
-    chown system system /sys/class/htc_sensorhub/sensor_hub/dbg_flag
-    chown system gesture_motion /sys/class/htc_sensorhub/sensor_hub/edge_thd
-    chown system gesture_motion /sys/android_edge/hw_version
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_wakeup
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/dbg_flag
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/edge_thd
+    chown system system /sys/android_edge/hw_version
     chown system system /sys/android_edge/gadc
-    chown system system /sys/class/htc_sensorhub/sensor_hub/vbus_time
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/vbus_time
     chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/vibrate_ms
 
     chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/ap_calibrator_data_acc_rl
@@ -260,14 +260,14 @@ on boot
     chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/hall_sensor
     chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_hub_rdata
     chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/facedown_enabled
-    chmod 664 /sys/class/htc_sensorhub/sensor_hub/gesture_motion
-    chmod 664 /sys/class/htc_sensorhub/sensor_hub/mcu_wakeup
-    chmod 664 /sys/class/htc_sensorhub/sensor_hub/dbg_flag
-    chmod 664 /sys/class/htc_sensorhub/sensor_hub/edge_thd
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_wakeup
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/dbg_flag
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/edge_thd
     chmod 664 /sys/android_edge/hw_version
     chmod 664 /sys/android_edge/gadc
-    chmod 440 /sys/class/htc_sensorhub/sensor_hub/vbus_time
-    chmod 660 /sys/class/htc_sensorhub/sensor_hub/vibrate_ms
+    chmod 440 /sys/devices/virtual/htc_sensorhub/sensor_hub/vbus_time
+    chmod 660 /sys/devices/virtual/htc_sensorhub/sensor_hub/vibrate_ms
 
     # G-Sensor Calibration USER
     chown system system /sys/class/htc_g_sensor/g_sensor/g_sensor_user_offset

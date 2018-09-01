@@ -377,10 +377,10 @@ PRODUCT_PACKAGES += \
 
 # Qualcomm
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-htchep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-htchep.xml \
-    $(LOCAL_PATH)/configs/privapp-permissions-htcshep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-htcshep.xml \
-    $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-oem.xml \
-    $(LOCAL_PATH)/configs/qti_whitelist.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/qti_whitelist.xml
+    $(LOCAL_PATH)/configs/privapp-permissions-htchep.xml:system/etc/permissions/privapp-permissions-htchep.xml \
+    $(LOCAL_PATH)/configs/privapp-permissions-htcshep.xml:system/etc/permissions/privapp-permissions-htcshep.xml \
+    $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:system/etc/permissions/privapp-permissions-oem.xml \
+    $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml
 
 # RCS
 PRODUCT_PACKAGES += \

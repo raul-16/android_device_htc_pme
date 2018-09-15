@@ -102,6 +102,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/adblocker:system/bin/adblocker
 
+# ANT+
+PRODUCT_PACKAGES += \
+    AntHalService \
+    libantradio \
+    antradio_app \
+    com.dsi.ant.antradio_library
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -145,12 +152,6 @@ PRODUCT_COPY_FILES += \
     $(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service \
-    libbt-vendor \
-    libbthost_if
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 

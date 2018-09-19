@@ -115,6 +115,11 @@ TARGET_PROVIDES_POWERHAL := true
 TARGET_POWERHAL_VARIANT := voxpopuli
 TARGET_USES_INTERACTION_BOOST := false
 
+# Camera API Override
+TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
+    /vendor/bin/mm-qcamera-daemon=27 \
+    /system/vendor/bin/mm-qcamera-daemon=27
+
 # Dex
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)

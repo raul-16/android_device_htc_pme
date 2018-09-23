@@ -100,7 +100,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=1 \
-    debug.gralloc.enable_fb_ubwc=1 \
     debug.sf.hw=1 \
     debug.sf.latch_unsignaled=1 \
     dev.pm.dyn_samplingrate=1 \
@@ -109,11 +108,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0 \
     ro.opengles.version=196610 \
     sdm.debug.disable_rotator_split=1 \
-    sdm.debug.disable_skip_validate=1 \
-    sdm.perf_hint_window=50 \
     debug.sf.recomputecrop=0 \
     vendor.display.disable_rotator_downscale=1 \
     ro.sf.lcd_density=640
+    vendor.display.perf_hint_window=50 \
+    vendor.gralloc.enable_fb_ubwc=1 \
+    vendor.display.disable_skip_validate=1
 
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -150,8 +150,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.vendor.qti.sys.fw.bg_apps_limit=60 \
-    sdm.perf_hint_window=50
+    ro.vendor.qti.sys.fw.bg_apps_limit=60
 
 # Priv-app permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \

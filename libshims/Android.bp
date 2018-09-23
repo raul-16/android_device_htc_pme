@@ -13,3 +13,10 @@ cc_library_shared {
     shared_libs: ["libutils","libui"],
     proprietary: true,
 }
+
+cc_library_shared {
+    srcs: ["libshim_ims.cpp"],
+    name: "libshim_ims",
+    shared_libs: ["libutils","libui"],
+    proprietary: true,
+}

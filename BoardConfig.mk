@@ -209,7 +209,8 @@ BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
     /vendor/lib64/libril.so|/vendor/lib64/libshim_ril.so \
-    /vendor/lib/hw/camera.msm8996.so|/vendor/lib/libshim_camera.so
+    /vendor/lib/hw/camera.msm8996.so|/vendor/lib/libshim_camera.so \
+    /system/lib64/lib-imsvideocodec.so|libshim_ims.so
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

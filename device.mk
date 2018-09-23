@@ -440,7 +440,8 @@ PRODUCT_PACKAGES += \
     com.android.ims.rcsmanager.xml \
     com.android.ims.rcsmanager \
     ims-ext-common \
-    telephony-ext
+    telephony-ext \
+    libshim_ims
 
 PRODUCT_BOOT_JARS += \
     telephony-ext

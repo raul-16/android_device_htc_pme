@@ -219,7 +219,7 @@ TARGET_RIL_VARIANT := caf
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so \
-    /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/hw/libshim_camera.so
+    /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

@@ -1,5 +1,14 @@
+soong_namespace {
+}
+
 cc_library_shared {
     srcs: ["ril_shim.cpp"],
     name: "libshim_ril",
+    proprietary: true,
+}
+
+cc_library_shared {
+    srcs: ["camera_shim.cpp"],
+    name: "libshim_camera",
     proprietary: true,
 }

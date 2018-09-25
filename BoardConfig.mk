@@ -217,7 +217,13 @@ TARGET_RIL_VARIANT := caf
 # BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # SHIMS
-TARGET_LD_SHIM_LIBS := /system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so
+TARGET_LD_SHIM_LIBS := \
+    /system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so \
+    /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    device/htc/pme/libshims
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true

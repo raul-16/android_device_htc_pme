@@ -160,6 +160,7 @@ PRODUCT_PACKAGES += \
     com.qualcomm.qti.camera \
     libmm-qcamera \
     Snap \
+    libshim_camera \
     libion
 
 PRODUCT_PACKAGES += \

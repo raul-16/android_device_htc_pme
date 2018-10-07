@@ -148,7 +148,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.vidc.enc.disable.pq=true \
     vendor.video.disable.ubwc=1 \
     vidc.enc.dcvs.extra-buff-count=2 \
-    vidc.debug.perf.mode=2
+    vidc.debug.perf.mode=2 \
+    av.debug.disable.pers.cache=true
+
 
 # Memory optimizations
 PRODUCT_PROPERTY_OVERRIDES += \

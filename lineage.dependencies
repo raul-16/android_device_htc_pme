@@ -1,8 +1,8 @@
 [
   {
-    "repository":  "Fagyi/htc_pme_kernel",
+    "repository":  "Fagyi/android_kernel_htc_msm8996",
     "target_path": "kernel/htc/msm8996"
-    "branch":      "aosip-oreo"
+    "branch":      "eas-o-dev"
   },
   {
     "repository": "android_packages_apps_FlipFlap",

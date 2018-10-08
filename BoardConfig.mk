@@ -117,8 +117,8 @@ TARGET_USES_INTERACTION_BOOST := false
 
 # Camera API Override
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
-    /vendor/bin/mm-qcamera-daemon=27 \
-    /system/vendor/bin/mm-qcamera-daemon=27
+    /vendor/bin/mm-qcamera-daemon=26 \
+    /system/vendor/bin/mm-qcamera-daemon=26
 
 # Dex
 ifeq ($(HOST_OS),linux)

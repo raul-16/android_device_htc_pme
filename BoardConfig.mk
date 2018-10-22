@@ -102,11 +102,9 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_CUSTOM_BT_CONFIG := $(DEVICE_PATH)/bluetooth/libbt_vndcfg.txt
 
 # Camera
-TARGET_USES_QTI_CAMERA2CLIENT := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
-TARGET_CAMERASERVICE_CLOSES_NATIVE_HANDLES := true
 
 # CPU
 ENABLE_CPUSETS := true
@@ -114,11 +112,6 @@ ENABLE_SCHEDBOOST := true
 TARGET_PROVIDES_POWERHAL := true
 TARGET_POWERHAL_VARIANT := voxpopuli
 TARGET_USES_INTERACTION_BOOST := false
-
-# Camera API Override
-TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
-    /vendor/bin/mm-qcamera-daemon=26 \
-    /system/vendor/bin/mm-qcamera-daemon=26
 
 # Dex
 ifeq ($(HOST_OS),linux)
@@ -217,8 +210,8 @@ TARGET_RIL_VARIANT := caf
 
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
-    /system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so \
-    /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so
+    /vendor/lib64/libril.so|/vendor/lib64/libshim_ril.so \
+    /vendor/lib/hw/camera.msm8996.so|/vendor/lib/libshim_camera.so
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

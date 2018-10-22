@@ -10,5 +10,6 @@ cc_library_shared {
 cc_library_shared {
     srcs: ["camera_shim.cpp"],
     name: "libshim_camera",
+    shared_libs: ["libutils","libui"],
     proprietary: true,
 }

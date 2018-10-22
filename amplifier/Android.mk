@@ -10,6 +10,7 @@ LOCAL_SHARED_LIBRARIES := \
        libtinycompress
 
 LOCAL_HEADER_LIBRARIES += libhardware_headers
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 
 LOCAL_C_INCLUDES := \
        external/tinyalsa/include \
@@ -22,9 +23,6 @@ LOCAL_C_INCLUDES := \
 LOCAL_SRC_FILES := \
        audio_amplifier.c \
        tfa.c
-
-LOCAL_ADDITIONAL_DEPENDENCIES += INSTALLED_KERNEL_HEADERS
-LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 
 LOCAL_MODULE := audio_amplifier.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_RELATIVE_PATH := hw

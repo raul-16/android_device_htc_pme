@@ -13,5 +13,6 @@ cc_binary {
         "libutils",
         "android.hardware.light@2.0",
     ],
+    header_libs: [ "generated_kernel_headers" ],
     proprietary: true,
 }

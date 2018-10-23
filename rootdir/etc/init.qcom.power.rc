@@ -96,7 +96,7 @@ on property:sys.boot_completed=1
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 8000
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 10000
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable
     write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 0
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
@@ -106,22 +106,29 @@ on property:sys.boot_completed=1
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor schedutil
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 6000
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 5000
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable
     write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable 0
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us
     write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 2000
 
-    # Re-enable thermal and BCL hotplug
-    # write /sys/module/msm_thermal/core_control/enabled 1
-
     # CPU Scheduler
     chmod 755 /proc/sys/kernel/sched_boost
     write /proc/sys/kernel/sched_boost 0
 
+    # Re-enable thermal and BCL hotplug
+    # write /sys/module/msm_thermal/core_control/enabled 1
+
+    # Disable touch boost
+    write /sys/module/msm_performance/parameters/touchboost 0
+
+    # Input boost configuration
+    write /sys/module/cpu_boost/parameters/input_boost_enabled 0
+    write /sys/module/cpu_boost/parameters/input_boost_freq "0:0 2:0"
+    write /sys/module/cpu_boost/parameters/input_boost_ms 0
+
     # Dynamic SchedTune Boost
-    write /sys/module/cpu_boost/parameters/dynamic_stune_boost_top_app 10
-    write /sys/module/cpu_boost/parameters/dynamic_stune_boost_rt 30
+    write /sys/module/cpu_boost/parameters/dynamic_stune_boost 0
 
     # Enable bus-dcvs
     write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"

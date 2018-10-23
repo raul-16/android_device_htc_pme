@@ -1,6 +1,11 @@
 on init
-    # Button backlight permissions
+    # lights permissions
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/indicator/ModeRGB
     chown system system /sys/class/leds/button-backlight/brightness
+    chmod 660 /sys/class/leds/lcd-backlight/brightness
+    chmod 660 /sys/class/leds/indicator/ModeRGB
+    chmod 660 /sys/class/leds/button-backlight/brightness
 
 service light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.pme
     class hal

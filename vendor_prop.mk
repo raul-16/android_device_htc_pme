@@ -88,9 +88,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
 
-# Fingerprint
+# Fast charge
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.fingerprint.preserve.unused=true
+    persist.hvdcp.allow_opti=1 \
+    ro.cutoff_voltage_mv=3050
 
 # FRP
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -123,11 +124,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     service.qti.ims.enabled=1 \
     persist.radio.videopause.mode=1 \
     persist.volte_enabled_by_hw=1
-
-# Fast charge
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hvdcp.allow_opti=1 \
-    ro.cutoff_voltage_mv=3050
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -576,6 +576,13 @@ on property:init.svc.media=restarting
 on property:init.svc.servicemanager=restarting
     restart qcamerasvr
 
+service vendor.foreground_sh /vendor/bin/init.foreground.sh
+    class main
+    user root
+    group root system readproc
+    disabled
+    oneshot
+
 service qcom-sh /vendor/bin/init.qcom.sh
     class late_start
     user root

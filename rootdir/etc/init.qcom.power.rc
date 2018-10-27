@@ -144,6 +144,9 @@ on property:sys.boot_completed=1
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/max_freq 624000000
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/min_freq 133000000
 
+    # Exec init.foreground.sh in background
+    start vendor.foreground_sh
+
     # Update foreground and background cpusets
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-2

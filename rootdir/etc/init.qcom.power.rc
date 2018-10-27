@@ -134,7 +134,7 @@ on property:sys.boot_completed=1
     setprop sys.post_boot.parsed 1
 
     # Set I/O squeduler
-    setprop sys.io.scheduler "bfq"
+    setprop sys.io.scheduler "cfq"
 
     # Set GPU idle frequency to 133 MHz
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6

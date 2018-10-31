@@ -377,10 +377,6 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
-# Pixel Experience
-PRODUCT_COPY_FILES += \
-  device/htc/pme/nexus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/nexus.xml
-
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service-qti

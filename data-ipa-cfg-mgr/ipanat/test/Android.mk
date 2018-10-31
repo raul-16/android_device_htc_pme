@@ -10,7 +10,7 @@ include $(CLEAR_VARS)
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ipanat/inc
 
-LOCAL_HEADER_LIBRARIES += generated_kernel_headers
+LOCAL_HEADER_LIBRARIES := generated_kernel_headers
 
 LOCAL_MODULE := ipa_nat_test
 LOCAL_SRC_FILES := ipa_nat_test000.c \
@@ -41,7 +41,7 @@ LOCAL_SRC_FILES := ipa_nat_test000.c \
 
 LOCAL_SHARED_LIBRARIES := libipanat
 
-LOCAL_MODULE_TAGS := debug
+LOCAL_MODULE_TAGS := tests
 LOCAL_MODULE_PATH := $(TARGET_OUT_DATA)/kernel-tests/ip_accelerator
 
 include $(BUILD_EXECUTABLE)

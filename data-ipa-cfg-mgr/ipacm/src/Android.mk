@@ -1,10 +1,6 @@
-BOARD_PLATFORM_LIST := msm8909
-BOARD_PLATFORM_LIST += msm8916
-BOARD_PLATFORM_LIST += msm8917
 BOARD_IPAv3_LIST := msm8998
-ifneq ($(call is-board-platform-in-list,$(BOARD_PLATFORM_LIST)),true)
-ifneq (,$(filter $(QCOM_BOARD_PLATFORMS),$(TARGET_BOARD_PLATFORM)))
-ifneq (, $(filter aarch64 arm arm64, $(TARGET_ARCH)))
+BOARD_IPAv3_LIST += sdm845
+BOARD_IPAv3_LIST += sdm710
 
 LOCAL_PATH := $(call my-dir)
 
@@ -12,21 +8,11 @@ include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../src
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../inc
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ipanat/inc
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../hal/inc
-ifeq ($(call is-platform-sdk-version-at-least,20),true)
-LOCAL_C_INCLUDES += external/icu/icu4c/source/common
-else
-LOCAL_C_INCLUDES += external/icu4c/common
-endif
-#LOCAL_C_INCLUDES += external/dhcpcd
-LOCAL_C_INCLUDES += external/libxml2/include
-LOCAL_C_INCLUDES += external/libnetfilter_conntrack/include
-LOCAL_C_INCLUDES += external/libnfnetlink/include
 
-LOCAL_HEADER_LIBRARIES += generated_kernel_headers
+LOCAL_HEADER_LIBRARIES := generated_kernel_headers
 
 LOCAL_CFLAGS := -DFEATURE_IPA_ANDROID
+LOCAL_CFLAGS += -DFEATURE_IPACM_RESTART
 LOCAL_CFLAGS += -DFEATURE_IPACM_HAL -Wall -Werror -Wno-error=macro-redefined
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 LOCAL_CFLAGS += -DDEBUG
@@ -40,7 +26,6 @@ filetoadd = bionic/libc/kernel/arch-arm/asm/posix_types.h
 LOCAL_CFLAGS += $(shell if [ -a $(filetoadd) ] ; then echo -include $(filetoadd) ; fi ;)
 filetoadd = bionic/libc/kernel/arch-arm/asm/byteorder.h
 LOCAL_CFLAGS += $(shell if [ -a $(filetoadd) ] ; then echo -include $(filetoadd) ; fi ;)
-
 
 LOCAL_SRC_FILES := IPACM_Main.cpp \
 		IPACM_EvtDispatcher.cpp \
@@ -112,7 +97,3 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(LOCAL_MODULE)
 LOCAL_MODULE_OWNER := ipacm
 include $(BUILD_PREBUILT)
-
-endif # $(TARGET_ARCH)
-endif
-endif

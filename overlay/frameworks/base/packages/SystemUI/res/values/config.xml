@@ -24,7 +24,7 @@
     <bool name="doze_display_state_supported">true</bool>
 
     <!-- Doze: can we assume the pickup sensor includes a proximity check? -->
-    <bool name="doze_pickup_performs_proximity_check">false</bool>
+    <bool name="doze_pickup_performs_proximity_check">true</bool>
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_default" translatable="false">

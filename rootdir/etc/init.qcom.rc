@@ -427,6 +427,7 @@ service adsprpcd /vendor/bin/adsprpcd
     class main
     user media
     group media
+    writepid /dev/cpuset/foreground/tasks
 
 #service atfwd /vendor/bin/ATFWD-daemon
 #    class late_start
@@ -438,6 +439,7 @@ service charger /charger
     class charger
     group system graphics
     seclabel u:r:healthd:s0
+    writepid /dev/cpuset/system-background/tasks
 
 service cnd /vendor/bin/cnd
     class main
@@ -555,13 +557,13 @@ service ppd /vendor/bin/mm-pp-dpps
     user system
     group system graphics
     socket pps stream 0660 system system
-    writepid /dev/cpuset/system-background/tasks
+    writepid /dev/cpuset/foreground/tasks
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class main
+    class late_start
     user camera
     group camera system inet input graphics
-    writepid /dev/cpuset/camera-daemon/tasks
+    writepid /dev/cpuset/system-background/tasks
 
 on property:init.svc.media=restarting
     restart qcamerasvr
@@ -614,17 +616,18 @@ service sensors /vendor/bin/sensors.qcom
     writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
-   class main
-   user root
-   group root system
-   socket thermal-send-client stream 0666 system system
-   socket thermal-recv-client stream 0660 system system
-   socket thermal-recv-passive-client stream 0666 system system
+    class main
+    user root
+    group root system
+    socket thermal-send-client stream 0666 system system
+    socket thermal-recv-client stream 0660 system system
+    socket thermal-recv-passive-client stream 0666 system system
+    writepid /dev/cpuset/system-background/tasks
 
 service thermal-monitor /vendor/bin/thermal-monitor
-   class main
-   user root
-   writepid /dev/cpuset/system-background/tasks
+    class main
+    user root
+    writepid /dev/cpuset/system-background/tasks
 
 service tftp_server /vendor/bin/tftp_server
     class core
@@ -647,6 +650,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 on property:gsm.sim.operator.numeric=*
     start op-prop

@@ -501,6 +501,11 @@ on property:vendor.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
     start vendor.imsrcsservice
 
+service dpmQmiMgr /vendor/bin/dpmQmiMgr
+    class main
+    user system
+    group radio system
+
 service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core
     user root

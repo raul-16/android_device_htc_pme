@@ -4,7 +4,62 @@ on init
     write /sys/block/mmcblk1/bdi/read_ahead_kb 512
     write /sys/module/lpm_levels/parameters/sleep_disabled "Y"
 
+    # Setup cpusets used by the VR services.
+    mkdir /dev/cpuset/kernel 0750 root system
+    write /dev/cpuset/kernel/cpus 0
+    write /dev/cpuset/kernel/mems 0
+    chown system system /dev/cpuset/kernel/tasks
+    chmod 0660 /dev/cpuset/kernel/tasks
+
+    mkdir /dev/cpuset/system 0750 root system
+    write /dev/cpuset/system/cpus 0
+    write /dev/cpuset/system/mems 0
+    chown system system /dev/cpuset/system/tasks
+    chmod 0660 /dev/cpuset/system/tasks
+
+    mkdir /dev/cpuset/system/performance 0750 root system
+    write /dev/cpuset/system/performance/cpus 0
+    write /dev/cpuset/system/performance/mems 0
+    chown system system /dev/cpuset/system/performance/tasks
+    chmod 0660 /dev/cpuset/system/performance/tasks
+
+    mkdir /dev/cpuset/system/background 0750 root system
+    write /dev/cpuset/system/background/cpus 0
+    write /dev/cpuset/system/background/mems 0
+    chown system system /dev/cpuset/system/background/tasks
+    chmod 0660 /dev/cpuset/system/background/tasks
+
+    mkdir /dev/cpuset/application 0750 root system
+    write /dev/cpuset/application/cpus 0
+    write /dev/cpuset/application/mems 0
+    chown system system /dev/cpuset/application/tasks
+    chmod 0660 /dev/cpuset/application/tasks
+
+    mkdir /dev/cpuset/application/performance 0750 root system
+    write /dev/cpuset/application/performance/cpus 0
+    write /dev/cpuset/application/performance/mems 0
+    chown system system /dev/cpuset/application/performance/tasks
+    chmod 0660 /dev/cpuset/application/performance/tasks
+
+    mkdir /dev/cpuset/application/background 0750 root system
+    write /dev/cpuset/application/background/cpus 0
+    write /dev/cpuset/application/background/mems 0
+    chown system system /dev/cpuset/application/background/tasks
+    chmod 0660 /dev/cpuset/application/background/tasks
+
+    # Set default schedtune value for foreground/top-app (only affects EAS)
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/foreground/schedtune.boost 0
+    write /dev/stune/background/schedtune.boost 0
+    write /dev/stune/background/schedtune.prefer_idle 0
+    write /dev/stune/top-app/schedtune.boost 0
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+    write /dev/stune/schedtune.boost 0
+    write /dev/stune/schedtune.prefer_idle 0
+
 on boot
+    # Exec init.foreground.sh in background
+    start vendor.foreground_sh
     # Update foreground and background cpusets
     write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/background/cpus 0-3
@@ -21,34 +76,36 @@ on boot
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
+    # Update DVR cpusets to boot-time values.
+    write /dev/cpuset/kernel/cpus 0-3
+    write /dev/cpuset/system/cpus 0-3
+    write /dev/cpuset/system/performance/cpus 0-3
+    write /dev/cpuset/system/background/cpus 0-3
+    write /dev/cpuset/system/cpus 0-3
+    write /dev/cpuset/application/cpus 0-3
+    write /dev/cpuset/application/performance/cpus 0-3
+    write /dev/cpuset/application/background/cpus 0-3
+    write /dev/cpuset/application/cpus 0-3
+
+    # Low Memory Killer
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/debug_level 0
+    write /sys/module/lowmemorykiller/parameters/minfree "21816,29088,36360,43632,50904,65448"
+
+    # Disable thermal & BCL core_control
+    write /sys/module/msm_thermal/core_control/enabled 0
+
     # Bring back main cores CPU 0,2
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
 
-    # Set default schedtune value for foreground/top-app (only affects EAS)
-    write /dev/stune/foreground/schedtune.prefer_idle 1
-    write /dev/stune/foreground/schedtune.boost 0
-    write /dev/stune/background/schedtune.boost 0
-    write /dev/stune/background/schedtune.prefer_idle 0
-    write /dev/stune/top-app/schedtune.boost 0
-    write /dev/stune/top-app/schedtune.prefer_idle 1
-    write /dev/stune/schedtune.boost 0
-    write /dev/stune/schedtune.prefer_idle 0
-
-on property:sys.boot_completed=1
-
-    # Disable thermal & BCL core_control
-    write /sys/module/msm_thermal/core_control/enabled 0
-
     # Min/Max Freqs
-    write /sys/devices/system/cpu/cpu0/online 1
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
-    write /sys/devices/system/cpu/cpu2/online 1
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2150400
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
@@ -118,19 +175,10 @@ on property:sys.boot_completed=1
     write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
 
+on property:sys.boot_completed=1
+
     # Enable all LPMs (this will enable C4, D4, D3, E4 and M3 LPMs)
     write /sys/module/lpm_levels/parameters/sleep_disabled "N"
-
-    # Low Memory Killer
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
-    write /sys/module/lowmemorykiller/parameters/debug_level 0
-    write /sys/module/lowmemorykiller/parameters/minfree "21816,29088,36360,43632,50904,65448"
-
-    # VM Tweaks
-    write /proc/sys/vm/dirty_background_ratio 20
-    write /proc/sys/vm/dirty_expire_centisecs 100
-    write /proc/sys/vm/swappiness 5
-    write /proc/sys/vm/vfs_cache_pressure 60
 
     # Set perfd properties
     setprop sys.post_boot.parsed 1
@@ -146,16 +194,21 @@ on property:sys.boot_completed=1
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/max_freq 624000000
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/min_freq 133000000
 
-    # Exec init.foreground.sh in background
-    start vendor.foreground_sh
-
-    # Update foreground and background cpusets
+    # update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/foreground/boost/cpus 0-2
     write /dev/cpuset/foreground/cpus 0-2
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-2
     write /dev/cpuset/restricted/cpus 0-1
+
+    # Update DVR cpusets to runtime values.
+    write /dev/cpuset/kernel/cpus 0,1
+    write /dev/cpuset/system/performance/cpus 2
+    write /dev/cpuset/system/background/cpus 0
+    write /dev/cpuset/system/cpus 0,2
+    write /dev/cpuset/application/performance/cpus 3
+    write /dev/cpuset/application/background/cpus 1
+    write /dev/cpuset/application/cpus 1,3
 
 on charger
     write /sys/devices/system/cpu/cpu2/online 0

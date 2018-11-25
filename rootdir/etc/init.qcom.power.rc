@@ -122,6 +122,7 @@ on property:sys.boot_completed=1
     write /sys/module/lpm_levels/parameters/sleep_disabled "N"
 
     # Low Memory Killer
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/debug_level 0
     write /sys/module/lowmemorykiller/parameters/minfree "21816,29088,36360,43632,50904,65448"
 

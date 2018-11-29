@@ -105,7 +105,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dev.pm.dyn_samplingrate=1 \
     persist.demo.hdmirotationlock=false \
     persist.hwc.enable_vds=1 \
-    persist.sys.wfd.virtual=0 \
     ro.opengles.version=196610 \
     sdm.debug.disable_rotator_split=1 \
     debug.sf.recomputecrop=0 \
@@ -207,6 +206,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # TimeService
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.delta_time.enable=true
+
+# WFD
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.debug.wfd.enable=1 \
+    persist.sys.wfd.virtual=0
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \

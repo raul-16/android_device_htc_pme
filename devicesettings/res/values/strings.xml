@@ -20,4 +20,6 @@
 
 <resources>
     <string name="button_settings_summary">Extra button settings</string>
+    <string name="screen_off_gesture_settings_title">Screen off gestures</string>
+    <string name="screen_off_gesture_settings_summary">Manage device specific gestures</string>
 </resources>

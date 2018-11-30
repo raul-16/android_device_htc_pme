@@ -46,12 +46,17 @@
 
         <activity
             android:name=".TouchscreenGestureSettingsActivity"
-            android:label="@string/touchscreen_gesture_settings_title"
+            android:label="@string/screen_off_gesture_settings_title"
             android:theme="@style/Theme.Main">
             <intent-filter>
-                <action android:name="org.lineageos.settings.device.GESTURE_SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.gestures" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/screen_off_gesture_settings_summary" />
         </activity>
 
         <activity

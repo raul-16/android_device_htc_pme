@@ -20,4 +20,6 @@
     <feature name="com.htc.software.HtcSense8.0" />
     <feature name="com.htc.software.PMEUHL" />
     <feature name="com.htc.software.IHSense" />
+    <feature name="com.htc.software.aod" />
+    <feature name="com.htc.software.screencapture" />
 </permissions>

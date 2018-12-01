@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <permissions>
+    <privapp-permissions package="com.quicinc.cne.CNEService">
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.PACKET_KEEPALIVE_OFFLOAD"/>
+    </privapp-permissions>
+
     <privapp-permissions package="com.qti.dpmserviceapp">
         <permission name="android.permission.INTERACT_ACROSS_USERS"/>
     </privapp-permissions>
@@ -8,12 +13,25 @@
         <permission name="android.permission.INTERACT_ACROSS_USERS"/>
     </privapp-permissions>
 
-    <privapp-permissions package="com.quicinc.cne.CNEService">
-        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
-        <permission name="android.permission.PACKET_KEEPALIVE_OFFLOAD"/>
-    </privapp-permissions>
-
     <privapp-permissions package="org.lineageos.settings.device">
         <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
     </privapp-permissions>
+
+    <privapp-permissions package="com.htc.cameragep">
+        <permission name="android.permission.WRITE_MEDIA_STORAGE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.STATUS_BAR"/>
+        <permission name="android.permission.REAL_GET_TASKS"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="com.htc.permission.APP_PLATFORM"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.htc.camera2">
+        <permission name="android.permission.WRITE_MEDIA_STORAGE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.STATUS_BAR"/>
+        <permission name="android.permission.REAL_GET_TASKS"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="com.htc.permission.APP_PLATFORM"/>
+    </privapp-permissions>
+
 </permissions>

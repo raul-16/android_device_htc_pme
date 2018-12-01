@@ -308,6 +308,8 @@ on boot
     # Set cap permissions
     chown system system /sys/android_cap/glove_setting
 
+    write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
+
 on post-fs-data
 
     # NFC local data and nfcee xml storage
@@ -319,6 +321,9 @@ on post-fs-data
     # NFC permissions
     chmod 0666 /dev/pn544
     chown nfc nfc /dev/pn544
+
+    # Create directory for fingerprint
+    mkdir /data/fpc 0770 system system
 
     # Create PERFD deamon related dirs
     setprop ro.min_freq_0 307200

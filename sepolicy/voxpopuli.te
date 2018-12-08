@@ -1,2 +1,0 @@
-allow {system_file system_server} device:dir {rw_file_perms search};
-allow {system_file system_server} device:{dir file} {rw_file_perms};

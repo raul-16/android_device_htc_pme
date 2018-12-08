@@ -1,6 +1,0 @@
-allow init adsprpcd_file:filesystem { relabelto relabelfrom mount };
-allow init misc_block_device:blk_file rw_file_perms;
-
-# Power
-allow init proc_kernel_sched:file rw_file_perms;
-

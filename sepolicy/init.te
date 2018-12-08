@@ -1,0 +1,11 @@
+allow init hwservicemanager:binder { call transfer };
+allow init proc:file setattr;
+allow init property_socket:sock_file write;
+allow init shell_exec:file execute_no_trans;
+allow init sysfs_devfreq:file { open read };
+allow init sysfs:file { open setattr write };
+allow init sysfs_graphics:file { open write };
+allow init sysfs_kgsl:file { open read };
+allow init system_data_file:file append;
+allow init vendor_file:file execute_no_trans;
+allow init vendor_toolbox_exec:file execute_no_trans;

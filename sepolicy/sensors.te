@@ -1,0 +1,2 @@
+allow sensors self:capability dac_override;
+allow sensors sysfs:file { open read };

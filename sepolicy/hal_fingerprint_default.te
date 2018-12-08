@@ -1,0 +1,7 @@
+allow hal_fingerprint_default device:chr_file { open read write };
+allow hal_fingerprint_default fingerprintd_data_file:dir write;
+allow hal_fingerprint_default fingerprintd_data_file:file getattr;
+allow hal_fingerprint_default sysfs:file write;
+allow hal_fingerprint_default system_data_file:dir { add_name remove_name write };
+allow hal_fingerprint_default system_data_file:sock_file { create unlink };
+allow hal_fingerprint_default tee_device:chr_file { ioctl open read write };

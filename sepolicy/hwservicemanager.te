@@ -1,0 +1,8 @@
+allow hwservicemanager init:binder call;
+allow hwservicemanager init:dir search;
+allow hwservicemanager init:file { open read };
+allow hwservicemanager init:process getattr;
+allow hwservicemanager thermal-engine:binder call;
+allow hwservicemanager thermal-engine:dir search;
+allow hwservicemanager thermal-engine:file { open read };
+allow hwservicemanager thermal-engine:process getattr;

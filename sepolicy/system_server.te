@@ -1,0 +1,4 @@
+allow system_server init:binder call;
+allow system_server default_prop:property_service set;
+allow system_server thermal-engine:binder call;
+allow system_server vendor_camera_prop:file { getattr open read };

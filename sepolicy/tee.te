@@ -1,0 +1,2 @@
+allow tee fingerprintd_data_file:file { open read };
+allow tee system_prop:property_service set;

@@ -1,0 +1,5 @@
+# Allow access to sysfs
+allow kernel sysfs:file { open read write getattr };
+allow kernel self:capability dac_override;
+allow kernel vfat:dir search;
+allow kernel vfat:file open;

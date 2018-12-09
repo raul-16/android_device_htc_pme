@@ -1031,6 +1031,8 @@ vendor/lib64/libsystem_health_mon.so
 vendor/qcril.db
 
 # Radio - IMS
+framework/qti-telephony-common.jar|b1953a3599255f08f1785c677d22810f65e0167b
+-priv-app/ims/ims.apk|eef47c0b6f250e7f96e7155d84274b1c83940d8f
 vendor/bin/ims_rtp_daemon
 vendor/bin/imscmservice
 vendor/bin/imsdatadaemon

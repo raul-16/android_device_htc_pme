@@ -1,0 +1,1 @@
+type sysfs_fpc_irq, fs_type, sysfs_type;

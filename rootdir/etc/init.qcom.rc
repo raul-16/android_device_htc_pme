@@ -626,7 +626,6 @@ service vendor.sensors /vendor/bin/sensors.qcom
     class core
     user root
     group root
-    writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
     class main

@@ -33,11 +33,6 @@ on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
 
-  # create symlink for vendor mount points
-    symlink /vendor/firmware_mnt /firmware
-    symlink /vendor/bt_firmware /bt_firmware
-    symlink /vendor/dsp /dsp
-
   # Change ownership of hw_recovery related nodes
     chown system graphics /sys/kernel/debug/dri/0/debug/dump
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_reg
@@ -50,11 +45,6 @@ on early-init
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules msm_11ad_proxy
 
 on init
-
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
-    symlink /sdcard /storage/sdcard0
-
     # Create cgroup mount point for memory
     mkdir /sys/fs/cgroup/memory/bg 0750 root system
     write /sys/fs/cgroup/memory/bg/memory.swappiness 140
@@ -85,6 +75,7 @@ on early-boot
 
     chown system system /mnt/vendor/persist/sensors
     chown system system /mnt/vendor/persist/sensors/sns.reg
+    chown system system /mnt/vendor/persist/sensors/sensors_list.txt
     chown system system /mnt/vendor/persist/sensors/registry
     chown system system /mnt/vendor/persist/sensors/registry/registry
     chown system system /mnt/vendor/persist/sensors/registry/registry/sensors_registry
@@ -107,6 +98,7 @@ on boot
     chown system system /sys/kernel/debug/msm_core/enable
     chown system system /sys/kernel/debug/msm_core/ptable
     chown system system /sys/kernel/boot_slpi/ssr
+    chown system system /sys/kernel/boot_adsp/ssr
     chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
@@ -137,10 +129,10 @@ on boot
     chmod 2770 /dev/socket/qmux_gps
 
     mkdir /persist/drm 0770 system system
-    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+    mkdir /mnt/vendor/persist/bluetooth 0770 bluetooth bluetooth
     mkdir /persist/misc 0770 system system
-    mkdir /persist/alarm 0770 system system
-    mkdir /persist/time 0770 system system
+    mkdir /mnt/vendor/persist/alarm 0770 system system
+    mkdir /mnt/vendor/persist/time 0770 system system
     mkdir /mnt/vendor/persist/secnvm 0770 system system
 
     #Create NETMGR daemon socket area
@@ -181,7 +173,7 @@ on boot
 
 #   Assign TCP buffer thresholds to be ceiling value of technology maximums
 #   Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max  8388608
+    write /proc/sys/net/core/rmem_max  16777216
     write /proc/sys/net/core/wmem_max  8388608
 
     # To prevent out of order acknowledgements from making
@@ -226,10 +218,13 @@ on boot
     chown system system /sys/class/sensors/apds9930-proximity/poll_delay
 
     # Create directory used for display
+    # for backward compatibility
     mkdir /persist/display 0770 system graphics
+    mkdir /mnt/vendor/persist/display 0770 system graphics
 
     # Create vpp directory
     mkdir /mnt/vendor/persist/vpp 0770 media media
+
 
     # Create hvdcp_opti directory
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
@@ -265,8 +260,6 @@ on post-fs-data
     #Create folder of camera
     mkdir /data/vendor/camera 0770 camera camera
 
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
 
     #Create directory for tftp
     mkdir /data/vendor/tombstones 0771 system system
@@ -335,7 +328,6 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
-    mkdir /data/system 0775 system system
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
     #Create directories for Location services
@@ -345,6 +337,11 @@ on post-fs-data
     mkdir /dev/socket/location 0770 gps gps
     mkdir /dev/socket/location/mq 0770 gps gps
     mkdir /dev/socket/location/xtra 0770 gps gps
+    mkdir /data/vendor/location-partner 0770 gps gps
+    mkdir /data/vendor/location-partner/dre 0770 gps gps
+    mkdir /data/vendor/location-partner/ppe 0770 gps gps
+    mkdir /dev/socket/location 0770 gps gps
+    mkdir /dev/socket/location/ehub 0770 gps gps
 
     #Create directory from IMS services
     mkdir /data/shared 0755
@@ -353,9 +350,6 @@ on post-fs-data
     #Create directory for FOTA
     mkdir /data/fota 0771
     chown system system /data/fota
-
-    #Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
 
     # Create /data/time folder for time-services
     mkdir /data/vendor/time/ 0700 system system
@@ -409,15 +403,13 @@ on post-fs-data
     # set aggressive read ahead for dm-0 and dm-1 during boot up
     write /sys/block/dm-0/queue/read_ahead_kb 2048
     write /sys/block/dm-1/queue/read_ahead_kb 2048
+    write /sys/block/dm-2/queue/read_ahead_kb 2048
 
     # Create vpp directory
     mkdir /data/vendor/vpp 0770 media media
 
-    #Create FTM_AP dir for factory test
-    mkdir /data/FTM_AP 0775 system system
-
     #Create dir for TUI
-    mkdir /data/vendor/tui 0600 system drmrpc
+    mkdir /data/vendor/tui 0700 system system
 
     #Start move time data to /data/vendor once post-fs-data done
     start vendor.move_time_data
@@ -622,6 +614,11 @@ service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqb
     group root
     writepid /dev/cpuset/system-background/tasks
 
+service vendor-sensor-sh /vendor/bin/init.qcom.sensors.sh
+    class core
+    user root
+    oneshot
+
 service vendor.sensors /vendor/bin/sensors.qcom
     class core
     user root
@@ -668,6 +665,13 @@ on property:gsm.sim.operator.numeric=*
 
 service op-prop /vendor/bin/operator-properties
     class main
+    disabled
+    oneshot
+
+service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
+    class late_start
+    user root
+    group root system wakelock graphics
     disabled
     oneshot
 

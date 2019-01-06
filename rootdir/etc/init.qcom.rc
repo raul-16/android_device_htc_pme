@@ -674,15 +674,16 @@ service vendor.dataadpl /system/vendor/bin/adpl
     group radio oem_2901 diag usb net_admin
     disabled
 
-service vendor.sensors /vendor/bin/sensors.qcom
+service vendor.sensors /vendor/bin/sscrpcd
     class core
     user root
     group root
+    disabled
 
 service vendor.sensors.qti /vendor/bin/sensors.qti
     class core
-    user system
-    group system
+    user root
+    group root
     disabled
 
 on property:ro.vendor.use_data_netmgrd=false

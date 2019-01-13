@@ -45,7 +45,7 @@ const int CPU_SENSORS[] = {4, 6, 9, 11};
 //qcom, therm-reset-temp
 #define CPU_SHUTDOWN_THRESHOLD        115
 //qcom,freq-mitigation-temp
-#define CPU_THROTTLING_THRESHOLD      95
+#define CPU_THROTTLING_THRESHOLD      60
 #define BATTERY_SHUTDOWN_THRESHOLD    60
 // device/htc/pme/configs/thermal-engine.conf
 #define SKIN_THROTTLING_THRESHOLD     44

@@ -87,6 +87,8 @@ on boot
     write /dev/cpuset/application/background/cpus 0-3
     write /dev/cpuset/application/cpus 0-3
 
+on enable-low-power
+
     # Low Memory Killer
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/debug_level 0
@@ -119,25 +121,21 @@ on boot
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 10000
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 1275
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 1
     chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 850
 
     # Configure governor settings for big cluster
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor schedutil
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 5000
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 1275
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable 0
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable 1
     chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 2000
-
-    # CPU Scheduler
-    chmod 755 /proc/sys/kernel/sched_boost
-    write /proc/sys/kernel/sched_boost 0
+    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 850
 
     # Re-enable thermal and BCL hotplug
     write /sys/module/msm_thermal/core_control/enabled 1
@@ -175,16 +173,17 @@ on boot
     write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
 
-on property:sys.boot_completed=1
-
     # Enable all LPMs (this will enable C4, D4, D3, E4 and M3 LPMs)
     write /sys/module/lpm_levels/parameters/sleep_disabled "N"
 
     # Set perfd properties
     setprop sys.post_boot.parsed 1
 
+on property:sys.boot_completed=1
+    trigger enable-low-power
+
     # Set I/O squeduler
-    setprop sys.io.scheduler "cfq"
+    setprop sys.io.scheduler "bfq"
 
     # Set GPU idle frequency to 133 MHz
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
@@ -193,6 +192,9 @@ on property:sys.boot_completed=1
     write /sys/class/kgsl/kgsl-3d/max_gpuclk 624000000
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/max_freq 624000000
     write /sys/class/devfreq/b00000.qcom,kgsl-3d0/min_freq 133000000
+
+    # CDG congestion control
+    write /proc/sys/net/ipv4/tcp_congestion_control westwood
 
     # update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3

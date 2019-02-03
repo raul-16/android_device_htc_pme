@@ -906,6 +906,11 @@ vendor/lib64/libhtc_common.so
 # NFC
 vendor/firmware/libpn548_fw.so:vendor/lib/libpn548_fw.so
 
+# NFC - SmartcardService
+-priv-app/SmartcardService/SmartcardService.apk
+etc/permissions/org.simalliance.openmobileapi.xml
+framework/org.simalliance.openmobileapi.jar
+
 # Network
 -priv-app/QtiTetherService/QtiTetherService.apk
 vendor/lib64/libconnctrl.so

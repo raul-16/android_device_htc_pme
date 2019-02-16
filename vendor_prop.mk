@@ -67,7 +67,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.tuning_spec=htc \
     persist.ts.postmakeup=false \
     persist.ts.rtmakeup=false \
-    vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap
+    vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap \
+    vendor.camera.hal1.packagelist=com.whatsapp,com.intsig.camscanner
 
 # CNE
 PRODUCT_PROPERTY_OVERRIDES += \

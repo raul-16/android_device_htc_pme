@@ -324,7 +324,7 @@ PRODUCT_PACKAGES += \
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.pme
+    vendor.lineage.livedisplay@2.0-service-sdm
 
 # Marlin IRQ Balancer configuration file
 PRODUCT_COPY_FILES += \

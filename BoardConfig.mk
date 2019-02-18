@@ -204,7 +204,7 @@ TARGET_RIL_VARIANT := caf
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+# BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # SHIMS
 TARGET_LD_SHIM_LIBS := \

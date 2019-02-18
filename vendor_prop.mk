@@ -70,9 +70,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap \
     vendor.camera.hal1.packagelist=com.whatsapp,com.intsig.camscanner
 
-# CNE
+# CNE & DPM
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.cne.feature=1
+    persist.vendor.cne.feature=1 \
+    persist.vendor.dpm.feature=0 \
 
 # Enable STM events
 PRODUCT_PROPERTY_OVERRIDES += \

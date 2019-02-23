@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #ifndef ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H
 #define ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H
 
@@ -31,7 +30,7 @@ namespace V2_0 {
 namespace implementation {
 
 struct Light : public ILight {
-    Light(std::ofstream&& backlight, std::ofstream&& buttonlight, std::ofstream&& indicator);
+    Light(std::ofstream&& backlight, std::ofstream&& capacitive, std::ofstream&& indicator);
 
     // Methods from ::android::hardware::light::V2_0::ILight follow.
     Return<Status> setLight(Type type, const LightState& state)  override;
@@ -41,23 +40,23 @@ private:
     void setAttentionLight(const LightState& state);
     void setBacklight(const LightState& state);
     void setBatteryLight(const LightState& state);
-    void setButtonLight(const LightState& state);
+    void setCapacitiveLight(const LightState& state);
     void setNotificationLight(const LightState& state);
     void setSpeakerBatteryLightLocked();
     void setSpeakerLightLocked(const LightState& state);
 
     std::ofstream mBacklight;
-    std::ofstream mButtonlight;
+    std::ofstream mCapacitive;
     std::ofstream mIndicator;
 
     LightState mAttentionState;
     LightState mBatteryState;
+    LightState mCapacitiveState;
     LightState mNotificationState;
 
     std::unordered_map<Type, std::function<void(const LightState&)>> mLights;
     std::mutex mLock;
 };
-
 }  // namespace implementation
 }  // namespace V2_0
 }  // namespace light

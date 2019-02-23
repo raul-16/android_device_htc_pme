@@ -1,8 +1,6 @@
 cc_binary {
     name: "android.hardware.light@2.0-service.pme",
     relative_install_path: "hw",
-    defaults: ["hidl_defaults"],
-    vendor: true,
     init_rc: ["android.hardware.light@2.0-service.pme.rc"],
     srcs: ["service.cpp", "Light.cpp"],
     shared_libs: [
@@ -12,10 +10,8 @@ cc_binary {
         "libhidltransport",
         "liblog",
         "libhwbinder",
-        "libbase",
-        "libdl",
         "libutils",
         "android.hardware.light@2.0",
     ],
-    header_libs: [ "generated_kernel_headers" ],
+    proprietary: true,
 }

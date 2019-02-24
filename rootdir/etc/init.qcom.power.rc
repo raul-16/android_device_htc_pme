@@ -131,8 +131,8 @@ on property:sys.boot_completed=1
     # Set I/O squeduler
     setprop sys.io.scheduler "bfq"
 
-    # Enable PowerHAL hint processing
-    setprop vendor.powerhal.init 1
+    # Disable PowerHAL hint processing
+    setprop vendor.powerhal.init 0
 
     # Set GPU idle frequency to 133 MHz
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6

@@ -48,7 +48,7 @@
 #define RPM_SYSTEM_STAT "/d/system_stats"
 #endif
 
-#define TAP_TO_WAKE_NODE "/sys/devices/virtual/touch/tp_dev/gesture_on"
+#define TAP_TO_WAKE_NODE "/sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion"
 
 #define ARRAY_SIZE(x) (sizeof((x))/sizeof((x)[0]))
 #define LINE_SIZE 128

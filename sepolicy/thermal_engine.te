@@ -1,2 +1,5 @@
 allow thermal-engine hwservicemanager:binder { call transfer };
 allow thermal-engine hwservicemanager_prop:file { getattr open read };
+allow thermal-engine init:unix_stream_socket connectto;
+allow thermal-engine hal_thermal_hwservice:hwservice_manager add;
+allow thermal-engine hidl_base_hwservice:hwservice_manager add;

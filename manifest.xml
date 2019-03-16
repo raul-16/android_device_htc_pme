@@ -101,6 +101,8 @@
             <name>IGnss</name>
             <instance>default</instance>
         </interface>
+        <fqname>@1.0::IGnss/default</fqname>
+        <fqname>@1.0::IGnss/gnss_vendor</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.gnss</name>
@@ -110,6 +112,7 @@
             <name>ILocHidlGnss</name>
             <instance>gnss_vendor</instance>
         </interface>
+        <fqname>@1.2::ILocHidlGnss/gnss_vendor</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.gnss</name>
@@ -119,6 +122,7 @@
             <name>ILocHidlGnss</name>
             <instance>gnss_vendor</instance>
         </interface>
+        <fqname>@2.0::ILocHidlGnss/gnss_vendor</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.graphics.allocator</name>

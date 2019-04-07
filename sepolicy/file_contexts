@@ -1,4 +1,36 @@
-# Sys
-/sys/devices/soc/soc:fp_fpc1155/irq                             u:object_r:sysfs_fpc_irq:s0
-/sys/devices/soc/soc:fp_fpc1155/irq_count                       u:object_r:sysfs_fpc_irq:s0
-/sys/devices/soc/soc:fp_fpc1155/irq_gpio                        u:object_r:sysfs_fpc_irq:s0
+# Audio
+/dev/htc-acoustic                                                                               u:object_r:audio_device:s0
+/dev/rt5501                                                                                     u:object_r:audio_device:s0
+/dev/tfa9888                                                                                    u:object_r:audio_device:s0
+
+# Encryption
+/dev/block/bootdevice/by-name/extra                                                             u:object_r:forceencrypt_block_device:s0
+
+# Fingerprint
+/dev/htc_smi                                                                                    u:object_r:fpc1155_device:s0
+/data/fpc(/.*)?                                                                                 u:object_r:fingerprintd_data_file:s0
+/sys/devices/soc/soc:fp_fpc1155(/.*)?                                                           u:object_r:sysfs_fpc_irq:s0
+
+# Gesture
+/sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion                                    u:object_r:sysfs_gesture:s0
+
+# HALS
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.pme       		u:object_r:hal_light_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.clearkey                    u:object_r:hal_drm_clearkey_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.widevine	                u:object_r:hal_drm_widevine_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.pme                         u:object_r:hal_lineage_touch_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.2-service.pme                        u:object_r:hal_power_default_exec:s0
+
+# Light
+/sys/devices/soc/rgb-qpnp-19/leds/button-backlight/brightness                                   u:object_r:sysfs:s0
+
+# Radio
+/dev/radio(/.*)?                                                                                u:object_r:radio_data_file:s0
+/dev/block/bootdevice/by-name/rfg_[0-9]+                                                        u:object_r:modem_efs_partition_device:s0
+
+# ZRAM
+/dev/block/zram[0-9]+                                                                           u:object_r:swap_block_device:s0
+
+# vendor
+/vendor/bin/tftp_server                                                                         u:object_r:rfs_access_exec:s0
+

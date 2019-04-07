@@ -2,5 +2,7 @@ allow rild device:dir { add_name write };
 allow rild device:file { create getattr open read write };
 allow rild shell_exec:file execute_no_trans;
 allow rild unlabeled:dir { add_name open read remove_name search write };
-allow rild unlabeled:file { create ioctl open read write getattr lock unlink};
+allow rild unlabeled:file { ioctl open read write getattr lock unlink};
 allow rild vendor_file:file ioctl;
+allow rild radio_data_file:dir rw_dir_perms;
+

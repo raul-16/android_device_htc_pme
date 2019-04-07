@@ -1,2 +1,2 @@
-allow rmt_storage block_device:blk_file { open read write };
-allow rmt_storage debugfs:file { open write };
+dontaudit rmt_storage block_device:blk_file rw_file_perms;
+dontaudit rmt_storage debugfs:file { open write };

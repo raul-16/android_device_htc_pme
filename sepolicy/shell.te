@@ -1,2 +1,2 @@
 # Allow read access to syslog
-allow shell kernel:system syslog_read;
+dontaudit shell kernel:system syslog_read;

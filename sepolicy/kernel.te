@@ -1,5 +1,6 @@
 # Allow access to sysfs
+dontaudit kernel self:capability dac_override;
+allow kernel init:process noatsecure;
 allow kernel sysfs:file { open read write getattr };
-allow kernel self:capability dac_override;
 allow kernel vfat:dir search;
 allow kernel vfat:file open;

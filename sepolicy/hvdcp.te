@@ -1,1 +1,2 @@
-allow hvdcp self:capability dac_override;
+dontaudit hvdcp self:capability { dac_override };
+r_dir_file(hvdcp, sysfs_batteryinfo)

@@ -1,5 +1,35 @@
 allow thermal-engine hwservicemanager:binder { call transfer };
 allow thermal-engine hwservicemanager_prop:file { getattr open read };
 allow thermal-engine init:unix_stream_socket connectto;
-allow thermal-engine hal_thermal_hwservice:hwservice_manager add;
 allow thermal-engine hidl_base_hwservice:hwservice_manager add;
+dontaudit thermal-engine hal_thermal_hwservice:hwservice_manager add;
+dontaudit thermal-engine hal_thermal_hwservice:hwservice_manager find;
+
+allow thermal-engine self:socket create_socket_perms;
+allowxperm thermal-engine self:socket ioctl msm_sock_ipc_ioctls;
+
+# /dev/msm_thermal_query
+allow thermal-engine thermal_device:chr_file rw_file_perms;
+
+# files in /sys/
+r_dir_file(thermal-engine, sysfs_type)
+allow thermal-engine sysfs_thermal:file rw_file_perms;
+allow thermal-engine sysfs_thermal:lnk_file read;
+allow thermal-engine sysfs_thermal:dir search;
+
+r_dir_file(thermal-engine, sysfs_batteryinfo)
+allow thermal-engine sysfs_batteryinfo:file w_file_perms;
+
+# /proc/stat
+allow thermal-engine proc_stat:file { getattr open read };
+
+# access to /dev/diag on debug builds
+userdebug_or_eng(`
+  allow thermal-engine diag_device:chr_file rw_file_perms;
+')
+
+# reboot/shutdown for thermal limits exceeded
+set_prop(thermal-engine, powerctl_prop)
+
+# IThermal Thermal HAL
+hal_server_domain(thermal-engine, hal_thermal)

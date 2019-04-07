@@ -1,2 +1,2 @@
-allow hal_audio_default device:chr_file { rw_file_perms };
+dontaudit hal_audio_default device:chr_file { read write open ioctl };
 allow hal_audio_default system_data_file:sock_file { create rw_file_perms unlink };

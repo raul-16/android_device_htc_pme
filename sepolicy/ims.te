@@ -1,1 +1,2 @@
 allow ims sysfs:file { open read };
+allow hal_rcsservice sysfs:file { open read };

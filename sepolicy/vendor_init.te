@@ -1,12 +1,14 @@
-allow vendor_init bt_firmware_file:lnk_file create;
 allow vendor_init rootfs:lnk_file setattr;
 allow vendor_init shell_exec:file getattr;
 allow vendor_init sysfs:lnk_file setattr;
-allow vendor_init system_data_file:file unlink;
+allow vendor_init media_rw_data_file:file getattr;
+allow vendor_init media_rw_data_file:file { getattr relabelfrom };
 allow vendor_init {
   camera_data_file
+  fingerprintd_data_file
   media_rw_data_file
   nfc_data_file
+  radio_data_file
   rootfs
   system_data_file
   tombstone_data_file

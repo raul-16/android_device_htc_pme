@@ -1,6 +1,8 @@
 allow system_app proc_pagetypeinfo:file { getattr open read };
 allow system_app su_exec:file getattr;
-allow system_app sysfs:file { getattr open read write };
+allow system_app sysfs:file { getattr open read };
 allow system_app sysfs_zram:dir search;
 allow system_app sysfs_zram:file { getattr open read };
 allow system_app vendor_camera_prop:file { getattr open read };
+allow system_app cnd_vendor_prop:file { getattr open read };
+allow system_app sysfs_gesture:file rw_file_perms;

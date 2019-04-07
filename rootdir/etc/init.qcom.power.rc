@@ -1,101 +1,84 @@
 on init
-    write /sys/block/mmcblk0/queue/scheduler "noop"
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
-    write /sys/block/mmcblk1/bdi/read_ahead_kb 512
-    write /sys/module/lpm_levels/parameters/sleep_disabled "Y"
-
-    # set up schedtune
-    write /dev/stune/foreground/schedtune.prefer_idle 1
-    write /dev/stune/top-app/schedtune.boost 10
-    write /dev/stune/top-app/schedtune.prefer_idle 1
-
-on boot
-    # set up schedtune
-    write /dev/stune/foreground/schedtune.prefer_idle 1
-    write /dev/stune/top-app/schedtune.boost 0
-    write /dev/stune/top-app/schedtune.prefer_idle 1
-    write /dev/stune/rt/schedtune.boost 0
-    write /dev/stune/rt/schedtune.prefer_idle 1
-
-    # Update foreground and background cpusets
+    # update cpusets now that processors are up
+    write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/cpus 0-3
+    write /dev/cpuset/foreground/boost/cpus 0-3
     write /dev/cpuset/background/cpus 0-3
     write /dev/cpuset/system-background/cpus 0-3
-    write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/restricted/cpus 0-3
 
     # Add a cpuset for the camera daemon
     # we want all cores for camera
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
+    write /dev/cpuset/camera-daemon/cpus "0-3"
     write /dev/cpuset/camera-daemon/mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
 on enable-low-power
-
-    # Low Memory Killer
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
-    write /sys/module/lowmemorykiller/parameters/debug_level 0
-    write /sys/module/lowmemorykiller/parameters/minfree "21816,29088,36360,43632,50904,65448"
-
-    # Disable thermal & BCL core_control
+    # Disable thermal & BCL core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
+    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
+    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 0
+    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 0
+    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
+
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
     # Bring back main cores CPU 0,2
     write /sys/devices/system/cpu/cpu0/online 1
-    write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-
-    # Min/Max Freqs
-    chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1593600
-    chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
-    chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2150400
-    chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 307200
-
-    # if EAS is present, switch to schedutil governor (no effect if not EAS)
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
 
     # Configure governor settings for little cluster
-    chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
-    chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 1275
-    chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 1
-    chmod 755 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 850
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 19000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 960000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads 80
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 19000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 79000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/enable_prediction 1
 
     # Configure governor settings for big cluster
-    chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor schedutil
-    chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 1275
-    chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/iowait_boost_enable 1
-    chmod 755 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us
-    write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 850
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif 1
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay "19000 1400000:39000 1700000:19000 2100000:79000"
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq 1248000
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy 1
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "85 1500000:90 1800000:70 2100000:95"
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time 19000
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis 79000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 307200
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif 1
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/enable_prediction 1
 
-    # Re-enable thermal and BCL hotplug
+    # Re-enable thermal & BCL core_control now
     write /sys/module/msm_thermal/core_control/enabled 1
+    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
+    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 12
+    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 15
+    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
-    # Disable touch boost
-    write /sys/module/msm_performance/parameters/touchboost 0
+    # Setting b.L scheduler parameters
+    write /proc/sys/kernel/sched_downmigrate 45
+    write /proc/sys/kernel/sched_upmigrate 45
+    write /proc/sys/kernel/sched_freq_inc_notify 400000
+    write /proc/sys/kernel/sched_freq_dec_notify 400000
+    write /proc/sys/kernel/sched_spill_nr_run 3
+    write /proc/sys/kernel/sched_init_task_load 100
 
     # Input boost configuration
-    write /sys/module/cpu_boost/parameters/input_boost_enabled 0
-    write /sys/module/cpu_boost/parameters/input_boost_freq "0:0 2:0"
-    write /sys/module/cpu_boost/parameters/input_boost_ms 0
-
-    # Dynamic SchedTune Boost
-    write /sys/module/cpu_boost/parameters/dynamic_stune_boost 0
+    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1324800 2:1324800"
+    write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
     # Enable bus-dcvs
     write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"
@@ -113,38 +96,31 @@ on enable-low-power
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale 250
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps 1600
 
-    write /sys/class/devfreq/soc:qcom,memlat-cpu0/governor "mem_latency"
-    write /sys/class/devfreq/soc:qcom,memlat-cpu0/polling_interval 10
-    write /sys/class/devfreq/soc:qcom,memlat-cpu2/governor "mem_latency"
-    write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
-    write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
-
-    # Enable all LPMs (this will enable C4, D4, D3, E4 and M3 LPMs)
+    # Enable all low power modes
     write /sys/module/lpm_levels/parameters/sleep_disabled "N"
+
+    # Set idle GPU to 133 Mhz
+    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
+
+    # Set perfd properties
+    setprop sys.post_boot.parsed 1
+
+    # Starting io prefetcher service
+    start iop
+
+on property:init.svc.recovery=running
+    trigger enable-low-power
 
 on property:sys.boot_completed=1
     trigger enable-low-power
 
-    # Set I/O squeduler
+    # Set BFQ scheduler
     setprop sys.io.scheduler "bfq"
 
-    # Disable PowerHAL hint processing
-    setprop vendor.powerhal.init 0
-
-    # Set GPU idle frequency to 133 MHz
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
-
-    # Graphics Settings. Make sure we start at 624mhz(Default)
-    write /sys/class/kgsl/kgsl-3d/max_gpuclk 624000000
-    write /sys/class/devfreq/b00000.qcom,kgsl-3d0/max_freq 624000000
-    write /sys/class/devfreq/b00000.qcom,kgsl-3d0/min_freq 133000000
-
-    # CDG congestion control
-    write /proc/sys/net/ipv4/tcp_congestion_control westwood
-
-    # update cpusets now that boot is complete and we want better load balancing
-    write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/foreground/cpus 0-2
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-2
-    write /dev/cpuset/restricted/cpus 0-1
+    # Update foreground and background cpusets (goal is load balancing
+    # and UI responsiveness).
+    write /dev/cpuset/background/cpus "0"
+    write /dev/cpuset/system-background/cpus "0-2"
+    write /dev/cpuset/foreground/cpus "0-2"
+    write /dev/cpuset/foreground/boost/cpus "0-2"
+    write /dev/cpuset/top-app/cpus "0-3"

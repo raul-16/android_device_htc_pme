@@ -532,14 +532,6 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-on property:gsm.sim.operator.numeric=*
-    start op-prop
-
-service op-prop /vendor/bin/operator-properties
-    class main
-    disabled
-    oneshot
-
 # Firmware linking to /firmware/image
 service fwnk-adsp  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp
     class firmware-link

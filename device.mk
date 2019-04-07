@@ -397,10 +397,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/org.apache.http.legacy.jar:system/framework/org.apache.http.legacy.jar
 
-# Properties
-PRODUCT_PACKAGES += \
-    operator-properties
-
 # QMI
 PRODUCT_PACKAGES += \
     libjson

@@ -67,6 +67,7 @@ on early-boot
     write /sys/kernel/boot_cdsp/boot 1
     write /sys/kernel/boot_slpi/boot 1
     exec u:r:qti_init_shell:s0 -- /vendor/bin/init.qcom.early_boot.sh
+    exec u:r:qti_init_shell:s0 -- /vendor/bin/init.qti.can.sh
 
     # for backward compatibility
     chown system system /persist/sensors
@@ -88,10 +89,6 @@ on early-boot
     chown system system /mnt/vendor/persist/sensors/registry/sns_reg_version
     chown system system /mnt/vendor/persist/sensors/registry/config
     chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
-
-on property:ro.hardware.type=automotive
-    wait /sys/class/net/can0
-    start can
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -268,8 +265,6 @@ on post-fs-data
     mkdir /data/vendor/camera 0770 camera camera
 
 
-    #Create directory for tftp
-    mkdir /data/vendor/tombstones 0771 system system
 
     mkdir /data/vendor/ramdump 0771 root system
     mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
@@ -1030,12 +1025,6 @@ service profiler_daemon /system/bin/profiler_daemon
     group root
     disabled
 
-service can /vendor/bin/init.qti.can.sh
-   class late_start
-   user root
-   disabled
-   oneshot
-
 service charger /charger
     class charger
     group system graphics
@@ -1217,6 +1206,7 @@ service chre /vendor/bin/chre
     socket chre seqpacket 0660 root system
     shutdown critical
 
+
 on property:vendor.chre.enabled=0
    stop chre
 
@@ -1255,3 +1245,11 @@ service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     oneshot
     interface android.hardware.audio@4.0::IDevicesFactory default
     interface android.hardware.audio@2.0::IDevicesFactory default
+
+service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0-service
+    override
+    class hal
+    interface android.hardware.contexthub@1.0::IContexthub default
+    user system
+    group system
+    disabled

@@ -569,25 +569,6 @@ vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so|bb2c6f9dabeacf88ecd8a4210716664
 vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so|dd4aebcdd0f711b15ef173601ec121e7a91c5c63
 vendor/lib64/vendor.qti.latency@2.0.so|68fd46a6f26e2e101a6ecb0c40643fd5e137d716
 
-# DPM - from B2N_sprout - PPR1.180610.011
-bin/dpmd|6c511738d83ba1cfdc75b00b9bd676d231914f3a
-etc/dpm/dpm.conf|5f19d3984b5291ac956552bda2a84c10c535df0a
-etc/init/dpmd.rc|52ca6ad920a1804e4ff608113cece063730f5e0c
-etc/permissions/com.qti.dpmframework.xml|36b94c9338069e434b83359a92cdc7ff62b822df
-etc/permissions/dpmapi.xml|ded29f9befaef20a7ccee0c75427fda1d1d04890
-framework/com.qti.dpmframework.jar|494751931cdf1ff203bcc99a95e8d177caae78c0
-framework/dpmapi.jar|4940bdc99ec676e8c6372057f91ffc303f72b49d
-framework/tcmclient.jar|d63f61a2905cc48f0eed56cce5dc0ca80f7ada3a
-lib64/com.qualcomm.qti.dpm.api@1.0.so|2af88934e4039edaac842576a1861cbdfe39838b
-lib64/libdpmctmgr.so|0b83268aec68d6c64896386a4c096b2e65f793af
-lib64/libdpmfdmgr.so|14ac9e50ca457318bd04bf0417222b67ea606159
-lib64/libdpmframework.so|f1c025439e8fc2af704a4051e630244236170c88
-lib64/libdpmtcm.so|1148a6b44b6abbcdd7f1013e11b2d6b90763ad63
--priv-app/dpmserviceapp/dpmserviceapp.apk|b3e3bdcfa42f2a233ed40e3cab7b404464836f97
-vendor/bin/dpmQmiMgr|ca16c16a83fa7e37f68f732d17e620cddce7f5cf
-vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so|05af4880ad4c633fe60750ff49525e62822585f7
-vendor/lib64/libdpmqmihal.so|be20256e3250ab603afc0da63d0b6f91b220df84
-
 # DRM - LA.UM.6.5.r1-02500-8x96.0
 vendor/bin/qseecomd|7bc811273b0d12680ce57dec24c5f0262fda4c16
 vendor/lib/libQSEEComAPI.so|7062cdfb83a986d44190d6fd9762da43d508e10a
@@ -963,15 +944,6 @@ vendor/lib64/vendor.display.color@1.0.so|ec75654927c63b74c7f8d0760fa463f0e8287f2
 vendor/lib64/vendor.display.color@1.1.so|28dd1ef69ea74f5623746bbac5c483a3f3b46990
 vendor/lib64/vendor.display.color@1.2.so|2c61fe34f1b7548b258812c85920aa82f6b3a8db
 vendor/lib64/vendor.display.postproc@1.0.so|b95e9f990a207d5c62db4d66f5aaf088adc02ba8
-
-# Power-off alarm - from daisy - PKQ1.180917.001
-framework/vendor.qti.hardware.alarm-V1.0-java.jar|ca5bf830ebb4fbf8fc1994200ec6e03dc83c274b
--vendor/app/PowerOffAlarm/PowerOffAlarm.apk|3fbc64ee84b17eaaf5f9002b58f4615216de0389
-vendor/bin/hw/vendor.qti.hardware.alarm@1.0-service|b7f648c81773214202aaa3620863d048c90713c7
-vendor/bin/power_off_alarm|459ccd83df3fcc076bb82bff60f47d14ad69ad6e
-vendor/etc/init/vendor.qti.hardware.alarm@1.0-service.rc|c9877b6cae0353d5fdea5bc23dba77101b3d6980
-vendor/lib64/hw/vendor.qti.hardware.alarm@1.0-impl.so|df138b77fb116a1a786a70c9c76b69d61b5c04d2
-vendor/lib64/vendor.qti.hardware.alarm@1.0.so|5761eae471e8dcd94ce139e831a1aa5b23f133c6
 
 # Properties
 customize/MNSprop/310160.prop

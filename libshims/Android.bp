@@ -15,6 +15,13 @@ cc_library_shared {
 }
 
 cc_library_shared {
+    srcs: ["stillmore.cpp"],
+    name: "libshim_stillmore",
+    shared_libs: ["libutils","libui"],
+    proprietary: true,
+}
+
+cc_library_shared {
     srcs: ["libshim_ims.cpp"],
     name: "libshim_ims",
     shared_libs: ["libutils","libui"],

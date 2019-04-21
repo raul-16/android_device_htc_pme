@@ -157,6 +157,7 @@ PRODUCT_PACKAGES += \
     libmm-qcamera \
     Snap \
     libshim_camera \
+    libshim_stillmore \
     libion
 
 PRODUCT_PACKAGES += \

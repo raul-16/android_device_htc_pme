@@ -218,6 +218,7 @@ TARGET_LD_SHIM_LIBS := \
     /vendor/lib64/libril.so|/vendor/lib64/libshim_ril.so \
     /vendor/lib/hw/camera.msm8996.so|/vendor/lib/libshim_camera.so \
     /system/vendor/lib/libmmcamera_stillmore_lib.so|/vendor/lib/libshim_stillmore.so \
+    /system/vendor/lib/libmmcamera_ppeiscore.so|/vendor/lib/libshim_ppe.so \
     /system/lib64/lib-imsvideocodec.so|libshim_ims.so
 
 # Soong namespaces

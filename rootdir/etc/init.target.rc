@@ -492,7 +492,7 @@ service ppd /vendor/bin/mm-pp-dpps
     writepid /dev/cpuset/foreground/tasks
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class late_start
+    class main
     user camera
     group camera system inet input graphics
     writepid /dev/cpuset/system-background/tasks

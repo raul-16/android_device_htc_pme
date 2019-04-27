@@ -38,6 +38,12 @@
     <!-- Doze: pulse parameter - delay to wait for the screen to wake up after an intent -->
     <integer name="doze_pulse_delay_in_intent">0</integer>
 
+    <!-- Whether to enable dimming navigation buttons when wallpaper is not visible, should be
+         enabled for OLED devices to reduce/prevent burn in on the navigation bar (because of the
+         black background and static button placements) and disabled for all other devices to
+         prevent wasting cpu cycles on the dimming animation -->
+    <bool name="config_navigation_bar_enable_auto_dim_no_visible_wallpaper">false</bool>
+
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_default" translatable="false">
         wifi,bt,dnd,flashlight,rotation,battery,cell,airplane,night

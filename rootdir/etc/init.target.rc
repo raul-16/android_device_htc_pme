@@ -294,6 +294,7 @@ on boot
     chown system system /sys/class/leds/indicator/device
     chown system system /sys/class/leds/indicator/max_brightness
     chown system system /sys/class/leds/indicator/power
+    chown system system /sys/class/leds/indicator/mode_and_lut_params
 
     # Flashlight
     chown system system /sys/class/leds/flashlight/brightness

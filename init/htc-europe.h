@@ -11,7 +11,6 @@ static bool is_variant_europe(std::string bootcid) {
 }
 
 static const char *htc_europe_properties =
-    "ro.telephony.default_network=0\n"
     "ro.telephony.ipv6_capability=1\n"
     "ro.ril.vmail.23415=1571,BT,121,VDF UK\n"
     "ro.ril.vmail.27203=171\n"
@@ -69,9 +68,15 @@ static const char *htc_europe_properties =
     "persist.rild.nitz_short_ons_2=\n"
     "persist.rild.nitz_short_ons_3=\n"
     "ril.subscription.types=NV,RUIM\n"
+    "DEVICE_PROVISIONED=1\n"
+    "persist.ims.disableDebugLogs=1\n"
+    "persist.ims.disableADBLogs=1\n"
+    "persist.ims.disableQXDMLogs=1\n"
+    "persist.ims.disableIMSLogs=1\n"
     "persist.vendor.radio.fill_eons=1\n"
     "persist.igps.sensor=on\n"
-    "persist.radio.apm_sim_not_pwdn=0\n"
+    "persist.radio.apm_sim_not_pwdn=1\n"
+    "persist.vendor.radio.apm_sim_not_pwdn=1\n"
     "persist.vendor.radio.apm_mdm_not_pwdn=1\n"
     "persist.vendor.radio.cs_srv_type=1\n"
     "persist.vendor.radio.snapshot_timer=0\n"
@@ -84,4 +89,5 @@ static const char *htc_europe_properties =
     "persist.vendor.ims.dropset_feature=0\n"
     "keyguard.no_require_sim=true\n"
     "ro.apn.uservalue.protocol=IPV4V6\n"
+    "telephony.lteOnCdmaDevice=1\n"
 ;

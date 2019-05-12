@@ -173,8 +173,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.vendor.libpath=/system/vendor/lib64/libril-qc-qmi-1.so \
     ro.baseband.arch=msm \
     ro.telephony.call_ring.multiple=false \
-    ro.ril.telephony.mqanelements=5 \
-    persist.radio.apm_sim_not_pwdn=0 \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.apm_mdm_not_pwdn=1 \
     persist.vendor.radio.cs_srv_type=1 \
     persist.vendor.radio.snapshot_timer=0 \
@@ -183,8 +183,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.fill_eons=1 \
     persist.vendor.ims.dropset_feature=0 \
     persist.data.profile_update=true \
-    persist.radio.NETWORK_SWITCH=1 \
-    persist.vendor.radio.add_power_save=1
+    persist.radio.NETWORK_SWITCH=1
 
 # RmNet Data
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -29,8 +29,8 @@ on charger
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
-    wait /dev/block/bootdevice
-    mount_all /vendor/etc/charger.fstab.qcom
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
     start vendor.hvdcp_opti
 
 on early-init
@@ -410,6 +410,11 @@ service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
     user root
     group root system wakelock
     writepid /dev/cpuset/system-background/tasks
+
+service htcdcpd /system/bin/htcdcpd
+    class main
+    user root
+    group root
 
 ## imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
 service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon

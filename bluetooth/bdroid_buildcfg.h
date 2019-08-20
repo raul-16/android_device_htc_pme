@@ -17,12 +17,16 @@
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
-
 #define BTM_DEF_LOCAL_NAME   "HTC 10"
+// Disables read remote device feature
+#define MAX_ACL_CONNECTIONS   16
+#define MAX_L2CAP_CHANNELS    16
+#define BLE_VND_INCLUDED   TRUE
+// skips conn update at conn completion
+#define BT_CLEAN_TURN_ON_DISABLED 1
 
-#define BLE_VND_INCLUDED                TRUE
-#define BLUETOOTH_QTI_SW                TRUE
-#define BTM_WBS_INCLUDED                FALSE
+/* Increasing SEPs to 12 from 6 to support SHO/MCast i.e. two streams per codec */
+#define AVDT_NUM_SEPS 12
 
 #undef PROPERTY_VALUE_MAX
 

@@ -176,6 +176,7 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/sdsprpc-smd          0660   system     system
 
 # permissions for audio
+/dev/htc-acoustic         0660   system     audio
 /dev/wcd_dsp0_control     0660   system     audio
 /dev/wcd-dsp-glink        0660   system     audio
 /dev/audio_slimslave      0660   system     audio

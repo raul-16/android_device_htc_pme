@@ -31,15 +31,19 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := kryo
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := kryo
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := kryo
+TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT_RUNTIME := kryo
 
 TARGET_USES_64_BIT_BINDER := true
+
+BUILD_BROKEN_DUP_RULES := true
 
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
@@ -62,7 +66,7 @@ BOARD_RAMDISK_OFFSET     := 0x02200000
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/htc/msm8996
 TARGET_KERNEL_CONFIG := pme_defconfig
-export CROSS_COMPILE_ARM32 = prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
+TEMPORARY_DISABLE_PATH_RESTRICTIONS=true
 
 # Audio
 #AUDIO_FEATURE_ENABLED_AAC_ADTS_OFFLOAD := true
@@ -90,11 +94,22 @@ AUDIO_FEATURE_ENABLED_PERF_HINTS := true
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 BOARD_SUPPORTS_SOUND_TRIGGER := false
 BOARD_USES_ALSA_AUDIO := true
-USE_CUSTOM_AUDIO_POLICY := 1
+#USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 TARGET_USES_QCOM_MM_AUDIO := true
 
-BOARD_ROOT_EXTRA_SYMLINKS := /vendor/dsp:/dsp
+BOARD_ROOT_EXTRA_FOLDERS := \
+    carrier \
+    crashdump.d \
+    firmware/adsp \
+    firmware/radio \
+    firmware/slpi \
+    firmware/venus \
+    firmware/wsd \
+    persist
+
+BOARD_ROOT_EXTRA_SYMLINKS := \
+    /vendor/dsp:/dsp
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -111,9 +126,13 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Camera API Override
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
-    /vendor/bin/mm-qcamera-daemon=26 \
+    /system/vendor/bin/ims_rtp_daemon=26 \
+    /system/vendor/bin/imscmservice=26 \
+    /system/vendor/bin/imsdatadaemon=26 \
+    /system/vendor/bin/imsqmidaemon=26 \
+    /system/vendor/bin/imsrcsd=26 \
     /system/vendor/bin/mm-qcamera-daemon=26 \
-    /vendor/bin/hw/android.hardware.camera.provider@2.4-service=26 \
+    /system/vendor/bin/mm-qcamera-daemon=26 \
     /system/vendor/bin/hw/android.hardware.camera.provider@2.4-service=26
 
 # Dex
@@ -209,24 +228,24 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.full
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Release
-TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
+#TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 
 # RIL
 TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
-TARGET_RIL_VARIANT := caf
 TARGET_USES_OLD_MNC_FORMAT := true
-
-# SELinux
-include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
-    /vendor/lib64/libril.so|/vendor/lib64/libshim_ril.so \
-    /vendor/lib/hw/camera.msm8996.so|/vendor/lib/libshim_camera.so \
-    /system/vendor/lib/libmmcamera_stillmore_lib.so|/vendor/lib/libshim_stillmore.so \
-    /system/vendor/lib/libmmcamera_ppeiscore.so|/vendor/lib/libshim_ppe.so \
-    /system/lib64/lib-imsvideocodec.so|libshim_ims.so
+    /system/vendor/lib64/libril.so|/system/vendor/lib64/libshim_ril.so \
+    /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so \
+    /system/vendor/lib/libmmcamera_stillmore_lib.so|/system/vendor/lib/libshim_stillmore.so \
+    /system/vendor/lib/libmmcamera_ppeiscore.so|/system/vendor/lib/libshim_ppe.so \
+    /system/lib64/lib-imsvideocodec.so|/system/vendor/lib64/libshim_ims.so \
+    /system/vendor/lib64/lib-sec-disp.so|/system/vendor/lib64/libshim_sec-disp.so
+
+# Selinux
+BOARD_SEPOLICY_DIRS += \
+	device/htc/pme/sepolicy-tmp
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

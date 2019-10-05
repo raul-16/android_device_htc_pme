@@ -74,6 +74,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepdetector.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
@@ -103,7 +104,6 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio_amplifier.msm8996 \
     audio.primary.msm8996 \
     audio.r_submix.default \
     audio.usb.default \
@@ -211,7 +211,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.1-service.clearkey
+    android.hardware.drm@1.2-service.clearkey
 
 # Enable Codec 2.0
 PRODUCT_PACKAGES += \
@@ -240,7 +240,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
-    $(LOCAL_PATH)/gps/etc/gps.conf.default:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf.default \
+    $(LOCAL_PATH)/gps/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
     $(LOCAL_PATH)/gps/etc/gps.conf.sprint:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf.sprint \
     $(LOCAL_PATH)/gps/etc/izat.conf:$(TARGET_COPY_OUT_VENDOR)/etc/izat.conf \
     $(LOCAL_PATH)/gps/etc/lowi.conf:$(TARGET_COPY_OUT_VENDOR)/etc/lowi.conf \
@@ -384,14 +384,11 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
+    vendor.lineage.power@1.0 \
     android.hardware.power@1.1-service-qti
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
-
-# Prebuilts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/org.apache.http.legacy.jar:system/framework/org.apache.http.legacy.jar
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -425,6 +422,10 @@ PRODUCT_PACKAGES += \
     libshim_ril \
     libxml2
 
+# QSEECOM Shim
+PRODUCT_PACKAGES += \
+    libshim_sec-disp
+
 # Seccomp
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
@@ -443,10 +444,15 @@ PRODUCT_PACKAGES += \
     com.android.ims.rcsmanager.xml \
     com.android.ims.rcsmanager \
     ims-ext-common \
+    ims_ext_common.xml \
+    ims-ext-common_system \
     telephony-ext \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
     libshim_ims
 
 PRODUCT_BOOT_JARS += \
+    ims-ext-common_system \
     telephony-ext
 
 # TextClassifier smart selection model files
@@ -457,7 +463,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     thermal.msm8996 \
     android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service
+    android.hardware.thermal@1.0-service \
+    android.hardware.thermal@1.1
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
@@ -471,8 +478,8 @@ PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic
 
 # Variant linking script
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/variants.sh:install/bin/variants.sh
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/releasetools/variants.sh:install/bin/variants.sh
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -510,8 +517,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libnl
 
-PRODUCT_BOOT_JARS += \
-    WfdCommon
+#PRODUCT_BOOT_JARS += \
+#    WfdCommon
 
 # Wifi tether
 PRODUCT_PROPERTY_OVERRIDES += \

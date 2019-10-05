@@ -232,7 +232,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     ro.min.fling_velocity=160 \
-    ro.max.fling_velocity=20000
+    ro.max.fling_velocity=20000 \
+    ro.adb.secure=0
 
 # OTA
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -366,6 +366,7 @@ on post-fs-data
     mkdir /persist/qti_fp 0700 system system
 
 on fs
+    start hwservicemanager
     mount_all /vendor/etc/fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
@@ -419,7 +420,7 @@ service htcdcpd /system/bin/htcdcpd
 ## imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
 service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
-    user system
+    user radio
     socket ims_qmid stream 0660 system radio
     group radio log diag
     writepid /dev/cpuset/system-background/tasks
@@ -427,9 +428,9 @@ service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon
 # imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
 service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
-    user system
+    user radio
     socket ims_datad stream 0660 system radio
-    group system wifi radio inet log diag
+    group wifi radio inet log diag
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -437,16 +438,16 @@ on property:vendor.ims.QMI_DAEMON_STATUS=1
     start vendor.imsdatadaemon
 
 service vendor.ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
-   class main
-   user system
-   group radio diag inet log
-   writepid /dev/cpuset/system-background/tasks
+    class main
+    user radio
+    group radio vendor_qti_diag inet log
+    writepid /dev/cpuset/system-background/tasks
 
 service vendor.imsrcsservice /system/vendor/bin/imsrcsd
-   class main
-   user system
-   group radio diag inet log wakelock
-   writepid /dev/cpuset/system-background/tasks
+    class main
+    user radio
+    group radio diag inet log wakelock
+    writepid /dev/cpuset/system-background/tasks
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
     restart vendor.ims_rtp_daemon
@@ -489,6 +490,7 @@ service ppd /vendor/bin/mm-pp-dpps
     group system graphics
     socket pps stream 0660 system system
     writepid /dev/cpuset/foreground/tasks
+    disabled
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start

@@ -20,7 +20,7 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v14.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragment;
 import android.util.Log;
 import android.view.MenuItem;
 

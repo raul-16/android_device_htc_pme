@@ -28,6 +28,4 @@
 /* Increasing SEPs to 12 from 6 to support SHO/MCast i.e. two streams per codec */
 #define AVDT_NUM_SEPS 12
 
-#undef PROPERTY_VALUE_MAX
-
 #endif

@@ -10,14 +10,14 @@ cc_library_shared {
 cc_library_shared {
     srcs: ["camera_shim.cpp"],
     name: "libshim_camera",
-    shared_libs: ["libutils","libui"],
+    shared_libs: ["libutils","libui","libgui"],
     proprietary: true,
 }
 
 cc_library_shared {
     srcs: ["stillmore.cpp"],
     name: "libshim_stillmore",
-    shared_libs: ["libutils","libui"],
+    shared_libs: ["libutils","libui","libstagefright_foundation"],
     proprietary: true,
 }
 
@@ -32,5 +32,12 @@ cc_library_shared {
     srcs: ["libshim_ims.cpp"],
     name: "libshim_ims",
     shared_libs: ["libutils","libui"],
+    proprietary: true,
+}
+
+cc_library_shared {
+    srcs: ["libshim_sec-disp.cpp"],
+    name: "libshim_sec-disp",
+    shared_libs: ["libgui","libui","libutils"],
     proprietary: true,
 }

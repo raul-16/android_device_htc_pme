@@ -237,4 +237,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # OTA
 PRODUCT_PROPERTY_OVERRIDES += \
-    lineage.updater.uri=https://raw.githubusercontent.com/Fagyi/OTA/lineage-16.0/pme.json
+    lineage.updater.uri=https://raw.githubusercontent.com/Fagyi/OTA/lineage-17.0/pme.json

@@ -240,8 +240,7 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so \
     /system/vendor/lib/libmmcamera_stillmore_lib.so|/system/vendor/lib/libshim_stillmore.so \
     /system/vendor/lib/libmmcamera_ppeiscore.so|/system/vendor/lib/libshim_ppe.so \
-    /system/lib64/lib-imsvideocodec.so|/system/vendor/lib64/libshim_ims.so \
-    /system/vendor/lib64/lib-sec-disp.so|/system/vendor/lib64/libshim_sec-disp.so
+    /system/lib64/lib-imsvideocodec.so|/system/vendor/lib64/libshim_ims.so
 
 # Selinux
 BOARD_SEPOLICY_DIRS += \

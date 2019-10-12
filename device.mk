@@ -423,10 +423,6 @@ PRODUCT_PACKAGES += \
     libshim_ril \
     libxml2
 
-# QSEECOM Shim
-PRODUCT_PACKAGES += \
-    libshim_sec-disp
-
 # Seccomp
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \

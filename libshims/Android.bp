@@ -34,10 +34,3 @@ cc_library_shared {
     shared_libs: ["libutils","libui"],
     proprietary: true,
 }
-
-cc_library_shared {
-    srcs: ["libshim_sec-disp.cpp"],
-    name: "libshim_sec-disp",
-    shared_libs: ["libgui","libui","libutils"],
-    proprietary: true,
-}

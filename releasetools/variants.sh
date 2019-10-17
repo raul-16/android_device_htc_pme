@@ -36,22 +36,22 @@ case $modelid in
 esac
 
 if [ "$variant" == "vzw" ] || [ "$variant" == "spr" ]; then
-   better_copy "/system/vendor/lib64/libril-qc-qmi-1-cdma.so" "/system/vendor/lib64/libril-qc-qmi-1.so"
+   better_copy "/system/system/vendor/lib64/libril-qc-qmi-1-cdma.so" "/system/system/vendor/lib64/libril-qc-qmi-1.so"
 else
-   better_copy "/system/vendor/lib64/libril-qc-qmi-1-default.so" "/system/vendor/lib64/libril-qc-qmi-1.so"
+   better_copy "/system/system/vendor/lib64/libril-qc-qmi-1-default.so" "/system/system/vendor/lib64/libril-qc-qmi-1.so"
 fi
 
 if [ "$variant" == "spr" ]; then
-   better_copy "/system/vendor/etc/gps.conf.sprint" "/system/vendor/etc/gps.conf"
+   better_copy "/system/system/vendor/etc/gps.conf.sprint" "/system/system/vendor/etc/gps.conf"
 else
-   better_copy "/system/vendor/etc/gps.conf.default" "/system/vendor/etc/gps.conf"
+   better_copy "/system/system/vendor/etc/gps.conf.default" "/system/system/vendor/etc/gps.conf"
 fi
 
 # Clean-up
-rm -rf "/system/vendor/etc/gps.conf.sprint"
-rm -rf "/system/vendor/etc/gps.conf.default"
+rm -rf "/system/system/vendor/etc/gps.conf.sprint"
+rm -rf "/system/system/vendor/etc/gps.conf.default"
 
-chmod 0644 /system/vendor/lib64/libril-qc-qmi-1.so
-chmod 0644 /system/vendor/etc/gps.conf
+chmod 0644 /system/system/vendor/lib64/libril-qc-qmi-1.so
+chmod 0644 /system/system/vendor/etc/gps.conf
 
 done

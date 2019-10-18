@@ -196,6 +196,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.profile_update=true \
     persist.radio.NETWORK_SWITCH=1
 
+# QCOM
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.va_aosp.support=1
+
+PRODUCT_ODM_PROPERTIES += \
+    ro.vendor.qti.va_odm.support=1
+
 # RmNet Data
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.rmnet.data.enable=true \

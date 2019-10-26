@@ -31,15 +31,8 @@ better_copy()
 modelid=`getprop ro.boot.cid`
 
 case $modelid in
-    "VZW__001") variant="vzw" ;;
     "SPCS_001") variant="spr" ;;
 esac
-
-if [ "$variant" == "vzw" ] || [ "$variant" == "spr" ]; then
-   better_copy "/system/system/vendor/lib64/libril-qc-qmi-1-cdma.so" "/system/system/vendor/lib64/libril-qc-qmi-1.so"
-else
-   better_copy "/system/system/vendor/lib64/libril-qc-qmi-1-default.so" "/system/system/vendor/lib64/libril-qc-qmi-1.so"
-fi
 
 if [ "$variant" == "spr" ]; then
    better_copy "/system/system/vendor/etc/gps.conf.sprint" "/system/system/vendor/etc/gps.conf"
@@ -51,7 +44,8 @@ fi
 rm -rf "/system/system/vendor/etc/gps.conf.sprint"
 rm -rf "/system/system/vendor/etc/gps.conf.default"
 
-chmod 0644 /system/system/vendor/lib64/libril-qc-qmi-1.so
+chmod 0644 /system/system/vendor/lib64/libril-qc-qmi-1-cdma.so
+chmod 0644 /system/system/vendor/lib64/libril-qc-qmi-1-default.so
 chmod 0644 /system/system/vendor/etc/gps.conf
 
 done

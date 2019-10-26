@@ -32,4 +32,6 @@ static const char *htc_unlocked_properties =
     "persist.radio.videopause.mode=1\n"
     "ro.telephony.default_network=9\n"
     "telephony.lteOnCdmaDevice=1\n"
+    "rild.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
+    "rild.vendor.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
 ;

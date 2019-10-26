@@ -56,4 +56,6 @@ static const char *htc_mexico_properties =
     "persist.radio.videopause.mode=1\n"
     "telephony.lteOnCdmaDevice=0\n"
     "ro.gps.agps_provider=1\n"
+    "rild.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
+    "rild.vendor.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
 ;

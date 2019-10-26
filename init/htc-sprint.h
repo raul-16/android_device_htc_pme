@@ -52,4 +52,6 @@ static const char *htc_sprint_properties =
     "persist.radio.snapshot_timer=0\n"
     "telephony.lteOnCdmaDevice=1\n"
     "ro.gps.agps_provider=1\n"
+    "rild.libpath=/system/vendor/lib64/libril-qc-qmi-1-cdma.so\n"
+    "rild.vendor.libpath=/system/vendor/lib64/libril-qc-qmi-1-cdma.so\n"
 ;

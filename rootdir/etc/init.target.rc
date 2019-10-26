@@ -61,6 +61,8 @@ on init
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
+    write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
+
 on early-boot
     # SSR setup
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
@@ -452,6 +454,7 @@ service vendor.imsrcsservice /system/vendor/bin/imsrcsd
 on property:vendor.ims.DATA_DAEMON_STATUS=1
     restart vendor.ims_rtp_daemon
 
+
 # Start up peripheral manager
 service per_mgr /vendor/bin/pm-service
     class late_start
@@ -507,6 +510,12 @@ service vendor.foreground_sh /vendor/bin/init.foreground.sh
     class main
     user root
     group root system readproc
+    disabled
+    oneshot
+
+service vendor.power_off_alarm /vendor/bin/power_off_alarm
+    class core
+    group system
     disabled
     oneshot
 

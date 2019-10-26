@@ -539,6 +539,12 @@ service thermal-monitor /vendor/bin/thermal-monitor
     user root
     writepid /dev/cpuset/system-background/tasks
 
+service time_daemon /vendor/bin/time_daemon
+    class main
+    user system
+    group system
+    capabilities SYS_TIME
+
 # WPA supplicant
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface \

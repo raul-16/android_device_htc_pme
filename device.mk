@@ -217,6 +217,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefright_ccodec
 
+# Encryption
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.cryptfshw@1.0-service-qti
+
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service

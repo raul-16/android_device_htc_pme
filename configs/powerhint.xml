@@ -2,6 +2,7 @@
 
 <!--
 /* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2018, The LineageOS Project.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -42,8 +43,9 @@
         <!-- L CPU - target load of 90 -->
         <!-- CPUBW low power ceil mpbs of 2500 -->
         <!-- CPUBW low power io percent of 50 -->
+
         <Config
-            Id="0x00001300" Enable="true" Target="msm8996"
+            Id="0x00001300" Enable="true" Target="msm8996" Timeout="0"
             Resources="0x41400000, 0x4, 0x41410000, 0x5F, 0x41414000, 0x22C, 0x41420000, 0x5A, 0x41400100, 0x4, 0x41410100, 0x5F
             , 0x41414100, 0x22C, 0x41420100, 0x5A, 0x41810000, 0x9C4, 0x41814000, 0x32" />
 
@@ -60,48 +62,64 @@
         <!-- CPUBW low power io percent of 50 -->
         <!-- CPUBW disable hysteresis -->
         <!-- CPUBW sample_ms of 10ms -->
+        <!-- L CPU - disable ignore_hispeed_notif -->
+        <!-- B CPU - disable ignore_hispeed_notif -->
         <Config
-            Id="0x00001203" Enable="true" Target="msm8996"
+            Id="0x00001203" Enable="true" Target="msm8996" Timeout="0"
             Resources="0x41400000, 0x4, 0x41410000, 0x5F ,0x41414000, 0x326, 0x41420000, 0x5A, 0x41400100, 0x4, 0x41410100
             , 0x5F, 0x41414100, 0x22C, 0x41420100, 0x5A, 0x41810000 ,0x9C4, 0x41814000,
-            0x32, 0x4180C000 ,0x0, 0x41820000, 0xA" />
+            0x32, 0x4180C000 ,0x0, 0x41820000, 0xA, 0x41438100, 0x0, 0x41438000, 0x0" />
+
+        <!--video decode-->
+        <!-- L CPU - above_hispeed_delay of 40 ms -->
+        <!-- L CPU - go hispeed load 95 -->
+        <!-- L CPU - hispeed freq of 768 MHz- -->
+        <!-- L CPU - target load of 90 -->
+        <!-- B CPU - above_hispeed_delay of 40 ms -->
+        <!-- B CPU - go hispeed load 95 -->
+        <!-- B CPU - hispeed freq of 729 MHz -->
+        <!-- B CPU - target load of 90 -->
+        <Config
+            Id="0x00001204" Enable="true" Target="msm8996" Timeout="0"
+            Resources="0x41400100, 0x4, 0x41410100, 0x5F ,0x41414100, 0x2D9, 0x41420100, 0x5A, 0x41400000, 0x4, 0x41410000
+            , 0x5F, 0x41414000, 0x2D9, 0x41420000, 0x5A" />
 
         <!--sustained performance-->
         <!-- B CPU - Cluster min freq uncapped -->
         <!-- L CPU - Cluster min freq uncapped -->
         <!-- B CPU - Cluster max freq ~1.2 GHz -->
         <!-- L CPU - Cluster max freq ~1.2 Ghz -->
-        <!-- GPU - max pwrlevel 4 (freq 315 MHz)-->
+        <!-- GPU - min freq 180 Mhz -->
+        <!-- GPU - max freq 342 Mhz -->
         <!-- GPUBW freq uncapped -->
         <Config
-            Id="0x00001206" Enable="true" Target="msm8996"
+            Id="0x00001206" Enable="true" Target="msm8996" Timeout="0"
             Resources="0x40800000, 0x0, 0x40800100, 0x0, 0x40804000, 0x4E0, 0x40804100, 0x4E0,
-            0X42808000, 0x4, 0x42814000, 0x0"/>
-
+            0x4280C000, 0xB4, 0x42810000, 0x156, 0x42814000, 0x0"/>
         <!--vr mode-->
         <!-- B CPU - Cluster min freq ~1.4 Ghz -->
         <!-- L CPU - Cluster min freq ~1.4 Ghz -->
         <!-- B CPU - Cluster max freq ~1.4 Ghz -->
         <!-- L CPU - Cluster max freq ~1.4 Ghz -->
-        <!-- GPU - max pwrlevel 2 (freq 510 MHz)-->
+        <!-- GPU - min freq 510 Mhz -->
+        <!-- GPU - max freq 510 Mhz -->
         <!-- GPUBW freq 775 Mhz-->
         <Config
-            Id="0x00001207" Enable="true" Target="msm8996"
+            Id="0x00001207" Enable="true" Target="msm8996" Timeout="0"
             Resources="0x40800000, 0x579, 0x40800100, 0x579, 0x40804000, 0x579, 0x40804100, 0x579,
-            0X42808000, 0x3, 0x42814000, 0x1E4F"/>
+            0x4280C000, 0x203, 0x42810000, 0x203, 0x42814000, 0x1E4F"/>
 
         <!--vr mode sustained performance-->
         <!-- B CPU - Cluster min freq ~1.2 Ghz -->
         <!-- L CPU - Cluster min freq ~1.2 Ghz -->
         <!-- B CPU - Cluster max freq ~1.2 Ghz -->
         <!-- L CPU - Cluster max freq ~1.2 Ghz -->
-        <!-- GPU - max pwrlevel 4 (freq 315 MHz)-->
+        <!-- GPU - min freq 342 Mhz -->
+        <!-- GPU - max freq 342 Mhz -->
         <!-- GPUBW freq 775 Mhz -->
         <Config
-            Id="0x00001301" Enable="true" Target="msm8996"
-            Resources="0x40800000, 0x4E0, 0x40800100, 0x4E0, 0x40804000, 0x4E0, 0x40804100, 0x4E0,
-            0X42808000, 0x4, 0x42814000, 0x1E4F"/>
-
+            Id="0x00001301" Enable="true" Target="msm8996" Timeout="0"
+            Resources="0x40800000, 0x4E0, 0x40800100, 0x4E0, 0x40804000, 0x4E0, 0x40804100, 0x4E0, 0x4280C000, 0x156,
+            0x42810000, 0x156, 0x42814000, 0x1E4F"/>
     </Powerhint>
 </HintConfigs>
-

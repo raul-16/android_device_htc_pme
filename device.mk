@@ -266,6 +266,10 @@ PRODUCT_PACKAGES += \
     android.hidl.manager@1.0 \
     android.hidl.manager@1.0-java
 
+# IMS Shim
+PRODUCT_PACKAGES += \
+    libbase_shim
+
 # Init
 PRODUCT_PACKAGES += \
     charger.fstab.qcom \

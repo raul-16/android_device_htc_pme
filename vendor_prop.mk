@@ -216,8 +216,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true
 
 # WFD
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.wfd.enable=1
+#property to enable user to access Google WFD settings
+    persist.debug.wfd.enable=1 \
+    persist.sys.wfd.virtual=0
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \

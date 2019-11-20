@@ -1,8 +1,9 @@
 on init
     write /sys/module/lpm_levels/parameters/sleep_disabled "Y"
 
-    # Drop write bit from cpu_max_freq so that libqti-perfd can't set it
-    chmod 0444 /sys/module/msm_performance/parameters/cpu_max_freq
+on fs
+    # Enable ZRAM on boot_complete
+    swapon_all /vendor/etc/fstab.qcom
 
 on boot
     # Update foreground and background cpusets
@@ -10,9 +11,8 @@ on boot
     write /dev/cpuset/background/cpus 0-3
     write /dev/cpuset/system-background/cpus 0-3
     write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/restricted/cpus 0-3
 
-    # Add a cpuset for the camera daemon
+    # add a cpuset for the camera daemon
     # we want all cores for camera
     mkdir /dev/cpuset/camera-daemon
     write /dev/cpuset/camera-daemon/cpus 0-3
@@ -20,9 +20,6 @@ on boot
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
-
-    # Enable sched boost
-    write /proc/sys/kernel/sched_boost 1
 
 on enable-low-power
     # Disable thermal hotplug to switch governor
@@ -104,20 +101,15 @@ on enable-low-power
     write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
 
-    # Enable UFS powersaving
-    write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
-    write /sys/devices/soc/${ro.boot.bootdevice}/${ro.boot.bootdevice}:ufs_variant/pm_qos_enable 1
-
-    # Enable all LPMs by default
-    # This will enable C4, D4, D3, E4 and M3 LPMs
-    write /sys/module/lpm_levels/parameters/sleep_disabled "N"
-
     # Enable Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
+    # Enable all LPMs (this will enable C4, D4, D3, E4 and M3 LPMs)
+    write /sys/module/lpm_levels/parameters/sleep_disabled "N"
+
     # Set perfd properties
-    setprop sys.post_boot.parsed 1
+    setprop vendor.post_boot.parsed 1
 
 on property:init.svc.recovery=running
     trigger enable-low-power
@@ -125,7 +117,7 @@ on property:init.svc.recovery=running
 on property:sys.boot_completed=1
     trigger enable-low-power
 
-    # Set BFQ scheduler
+    # Set CFQ scheduler
     setprop sys.io.scheduler "cfq"
 
     # Update cpusets now that boot is complete and we want better load balancing
@@ -135,8 +127,4 @@ on property:sys.boot_completed=1
     write /dev/cpuset/system-background/cpus 0-2
     write /dev/cpuset/restricted/cpus 0-1
 
-service energy-awareness /vendor/bin/energy-awareness
-    class main
-    user root
-    group system
-    oneshot
+    write /dev/kmsg "BOOT COMPLETED"

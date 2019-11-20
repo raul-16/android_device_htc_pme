@@ -318,6 +318,9 @@ on boot
     # Set cap permissions
     chown system system /sys/android_cap/glove_setting
 
+    #Create NETMGR daemon socket area
+    mkdir /dev/socket/netmgr 0750 radio radio
+
     write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
 
 on post-fs-data
@@ -342,6 +345,10 @@ on post-fs-data
 
     # Create folder for mm-qcamera-daemon
     mkdir /data/vendor/camera 0770 camera camera
+
+    #create netmgr log dir
+    mkdir /data/vendor/netmgr 0770 radio radio
+    chmod 0770 /data/vendor/netmgr
 
     # Create directory for tombstone
     mkdir /data/tombstones 0771 system system
@@ -394,14 +401,21 @@ on fs
 
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
-    mkdir /mnt/vendor/persist/data 0700 system system
+    mkdir /mnt/vendor/persist/bluetooth 0770 bluetooth bluetooth
     mkdir /mnt/vendor/persist/bms 0700 root system
+    mkdir /mnt/vendor/persist/data 0700 system system
+    mkdir /mnt/vendor/persist/display 0770 system graphics
+    mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
+    mkdir /mnt/vendor/persist/time 0770 system system
     restorecon_recursive /mnt/vendor/persist
 
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 
 # Services begin here
+service vendor.netmgrd /vendor/bin/netmgrd
+    class main
+
 service adsprpcd /vendor/bin/adsprpcd
     class main
     user media
@@ -506,44 +520,24 @@ on property:init.svc.media=restarting
 on property:init.svc.servicemanager=restarting
     restart qcamerasvr
 
-service vendor.foreground_sh /vendor/bin/init.foreground.sh
-    class main
-    user root
-    group root system readproc
-    disabled
-    oneshot
-
-service vendor.power_off_alarm /vendor/bin/power_off_alarm
-    class core
-    group system
-    disabled
-    oneshot
-
 service qseecomd /vendor/bin/qseecomd
     class core
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
-    class hal
-    user root
-    group root system diag
-    socket thermal-send-client stream 0666 system system
-    socket thermal-recv-client stream 0660 system system
-    socket thermal-recv-passive-client stream 0666 system system
-    writepid /dev/cpuset/system-background/tasks
-
-service thermal-monitor /vendor/bin/thermal-monitor
-    class main
-    user root
-    writepid /dev/cpuset/system-background/tasks
-
-service time_daemon /vendor/bin/time_daemon
-    class main
-    user system
-    group system
-    capabilities SYS_TIME
+service thermal-engine /system/vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
+   class main
+   user root
+   socket thermal-send-client stream 0666 system system
+   socket thermal-recv-client stream 0660 system system
+   socket thermal-recv-passive-client stream 0666 system system
+   socket thermal-send-rule stream 0660 system system
+   group root system diag
+   socket thermal-send-client stream 0666 system system
+   socket thermal-recv-client stream 0660 system system
+   socket thermal-recv-passive-client stream 0666 system system
+   writepid /dev/cpuset/system-background/tasks
 
 # WPA supplicant
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
@@ -551,6 +545,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -g@android:wpa_wlan0
     interface android.hardware.wifi.supplicant@1.0::ISupplicant default
     interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
@@ -581,11 +576,3 @@ service fwnk-venus /system/bin/sh /init.qcom.firmware_links.sh /firmware/venus /
 on class_start:late_start
     # For modem config copy
     write /data/misc/radio/copy_complete 1
-
-on property:sys.boot_completed=1
-
-    # Enable ZRAM on boot_complete
-    swapon_all /vendor/etc/fstab.qcom
-
-    write /dev/kmsg "BOOT COMPLETED"
-

@@ -391,7 +391,6 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    vendor.lineage.power@1.0 \
     android.hardware.power@1.2-service-qti
 
 PRODUCT_COPY_FILES += \

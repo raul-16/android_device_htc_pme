@@ -301,13 +301,6 @@
     <bool name="config_carrier_volte_tty_supported">true</bool>
     <bool name="config_carrier_wfc_ims_available">true</bool>
 
-    <!-- ImsService package name to bind to by default. If none is specified in an overlay, an
-         empty string is passed in -->
-    <string name="config_ims_package">org.codeaurora.ims</string>
-
-    <!-- Flag specifying whether or not IMS will use the dynamic ImsResolver -->
-    <bool name="config_dynamic_bind_ims">true</bool>
-
     <!-- Default list of files pinned by the Pinner Service -->
     <string-array translatable="false" name="config_defaultPinnerServiceFiles">
         <item>"/system/framework/arm64/boot-framework.oat"</item>

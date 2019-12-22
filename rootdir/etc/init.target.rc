@@ -375,7 +375,6 @@ on post-fs-data
     mkdir /persist/qti_fp 0700 system system
 
 on fs
-    start hwservicemanager
     mount_all /vendor/etc/fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.

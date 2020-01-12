@@ -192,7 +192,7 @@ HWUI_COMPILE_FOR_PERF := true
 
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
-TARGET_INIT_VENDOR_LIB := libinit_pme
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_pme
 TARGET_RECOVERY_DEVICE_MODULES := libinit_pme
 
 # Keymaster
@@ -246,7 +246,7 @@ BOARD_SEPOLICY_DIRS += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    device/htc/pme/libshims
+    device/htc/pme
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true

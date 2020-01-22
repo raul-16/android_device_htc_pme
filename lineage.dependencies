@@ -2,14 +2,10 @@
   {
     "repository":  "Fagyi/android_kernel_htc_msm8996",
     "target_path": "kernel/htc/msm8996"
-    "branch":      "eas-o-dev"
+    "branch":      "lineage-17.1"
   },
   {
     "repository": "android_packages_apps_FlipFlap",
     "target_path": "packages/apps/FlipFlap"
-  },
-  {
-    "repository": "android_packages_resources_devicesettings",
-    "target_path": "packages/resources/devicesettings"
   }
 ]

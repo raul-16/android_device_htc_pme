@@ -74,15 +74,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.cne.feature=1 \
     persist.vendor.dpm.feature=0 \
 
-# Enable STM events
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.coresight.config=stm-events
-
 # Data modules
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.use_data_netmgrd=true \
     ro.vendor.use_data_netmgrd=true \
     persist.data.netmgrd.qos.enable=true \
+    persist.radio.aosp_usr_pref_sel=true \
+    persist.vendor.data.mode=concurrent \
     persist.data.mode=concurrent
 
 # Default pd_enable value
@@ -92,6 +90,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
+
+# Enable STM events
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.debug.coresight.config=stm-events
 
 # Fast charge
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -113,12 +115,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.demo.hdmirotationlock=false \
     persist.hwc.enable_vds=1 \
     ro.opengles.version=196610 \
-    sdm.debug.disable_rotator_split=1 \
     debug.sf.recomputecrop=0 \
     vendor.display.disable_rotator_downscale=1 \
+    vendor.display.disable_rotator_split=1 \
     ro.sf.lcd_density=640 \
     vendor.display.perf_hint_window=50 \
     vendor.gralloc.enable_fb_ubwc=1 \
+    vendor.gralloc.disable_wb_ubwc=1 \
     vendor.display.disable_skip_validate=1
 
 # IMS
@@ -126,6 +129,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.volte_avail_ovr=1 \
     persist.dbg.vt_avail_ovr=1 \
     persist.data.iwlan.enable=true \
+    persist.vendor.radio.rat_on=combine \
+    persist.radio.calls.on.ims=1 \
     persist.dbg.ims_volte_enable=1 \
     persist.dbg.wfc_avail_ovr=1 \
     service.qti.ims.enabled=1 \
@@ -224,7 +229,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # TimeService
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.timed.enable=true
+    persist.timed.enable=true \
+    persist.delta_time.enable=true
 
 # WFD
 #property to enable user to access Google WFD settings

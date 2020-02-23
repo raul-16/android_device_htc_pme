@@ -171,6 +171,10 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
 
+# CarrierConfig
+PRODUCT_PACKAGES += \
+    CarrierConfig
+
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
     cneapiclient \

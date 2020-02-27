@@ -111,6 +111,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.latch_unsignaled=0 \
     debug.gralloc.gfx_ubwc_disable=0 \
     debug.sf.enable_hwc_vds=1 \
+    debug.sf.enable_gl_backpressure=1 \
     dev.pm.dyn_samplingrate=1 \
     persist.demo.hdmirotationlock=false \
     persist.hwc.enable_vds=1 \

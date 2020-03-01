@@ -279,7 +279,8 @@ PRODUCT_PACKAGES += \
 
 # IMS Shim
 PRODUCT_PACKAGES += \
-    libbase_shim
+    libbase_shim \
+    imsvideocodec_shim
 
 # Init
 PRODUCT_PACKAGES += \

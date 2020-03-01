@@ -31,3 +31,21 @@ cc_library_shared {
     shared_libs: ["libutils","libui"],
     proprietary: true,
 }
+
+/* lib-imsvideocodec */
+cc_library_shared {
+    name: "imsvideocodec_shim",
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    srcs: [
+        "imsvideocodec.cpp",
+    ],
+    cflags: [
+        "-Werror",
+        "-Wextra",
+        "-Wall",
+    ],
+    shared_libs: [
+        "libutils",
+    ],
+}

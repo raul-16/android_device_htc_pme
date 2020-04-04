@@ -178,6 +178,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0 \
     ro.baseband.arch=msm \
     ro.telephony.call_ring.multiple=false \
+    ro.telephony.use_old_mnc_mcc_format=true \
     persist.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.apm_mdm_not_pwdn=1 \

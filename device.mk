@@ -152,6 +152,7 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor \
+    libbthost_if \
     libldacBT_dec
 
 PRODUCT_COPY_FILES += \
@@ -170,10 +171,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
-
-# CarrierConfig
-PRODUCT_PACKAGES += \
-    CarrierConfig
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
@@ -378,6 +375,7 @@ PRODUCT_PACKAGES += \
     com.android.nfc_extras \
     NfcNci \
     SecureElement \
+    android.hardware.secure_element@1.0 \
     Tag
 
 PRODUCT_COPY_FILES += \

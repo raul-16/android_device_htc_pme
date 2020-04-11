@@ -142,15 +142,21 @@ user: AID_SYSTEM
 group: AID_SYSTEM
 caps: 0
 
+[firmware/wsd]
+mode: 0771
+user: AID_VENDOR_RFS
+group: AID_VENDOR_RFS
+caps: 0
+
 [firmware/image/*]
 mode: 0771
-user: AID_SYSTEM
+user: AID_ROOT
 group: AID_SYSTEM
 caps: 0
 
 [vendor/firmware_mnt/image/*]
 mode: 0771
-user: AID_SYSTEM
+user: AID_ROOT
 group: AID_SYSTEM
 caps: 0
 
@@ -166,7 +172,7 @@ user: AID_SYSTEM
 group: AID_SYSTEM
 caps: 0
 
-[persist/]
+[mnt/vendor/persist/]
 mode: 0771
 user: AID_SYSTEM
 group: AID_SYSTEM

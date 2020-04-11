@@ -214,7 +214,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 PRODUCT_PACKAGES += \
-    HTCDoze
+    Doze
 
 # DRM
 PRODUCT_PACKAGES += \

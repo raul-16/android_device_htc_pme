@@ -503,14 +503,6 @@ service vendor.sensors.qti /vendor/bin/sensors.qti
     group system
     writepid /dev/cpuset/system-background/tasks
 
-# Data Migration
-service vendor.move_wifi_data /system/bin/move_wifi_data.sh
-    class main
-    user  wifi
-    group wifi
-    disabled
-    oneshot
-
 on property:sys.shutdown.requested=*
     write /sys/kernel/shutdown_wlan/shutdown 1
 

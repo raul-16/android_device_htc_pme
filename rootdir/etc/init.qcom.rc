@@ -223,28 +223,7 @@ on boot
     mkdir /data/vendor/sensors
     chown system system /data/vendor/sensors
 
-# msm specific files that need to be created on /data
 on post-fs-data
-    mkdir /data/vendor/misc 01771 system system
-
-    # Create directory used for dump collection
-    mkdir /data/vendor/ssrdump 0770 root system
-
-    # Create directory used by display clients
-    mkdir /data/vendor/display 0770 system graphics
-
-    # Change lm related dirs
-    mkdir /data/vendor/lm 0700 root root
-
-    # Create directory used by media clients
-    mkdir /data/vendor/media 0770 mediacodec media
-
-    # Create /data/vendor/tzstorage directory for SFS listener
-    mkdir /data/vendor/tzstorage 0770 system system
-
-    # Create directory for apps access via QTEEConnector
-    mkdir /data/vendor/qtee 0770 system system
-
     #Create directory for tftp
     mkdir /data/vendor/tombstones 0771 system system
     mkdir /data/vendor/tombstones/rfs 0771 system system
@@ -255,11 +234,6 @@ on post-fs-data
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0770 wifi wifi
-    mkdir /data/vendor/wifi/sockets 0770 wifi wifi
-    mkdir /data/vendor/wifi/hostapd 0770 wifi wifi
-    mkdir /data/vendor/wifi/hostapd/ctrl 0770 wifi wifi
-    mkdir /data/vendor/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/vendor/wifi/wigig_hostapd 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
@@ -284,11 +258,6 @@ on post-fs-data
     # Create directory for modem_config
     mkdir /data/vendor/modem_config 0570 radio root
 
-    # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown root system /persist
-    chmod 0771 /persist
-    chown system system /persist/WCNSS_qcom_wlan_nv.bin
     chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
@@ -350,24 +319,10 @@ on post-fs-data
     mkdir /data/fota 0771
     chown system system /data/fota
 
-    # Create /data/time folder for time-services
-    mkdir /data/vendor/time/ 0700 system system
-
     setprop vold.post_fs_data_done 1
 
     #Create a folder for SRS to be able to create a usercfg file
     #mkdir /data/data/media 0770 media media
-
-    #Create FM dir for patchdownloader
-    mkdir /data/vendor/fm 0770 system system
-    chmod 0770 /data/vendor/fm
-
-    #Create PERFD deamon related dirs
-    mkdir /data/vendor/perfd 0770 root system
-    chmod 2770 /data/vendor/perfd
-    rm /data/vendor/perfd/default_values
-
-    mkdir /data/vendor/secure_element 0777 system system
 
     #Create IOP  deamon related dirs
     mkdir /data/vendor/iop 0700 root system
@@ -401,9 +356,6 @@ on post-fs-data
     mkdir /data/vendor/swap 0770 root system
     chmod 2770 /data/vendor/swap
 
-    # Create vpp directory
-    mkdir /data/vendor/vpp 0770 media media
-
     mkdir /data/vendor/sensor
     chown root system /data/vendor/sensor
     chmod 0770 /data/vendor/sensor
@@ -411,9 +363,6 @@ on post-fs-data
     mkdir /data/system/nanohub_lock/
     chown system system /data/system/nanohub_lock/
     restorecon /data/system/nanohub_lock
-
-    #Create dir for TUI
-    mkdir /data/vendor/tui 0700 system drmrpc
 
 on property:ro.vendor.iocgrp.config=1
     mkdir /dev/blkio

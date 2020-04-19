@@ -54,10 +54,6 @@
         <item>255</item>
         <item>255</item>
     </integer-array>
-
-    <!-- Height of the status bar -->
-    <dimen name="status_bar_height_portrait">160.0px</dimen>
-    <dimen name="status_bar_height_landscape">160.0px</dimen>
 	
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->

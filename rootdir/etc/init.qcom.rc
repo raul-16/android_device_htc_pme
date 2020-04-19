@@ -424,14 +424,6 @@ service qcom-sh /vendor/bin/init.qcom.sh
 on property:ro.vendor.ril.mbn_copy_completed=1
     write /data/vendor/radio/copy_complete 1
 
-service ims_regmanager /vendor/bin/exe-ims-regmanagerprocessnative
-    class late_start
-    group net_bt_admin inet radio wifi
-    disabled
-
-on property:persist.ims.regmanager.mode=1
-    start ims_regmanager
-
 service charger /system/bin/charger
     class charger
     user system

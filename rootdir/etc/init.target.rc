@@ -119,10 +119,6 @@ on post-fs-data
     mkdir /data/vendor/nfc 0770 nfc nfc
     mkdir /data/vendor/nfc/param 0770 nfc nfc
 
-    # NFC permissions
-    chmod 0666 /dev/pn544
-    chown nfc nfc /dev/pn544
-
     # Create directory for fingerprint
     mkdir /data/fpc 0770 system system
 

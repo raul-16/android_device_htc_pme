@@ -138,12 +138,6 @@ on boot
     #Create WIGIG socket area
     mkdir /dev/socket/wigig 0770 wifi wifi
 
-    setprop wifi.interface wlan0
-
-    setprop ro.telephony.call_ring.multiple false
-
-    setprop net.tcp.2g_init_rwnd 10
-
     # To prevent out of order acknowledgements from making
     # connection tracking to treat them as not belonging to
     # the connection they belong to.

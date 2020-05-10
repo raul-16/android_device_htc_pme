@@ -73,6 +73,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=1 \
     Camera.no_navigation_bar=true \
     persist.camera.antibanding=50 \
+    persist.camera.gyro.disable=0 \
     persist.camera.tuning_spec=htc \
     persist.ts.postmakeup=false \
     persist.ts.rtmakeup=false \
@@ -270,6 +271,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # System prop for enabling/disabling Android XLAT
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.net.doxlat=false
+
+# TCP
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.tcp.2g_init_rwnd=10
 
 # TimeService
 PRODUCT_PROPERTY_OVERRIDES += \

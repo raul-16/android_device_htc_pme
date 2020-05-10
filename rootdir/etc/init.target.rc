@@ -258,9 +258,6 @@ on boot
     chown system system /sys/camera_led_status/led_hotspot_status
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
 
-    #enable camera read sensors data
-    setprop persist.camera.gyro.disable 0
-
     # Laser
     chown system system /sys/class/htc_laser/laser/iio/buffer/enable
     chown system system /sys/class/htc_laser/laser/iio/buffer/length

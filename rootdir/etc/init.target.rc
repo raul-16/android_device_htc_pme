@@ -126,13 +126,6 @@ on post-fs-data
     # Create directory for fingerprint
     mkdir /data/fpc 0770 system system
 
-    # Create directory for tombstone
-    mkdir /data/tombstones 0771 system system
-    mkdir /data/tombstones/modem 0771 system system
-    mkdir /data/tombstones/lpass 0771 system system
-    mkdir /data/tombstones/wcnss 0771 system system
-    mkdir /data/tombstones/dsps 0771 system system
-
     mkdir /data/misc/dts 0770 media audio
     # mkdir /data/misc/seemp 0700 system system
     mkdir /data/misc/tloc/ 0700 system drmrpc

@@ -477,6 +477,10 @@ PRODUCT_BOOT_JARS += \
     ims-ext-common_system \
     telephony-ext
 
+# Tethering
+PRODUCT_PACKAGES += \
+    TetheringConfigOverlay
+
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
     textclassifier.bundle1

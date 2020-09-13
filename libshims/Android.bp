@@ -32,6 +32,15 @@ cc_library_shared {
     proprietary: true,
 }
 
+cc_library {
+    name: "libcutils_shim",
+    srcs: [
+        "strdup16to8.cpp",
+        "strdup8to16.cpp",
+    ],
+    shared_libs: ["libcutils"],
+}
+
 /* lib-imsvideocodec */
 cc_library_shared {
     name: "imsvideocodec_shim",

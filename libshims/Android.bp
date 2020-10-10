@@ -5,13 +5,6 @@ cc_library_shared {
 }
 
 cc_library_shared {
-    srcs: ["camera_shim.cpp"],
-    name: "libshim_camera",
-    shared_libs: ["libutils","libui","libgui"],
-    proprietary: true,
-}
-
-cc_library_shared {
     srcs: ["stillmore.cpp"],
     name: "libshim_stillmore",
     shared_libs: ["libutils","libui","libstagefright_foundation"],
@@ -57,4 +50,31 @@ cc_library_shared {
     shared_libs: [
         "libutils",
     ],
+}
+
+cc_library_shared {
+    srcs: ["camera_shim.cpp"],
+    shared_libs: [
+        "libbinder",
+        "libgui",
+        "libui",
+        "libutils",
+    ],
+    name: "libshim_camera",
+    compile_multilib: "32",
+    vendor: true,
+    target: {
+        android_arm: {
+            srcs: ["arch-arm/memset32.S"],
+            sanitize: {
+                misc_undefined: ["integer"],
+            },
+        },
+        android_arm64: {
+            srcs: ["arch-arm64/android_memset.S"],
+            sanitize: {
+                misc_undefined: ["integer"],
+            },
+        }
+    }
 }

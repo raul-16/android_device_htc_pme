@@ -79,6 +79,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.cne.feature=1 \
     persist.vendor.dpm.feature=0 \
 
+# Dalvik dex2oat
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat64.enabled=true
+
 # Data modules
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.use_data_netmgrd=true \

@@ -280,6 +280,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.direct.interface=p2p-dev-wlan0
 
+# Zygote
+PRODUCT_PROPERTY_OVERRIDES += \
+    zygote.critical_window.minute=10
+
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \

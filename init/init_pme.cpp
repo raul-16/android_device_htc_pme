@@ -50,8 +50,19 @@
 #include "htc-unlocked.h"
 #include "htc-verizon.h"
 
-using android::base::GetProperty;
-using android::init::property_set;
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
+
+void property_override(char const prop[], char const value[], bool add = true)
+{
+    auto pi = (prop_info *) __system_property_find(prop);
+
+    if (pi != nullptr) {
+        __system_property_update(pi, value, strlen(value));
+    } else if (add) {
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+    }
+}
 
 void property_override(char const prop[], char const value[])
 {
@@ -138,7 +149,7 @@ void vendor_load_properties()
     } else if (is_variant_verizon(bootcid)) {
         load_properties(htc_verizon_properties);
     } else {
-        property_set("ro.lineage.invalid_bootcid", bootcid.c_str());
+        property_override("ro.lineage.invalid_bootcid", bootcid.c_str());
         if (bootmid == "2PS620000") {
             load_properties(htc_europe_properties);
         } else {

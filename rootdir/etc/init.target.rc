@@ -302,7 +302,7 @@ on boot
 
     # Flashlight
     chown system system /sys/class/leds/flashlight/brightness
-    chown vte    vte    /dev/vte_flt
+    # chown vte    vte    /dev/vte_flt
     chmod 0660 /dev/vte_flt
 
     # For Flashlight Restriction
@@ -324,6 +324,9 @@ on boot
     mkdir /dev/socket/netmgr 0750 radio radio
 
     write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
+
+    # For modem config copy
+    write /data/misc/radio/copy_complete 1
 
 on post-fs-data
 
@@ -538,9 +541,6 @@ service thermal-engine /system/vendor/bin/thermal-engine -c ${sys.qcom.thermalcf
    socket thermal-recv-passive-client stream 0666 system system
    socket thermal-send-rule stream 0660 system system
    group root system diag
-   socket thermal-send-client stream 0666 system system
-   socket thermal-recv-client stream 0660 system system
-   socket thermal-recv-passive-client stream 0666 system system
    writepid /dev/cpuset/system-background/tasks
 
 # WPA supplicant
@@ -575,8 +575,3 @@ service fwnk-sec  /system/bin/sh /init.qcom.firmware_links.sh /system/etc/firmwa
 service fwnk-venus /system/bin/sh /init.qcom.firmware_links.sh /firmware/venus /firmware/image "venus*" venus
     class firmware-link
     oneshot
-
-# Triggers start here
-on class_start:late_start
-    # For modem config copy
-    write /data/misc/radio/copy_complete 1

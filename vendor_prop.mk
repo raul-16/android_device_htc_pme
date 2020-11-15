@@ -69,6 +69,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.ts.rtmakeup=false \
     vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap
 
+# Charger
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.charger.enable_suspend=true
+
 # CNE & DPM
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.cne.feature=1 \
@@ -123,7 +127,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.perf_hint_window=50 \
     vendor.gralloc.enable_fb_ubwc=1 \
     vendor.gralloc.disable_wb_ubwc=1 \
-    vendor.display.disable_skip_validate=1
+    vendor.display.disable_skip_validate=1 \
+    debug.hwui.renderer=opengl
 
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -223,14 +228,12 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Surfaceflinger
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.early_phase_offset_ns=1500000 \
-    debug.sf.early_app_phase_offset_ns=1500000 \
-    debug.sf.early_gl_phase_offset_ns=3000000 \
-    debug.sf.early_gl_app_phase_offset_ns=15000000
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
-    ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000
+    ro.surface_flinger.protected_contents=true \
+    ro.surface_flinger.force_hwc_copy_for_virtual_displays=true \
+    ro.surface_flinger.max_virtual_display_dimension=4096
 
 # SSC/SLPI sensor daemon
 PRODUCT_PROPERTY_OVERRIDES += \

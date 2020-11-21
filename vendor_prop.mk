@@ -112,24 +112,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=1 \
-    debug.sf.hw=1 \
-    debug.sf.latch_unsignaled=1 \
     debug.gralloc.gfx_ubwc_disable=0 \
     debug.sf.enable_hwc_vds=1 \
-    debug.sf.enable_gl_backpressure=1 \
+    debug.sf.hw=1 \
+    debug.sf.latch_unsignaled=1 \
     dev.pm.dyn_samplingrate=1 \
     persist.demo.hdmirotationlock=false \
     persist.hwc.enable_vds=1 \
     ro.opengles.version=196610 \
-    debug.sf.recomputecrop=0 \
-    vendor.display.disable_rotator_downscale=1 \
-    vendor.display.disable_rotator_split=1 \
     ro.sf.lcd_density=640 \
-    vendor.display.perf_hint_window=50 \
-    vendor.gralloc.enable_fb_ubwc=1 \
-    vendor.gralloc.disable_wb_ubwc=1 \
+    vendor.display.disable_rotator_split=1 \
     vendor.display.disable_skip_validate=1 \
-    debug.hwui.renderer=opengl
+    vendor.display.enable_default_color_mode=1 \
+    vendor.display.perf_hint_window=50 \
+    vendor.gralloc.enable_fb_ubwc=1
 
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -233,15 +229,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.kill_heaviest_task=true \
     ro.lmk.kill_timeout_ms=100 \
     ro.lmk.use_minfree_levels=true
-
-# Surfaceflinger
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.protected_contents=true \
-    ro.surface_flinger.force_hwc_copy_for_virtual_displays=true \
-    ro.surface_flinger.max_virtual_display_dimension=4096
 
 # SSC/SLPI sensor daemon
 PRODUCT_PROPERTY_OVERRIDES += \

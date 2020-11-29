@@ -387,16 +387,11 @@ on fs
 
     # Mount cradio image
     mkdir /firmware/cradio 0771 system system
-    wait /dev/block/bootdevice/by-name/cradio
     mount vfat /dev/block/bootdevice/by-name/cradio /firmware/cradio ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
 
     # symlink firmware to /firmware/image
     wait /system/bin/sh
     class_start firmware-link
-    wait /firmware/image/.adsp_done
-    wait /firmware/image/.radio_done
-    wait /firmware/image/.sec_done
-    wait /firmware/image/.venus_done
     setprop ro.boot.firmware.cpe 1
 
     # HTC feature: Support multiple firmware image mount points

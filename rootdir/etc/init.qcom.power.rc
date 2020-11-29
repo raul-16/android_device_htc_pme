@@ -1,10 +1,6 @@
 on init
     write /sys/module/lpm_levels/parameters/sleep_disabled "Y"
 
-on fs
-    # Enable ZRAM on boot_complete
-    swapon_all /vendor/etc/fstab.qcom
-
 on boot
     # Update foreground and background cpusets
     write /dev/cpuset/foreground/cpus 0-3

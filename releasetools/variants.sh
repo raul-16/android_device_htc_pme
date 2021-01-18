@@ -14,38 +14,75 @@
 # limitations under the License.
 #
 
-set -e
 
-better_copy()
-{
-  cp -dp "$1" "$2"
-  # symlinks don't have a context
-  if [ ! -L "$1" ]; then
-    # it is assumed that every label starts with 'u:object_r' and has no white-spaces
-    local context=`ls -Z "$1" | grep -o 'u:object_r:[^ ]*' | head -1`
-    chcon -v "$context" "$2"
+# Mount /system via shell script
+
+export SYSDEV="/dev/block/bootdevice/by-name/system"
+export SYSFS="ext4"
+export SYSMOUNT="/system"
+
+determine_system_mount() {
+  if grep -q -e"^$SYSDEV" /proc/mounts; then
+    umount $(grep -e"^$SYSDEV" /proc/mounts | cut -d" " -f2)
   fi
+
+  if [ -d /mnt/system ]; then
+    SYSMOUNT="/mnt/system"
+  elif [ -d /system_root ]; then
+    SYSMOUNT="/system_root"
+  else
+    SYSMOUNT="/system"
+  fi
+
+}
+
+mount_system() {
+  mount -t $SYSFS $SYSDEV $SYSMOUNT -o rw,discard
+}
+
+unmount_system() {
+  umount $SYSMOUNT
 }
 
 # Detect variant and copy its specific-blobs/items
+
+echo "enter variants.sh script ...."
+
 modelid=`getprop ro.boot.cid`
 
 case $modelid in
     "SPCS_001") variant="spr" ;;
 esac
 
+determine_system_mount
+echo "sysmount point is: $SYSMOUNT"
+mount_system
+echo "******  /system mounted OK  ***********"
+echo "***************************************"
+
 if [ "$variant" == "spr" ]; then
-   better_copy "/system/system/vendor/etc/gps.conf.sprint" "/system/system/vendor/etc/gps.conf"
+	echo "you have a Sprint variant phone ...."
+	cp -dp /system_root/system/vendor/etc/gps.conf.sprint /system_root/system/vendor/etc/gps.conf
 else
-   better_copy "/system/system/vendor/etc/gps.conf.default" "/system/system/vendor/etc/gps.conf"
+	echo "you have a default variant phone ...."
+	cp -dp /system_root/system/vendor/etc/gps.conf.default /system_root/system/vendor/etc/gps.conf
 fi
 
 # Clean-up
-rm -rf "/system/system/vendor/etc/gps.conf.sprint"
-rm -rf "/system/system/vendor/etc/gps.conf.default"
+rm -rf /system_root/system/vendor/etc/gps.conf.sprint
+rm -rf /system_root/system/vendor/etc/gps.conf.default
 
-chmod 0644 /system/system/vendor/lib64/libril-qc-qmi-1-cdma.so
-chmod 0644 /system/system/vendor/lib64/libril-qc-qmi-1-default.so
-chmod 0644 /system/system/vendor/etc/gps.conf
+chmod 0644 /system_root/system/vendor/lib64/libril-qc-qmi-1-cdma.so
+chmod 0644 /system_root/system/vendor/lib64/libril-qc-qmi-1-default.so
+chmod 0644 /system_root/system/vendor/etc/gps.conf
 
-done
+echo "clean up done & lib file chmod set to 644 ......"
+
+unmount_system
+echo "******  /system unmounted OK  *********"
+echo "***************************************"
+
+echo "exit variants script ......"
+
+exit 0
+

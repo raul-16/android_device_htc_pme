@@ -14,6 +14,9 @@
 #
 
 def FullOTA_InstallEnd(info):
-  info.script.Mount("/system")
   info.script.AppendExtra('run_program("/tmp/install/bin/variants.sh");')
-  info.script.Unmount("/system")
+  info.script.AppendExtra('ui_print("***************************************");')
+  info.script.AppendExtra('ui_print("*                                     *");')
+  info.script.AppendExtra('ui_print("*      LOS 18.1 [A11] flashed OK      *");')
+  info.script.AppendExtra('ui_print("*                                     *");')
+  info.script.AppendExtra('ui_print("***************************************");')

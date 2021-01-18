@@ -240,6 +240,10 @@
             <name>ISensors</name>
             <instance>default</instance>
         </interface>
+        <interface>
+            <name>ISensorManager</name>
+            <instance>default</instance>
+        </interface>
         <fqname>@1.0::ISensors/default</fqname>
         <fqname>@1.0::ISensorManager/default</fqname>
     </hal>
@@ -249,6 +253,24 @@
         <version>2.1</version>
         <interface>
             <name>ISoundTriggerHw</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.tetheroffload.config</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IOffloadConfig</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.tetheroffload.control</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IOffloadControl</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -494,15 +516,6 @@
         <version>1.0</version>
         <interface>
             <name>IVibrator</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.lineage.trust</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IUsbRestrict</name>
             <instance>default</instance>
         </interface>
     </hal>

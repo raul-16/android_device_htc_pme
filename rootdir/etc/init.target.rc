@@ -530,17 +530,17 @@ service thermal-engine /system/vendor/bin/thermal-engine -c ${sys.qcom.thermalcf
    group root system diag
    writepid /dev/cpuset/system-background/tasks
 
-# WPA supplicant
-service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
-    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface \
-    -g@android:wpa_wlan0
-    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
-    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
-    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
-    class main
-    socket wpa_wlan0 dgram 660 wifi wifi
-    disabled
-    oneshot
+# WPA supplicant - let it start correct by supplicant rc  - raul 15.01.2021
+#service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
+#    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface \
+#    -g@android:wpa_wlan0
+#    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
+#    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+#    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
+#    class main
+#    socket wpa_wlan0 dgram 660 wifi wifi
+#    disabled
+#    oneshot
 
 # Firmware linking to /firmware/image
 service fwnk-adsp  /system/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp

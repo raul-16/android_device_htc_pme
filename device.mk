@@ -205,11 +205,13 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     libdisplayconfig \
+    libdisplayconfig.qti \
     libhwc2on1adapter \
     libgenlock \
     liboverlay \
     libqdMetaData \
     libqdMetaData.system \
+    libqdMetaData.vendor \
     libtinyxml
 
 # DRM
@@ -383,9 +385,9 @@ PRODUCT_PACKAGES += \
 
 # Minijail
 PRODUCT_PACKAGES += \
-    libavservices_minijail_vendor \
-    libavservices_minijail_32 \
-    libavservices_minijail.vendor
+    libavservices_minijail \
+    libavservices_minijail.vendor \
+    libminijail
 
 # NFC
 PRODUCT_PACKAGES += \

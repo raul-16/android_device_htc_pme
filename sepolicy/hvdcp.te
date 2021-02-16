@@ -1,2 +1,4 @@
+#============= hvdcp ==============
+allow hvdcp sysfs:file { open read write };
 dontaudit hvdcp self:capability { dac_override };
 r_dir_file(hvdcp, sysfs_batteryinfo)

@@ -1,2 +1,4 @@
+#============= vold ==============
+allow vold sysfs_mmc_host:file write;
 allow vold vold_prepare_subdirs:process noatsecure;
 allow vold forceencrypt_block_device:blk_file rw_file_perms;

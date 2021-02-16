@@ -1,6 +1,9 @@
+#============= hal_fingerprint_default ==============
+
 binder_call(hal_fingerprint_default, qfp-daemon)
 binder_use(hal_fingerprint_default)
 
+allow hal_fingerprint_default sysfs_fpc_irq:dir { open read };
 allow hal_fingerprint_default fpc1155_device:chr_file { rw_file_perms };
 allow hal_fingerprint_default fingerprintd_data_file:dir { rw_dir_perms search };
 allow hal_fingerprint_default fingerprintd_data_file:file { create_file_perms getattr };

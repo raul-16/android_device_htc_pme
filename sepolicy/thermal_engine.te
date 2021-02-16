@@ -1,3 +1,6 @@
+#============= thermal-engine ==============
+allow thermal-engine sysfs:file write;
+
 allow thermal-engine hwservicemanager:binder { call transfer };
 allow thermal-engine hwservicemanager_prop:file { getattr open read };
 allow thermal-engine init:unix_stream_socket connectto;

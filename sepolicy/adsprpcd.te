@@ -1,0 +1,2 @@
+#============= adsprpcd ==============
+allow adsprpcd vendor_file:dir read;

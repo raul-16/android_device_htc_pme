@@ -1,0 +1,18 @@
+#============= untrusted_app ==============
+allow untrusted_app self:netlink_route_socket bind;
+
+#============= untrusted_app_27 ==============
+allow untrusted_app_27 rootfs:dir { open read };
+allow untrusted_app_27 adbd_prop:file { getattr open };
+allow untrusted_app_27 adsprpc_prop:file { getattr open };
+allow untrusted_app_27 anr_data_file:dir read;
+allow untrusted_app_27 apexd_prop:file { getattr open };
+allow untrusted_app_27 proc_uptime:file { getattr open };
+allow untrusted_app_27 sysfs:file { getattr open read };
+allow untrusted_app_27 apk_verity_prop:file { getattr open };
+allow untrusted_app_27 bg_boot_complete_prop:file { getattr open };
+allow untrusted_app_27 bg_daemon_prop:file { getattr open };
+
+#============= untrusted_app_29 ==============
+allow untrusted_app_29 hal_memtrack_default:binder call;
+

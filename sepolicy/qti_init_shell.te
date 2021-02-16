@@ -1,3 +1,6 @@
+#============= qti_init_shell ==============
+allow qti_init_shell carrier_file:file getattr;
+allow qti_init_shell sysfs:file write;
 dontaudit qti_init_shell self:capability dac_override;
 dontaudit qti_init_shell system_data_file:file { open read write };
 allow qti_init_shell unlabeled:dir { search };

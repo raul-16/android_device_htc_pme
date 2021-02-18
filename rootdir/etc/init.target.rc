@@ -419,7 +419,8 @@ service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
     group root system wakelock
     writepid /dev/cpuset/system-background/tasks
 
-service htcdcpd /system/bin/htcdcpd
+# HTC Charger
+service htcdcpd /vendor/bin/htcdcpd
     class main
     user root
     group root

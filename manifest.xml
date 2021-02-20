@@ -73,7 +73,6 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <!-- gnss -->
     <hal format="hidl">
         <name>android.hardware.gnss</name>
         <transport>hwbinder</transport>

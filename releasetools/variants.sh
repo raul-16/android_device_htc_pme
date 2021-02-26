@@ -71,6 +71,7 @@ fi
 # Clean-up
 rm -rf /system_root/system/vendor/etc/gps.conf.sprint
 rm -rf /system_root/system/vendor/etc/gps.conf.default
+rm -rf /data/system/package_cache/*
 
 chmod 0644 /system_root/system/vendor/lib64/libril-qc-qmi-1-cdma.so
 chmod 0644 /system_root/system/vendor/lib64/libril-qc-qmi-1-default.so

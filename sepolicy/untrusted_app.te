@@ -27,6 +27,9 @@ allow untrusted_app_27 cpu_variant_prop:file { getattr open };
 allow untrusted_app_27 ctl_LKCore_prop:file { getattr open };
 allow untrusted_app_27 ctl_adbd_prop:file { getattr open };
 allow untrusted_app_27 ctl_apexd_prop:file { getattr open };
+allow untrusted_app_27 ctl_bootanim_prop:file { getattr open };
+allow untrusted_app_27 ctl_bugreport_prop:file { getattr open };
+allow untrusted_app_27 ctl_console_prop:file open;
 
 #============= untrusted_app_29 ==============
 allow untrusted_app_29 hal_memtrack_default:binder call;

@@ -45,5 +45,10 @@ allow gmscore_app ctl_restart_prop:file { getattr open };
 allow gmscore_app ctl_rildaemon_prop:file { getattr open };
 allow gmscore_app ctl_sigstop_prop:file { getattr open };
 allow gmscore_app ctl_start_prop:file { getattr open };
-allow gmscore_app ctl_stop_prop:file open;
+allow gmscore_app ctl_stop_prop:file { getattr open };
+allow gmscore_app ctl_vendor_hbtp_prop:file { getattr open };
+allow gmscore_app ctl_vendor_imsrcsservice_prop:file { getattr open };
+allow gmscore_app ctl_vendor_mmid_prop:file { getattr open };
+allow gmscore_app ctl_vendor_netmgrd_prop:file { getattr open };
+
 

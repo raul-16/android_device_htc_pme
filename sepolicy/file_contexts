@@ -15,11 +15,13 @@
 /sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion                                    u:object_r:sysfs_gesture:s0
 
 # HALS
-/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.pme       		u:object_r:hal_light_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.pme			    u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.clearkey                    u:object_r:hal_drm_clearkey_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.widevine	                u:object_r:hal_drm_widevine_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.widevine	                   u:object_r:hal_drm_widevine_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.pme                         u:object_r:hal_lineage_touch_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.2-service.pme                        u:object_r:hal_power_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.power.stats@1\.0-service.mock                 u:object_r:hal_power_default_exec:s0
+
 
 # Light
 /sys/devices/soc/rgb-qpnp-19/leds/button-backlight/brightness                                   u:object_r:sysfs:s0
@@ -29,12 +31,12 @@
 /dev/block/bootdevice/by-name/rfg_[0-9]+                                                        u:object_r:modem_efs_partition_device:s0
 
 # Root Symlinks
-/bt_firmware(/.*)?       u:object_r:bt_firmware_file:s0
-# /dsp(/.*)?               u:object_r:adsprpcd_file:s0
-/firmware(/.*)?          u:object_r:firmware_file:s0
-/persist(/.*)?           u:object_r:persist_file:s0
-/carrier(/.*)?           u:object_r:carrier_file:s0
-/crashdump.d(/.*)?       u:object_r:crashdata_data_file:s0
+/bt_firmware(/.*)?											u:object_r:bt_firmware_file:s0
+# /dsp(/.*)?             										u:object_r:adsprpcd_file:s0
+/firmware(/.*)?          										u:object_r:firmware_file:s0
+/persist(/.*)?           										u:object_r:persist_file:s0
+/carrier(/.*)?           										u:object_r:carrier_file:s0
+/crashdump.d(/.*)?       										u:object_r:crashdata_data_file:s0
 
 # ZRAM
 /dev/block/zram[0-9]+                                                                           u:object_r:swap_block_device:s0

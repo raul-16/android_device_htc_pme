@@ -7,3 +7,5 @@ allow qti_init_shell unlabeled:dir { search };
 allow qti_init_shell unlabeled:file { getattr };
 allow qti_init_shell vendor_radio_data_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow qti_init_shell vendor_radio_data_file:file { open write getattr setattr };
+allow qti_init_shell carrier_file:dir search;
+

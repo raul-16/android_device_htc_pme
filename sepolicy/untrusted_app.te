@@ -32,7 +32,11 @@ allow untrusted_app_27 ctl_bugreport_prop:file { getattr open };
 allow untrusted_app_27 ctl_console_prop:file { getattr open };
 allow untrusted_app_27 ctl_default_prop:file { getattr open };
 allow untrusted_app_27 ctl_dumpstate_prop:file { getattr open };
-allow untrusted_app_27 ctl_fuse_prop:file open;
+allow untrusted_app_27 ctl_fuse_prop:file { getattr open };
+allow untrusted_app_27 ctl_gsid_prop:file { getattr open };
+allow untrusted_app_27 ctl_interface_restart_prop:file { getattr open };
+allow untrusted_app_27 ctl_interface_start_prop:file { getattr open };
+allow untrusted_app_27 ctl_interface_stop_prop:file { getattr open };
 
 #============= untrusted_app_29 ==============
 allow untrusted_app_29 hal_memtrack_default:binder call;

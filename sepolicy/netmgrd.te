@@ -4,3 +4,4 @@ allow netmgrd init:unix_stream_socket connectto;
 allow netmgrd property_socket:sock_file write;
 allow netmgrd sysfs:file { open read };
 allow netmgrd netutils_wrapper:process noatsecure;
+allow netmgrd system_file:file execute_no_trans;

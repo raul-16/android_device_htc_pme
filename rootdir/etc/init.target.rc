@@ -418,6 +418,9 @@ on fs
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
     mkdir /mnt/vendor/persist/time 0770 system system
     restorecon_recursive /mnt/vendor/persist
+    
+    # for android.hardware.health@2.0-service.pme cycle count backup
+    mkdir /persist/battery 0700 system system
 
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095

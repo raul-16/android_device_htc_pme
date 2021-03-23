@@ -340,6 +340,13 @@ on boot
     # For modem config copy
     write /data/misc/radio/copy_complete 1
 
+on late-fs
+    # Required for time_daemon
+    mkdir /data/vendor/time 0700 system system
+
+    # Start time daemon early so that the system time can be set early
+    start time_daemon
+
 on post-fs-data
 
     # Graphics

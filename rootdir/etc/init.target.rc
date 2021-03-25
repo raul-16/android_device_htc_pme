@@ -451,14 +451,6 @@ service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
     group root system wakelock
     writepid /dev/cpuset/system-background/tasks
 
-# HTC Charger
-service htcdcpd /vendor/bin/htcdcpd
-    class main
-    user root
-    group root
-    writepid /dev/cpuset/system-background/tasks
-
-
 ## imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
 service vendor.imsqmidaemon /vendor/bin/imsqmidaemon
     class main

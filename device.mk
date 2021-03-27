@@ -477,6 +477,9 @@ PRODUCT_PACKAGES += \
     nanotool \
     sensortest
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.sensors.smd=false
+
 # Tethering
 PRODUCT_PROPERTY_OVERRIDES += \
     net.tethering.noprovisioning=true

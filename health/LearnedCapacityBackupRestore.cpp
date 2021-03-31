@@ -21,7 +21,6 @@ namespace htc {
 namespace pme {
 namespace health {
 
-static constexpr char kChgFullDesignFile[] = "sys/class/power_supply/bms/charge_full_design";
 static constexpr char kChgFullFile[] = "sys/class/power_supply/bms/charge_full";
 static constexpr char kSysCFPersistFile[] = "/mnt/vendor/persist/battery/qcom_charge_full";
 static constexpr int kBuffSize = 256;
@@ -30,15 +29,13 @@ LearnedCapacityBackupRestore::LearnedCapacityBackupRestore() : sw_cap_(0), hw_ca
 
 void LearnedCapacityBackupRestore::Restore() {
     ReadFromStorage();
-    ReadNominalCapacity();
     ReadFromSRAM();
     if (sw_cap_ == 0) {
         // First backup
         sw_cap_ = hw_cap_;
         SaveToStorage();
-    } else if (hw_cap_ == nom_cap_) {
-        // Restore backup value when capacity is reset to nominal
-        hw_cap_ = sw_cap_;
+    } else {
+        // Always restore backup value
         SaveToSRAM();
     }
 }
@@ -77,27 +74,11 @@ void LearnedCapacityBackupRestore::SaveToStorage() {
         LOG(ERROR) << "Write file error: " << strerror(errno);
 }
 
-void LearnedCapacityBackupRestore::ReadNominalCapacity() {
-    std::string buffer;
-
-    if (!android::base::ReadFileToString(std::string(kChgFullDesignFile), &buffer)) {
-        LOG(ERROR) << "Read nominal capacity error: " << strerror(errno);
-        return;
-    }
-
-    buffer = android::base::Trim(buffer);
-
-    if (sscanf(buffer.c_str(), "%d", &nom_cap_) < 1)
-        LOG(ERROR) << "Failed to parse nominal capacity: " << buffer;
-    else
-        LOG(INFO) << "nominal capacity: " << buffer;
-}
-
 void LearnedCapacityBackupRestore::ReadFromSRAM() {
     std::string buffer;
 
     if (!android::base::ReadFileToString(std::string(kChgFullFile), &buffer)) {
-        LOG(ERROR) << "Read capacity error: " << strerror(errno);
+        LOG(ERROR) << "Read cycle counter error: " << strerror(errno);
         return;
     }
 

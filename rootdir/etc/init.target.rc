@@ -91,9 +91,6 @@ on fs
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
     mkdir /mnt/vendor/persist/time 0770 system system
     restorecon_recursive /mnt/vendor/persist
-    
-    # for android.hardware.health@2.0-service.pme cycle count backup
-    mkdir /mnt/vendor/persist/battery 0700 system system
 
 on late-fs
     # Required for time_daemon
@@ -160,16 +157,6 @@ on early-boot
     write /sys/bus/msm_subsys/devices/subsys3/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys4/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
-
-    # vendor.health-hal needs to be able to RW
-    chown system system /sys/devices/soc/qpnp-fg-17/cycle_counts_bins
-    # HardwareInfo needs to be able to read CC bins
-    chmod 644 /sys/devices/soc/qpnp-fg-17/cycle_counts_bins
-
-    # dumpstate needs to read, vendor.health-hal needs to be able to RW
-    chown system system /sys/devices/soc/qpnp-fg-17/power_supply/bms/charge_full
-    # HardwareInfo needs to be able to read charge_full
-    chmod 644 /sys/devices/soc/qpnp-fg-17/power_supply/bms/charge_full
 
 on boot
     # To prevent permission denied error for telephony

@@ -7,9 +7,9 @@ dontaudit system_server init:binder call;
 allow system_server mm-qcamerad:binder call;
 allow system_server thermal-engine:binder call;
 # allow system_server vendor_camera_prop:file { getattr open read };
-allow system_server bg_boot_complete_prop:file { getattr open read };
-allow system_server bg_daemon_prop:file { getattr open read };
-allow system_server cnd_vendor_prop:file { getattr open read };
+# allow system_server bg_boot_complete_prop:file { getattr open read };
+# allow system_server bg_daemon_prop:file { getattr open read };
+# allow system_server cnd_vendor_prop:file { getattr open read };
 # allow system_server console_silent_prop:file { getattr open read };
 allow system_server sysfs_gesture:file write;
 

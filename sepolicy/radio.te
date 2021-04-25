@@ -1,4 +1,4 @@
 #============= radio ==============
 allow radio cnd:binder call;
-allow radio qcom_ims_prop:file { getattr open read };
+allow radio vendor_qcom_ims_prop:file { getattr open read };
 

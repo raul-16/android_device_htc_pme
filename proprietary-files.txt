@@ -855,8 +855,6 @@ lib/libmmparser_lite.so|b1b4161b7097f5feeff0f043e8b94cd94553e4ad
 lib/libOmxMux.so|2803ebee03e8372844a278f8ee637c6226e33139
 lib64/libmmosal.so|9ceff2581e86d32bc2795dffb96ebe4bdc88f2f7
 -vendor/lib/libgpustats.so|e1ffdfcdd7c03b9fb9de7b95e76541780ec34a1e
-vendor/lib/libI420colorconvert.so|309927237aa3e17ae4294a5012df293a03f93121
-vendor/lib/libmm-color-convertor.so|4191173950988206b70d14c4e25f911a1bd6abd9
 vendor/lib/libmmosal_proprietary.so|4b0788590e1ecfccd3b20b3181a4add528acb2b6
 vendor/lib/libOmxAacDec.so|8e10de2b6ce36f611268dcb2b3f0ee9f6e4862e6
 vendor/lib/libOmxAlacDec.so|dc149a80c341aeccfc908f2d90d3f3f0eb2194e8

@@ -1,0 +1,4 @@
+#============= statsd ==============
+allow statsd system_data_file:dir { open read remove_name write };
+allow statsd system_data_file:file { getattr open read };
+

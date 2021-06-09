@@ -1,0 +1,8 @@
+# camera
+persist.camera.                    u:object_r:camera_prop:s0
+htc.camera.                        u:object_r:camera_prop:s0
+mfg.calibration.status             u:object_r:camera_prop:s0
+
+# netmgrd
+persist.net.doxlat                 u:object_r:vendor_xlat_prop:s0
+

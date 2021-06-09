@@ -1,30 +1,17 @@
 #============= untrusted_app ==============
-allow untrusted_app self:netlink_route_socket bind;
 allow untrusted_app virtual_ab_prop:file { getattr open read };
 
 #============= untrusted_app_27 ==============
 allow untrusted_app_27 rootfs:dir { open read };
 allow untrusted_app_27 adbd_prop:file { getattr open };
-# allow untrusted_app_27 adsprpc_prop:file { getattr open };
-allow untrusted_app_27 anr_data_file:dir read;
 allow untrusted_app_27 apexd_prop:file { getattr open };
-allow untrusted_app_27 proc_uptime:file { getattr open };
-allow untrusted_app_27 sysfs:file { getattr open read };
 allow untrusted_app_27 apk_verity_prop:file { getattr open };
-# allow untrusted_app_27 bg_boot_complete_prop:file { getattr open };
-# allow untrusted_app_27 bg_daemon_prop:file { getattr open };
-allow untrusted_app_27 bluetooth_a2dp_offload_prop:file { getattr open };
-allow untrusted_app_27 bluetooth_audio_hal_prop:file { getattr open };
-allow untrusted_app_27 bluetooth_prop:file { getattr open };
-allow untrusted_app_27 bootloader_boot_reason_prop:file { getattr open };
 allow untrusted_app_27 boottime_prop:file { getattr open };
 allow untrusted_app_27 boottime_public_prop:file { getattr open };
 allow untrusted_app_27 bpf_progs_loaded_prop:file { getattr open };
 allow untrusted_app_27 charger_prop:file { getattr open };
-# allow untrusted_app_27 cnd_vendor_prop:file { getattr open };
 allow untrusted_app_27 cold_boot_done_prop:file { getattr open };
 allow untrusted_app_27 cpu_variant_prop:file { getattr open };
-# allow untrusted_app_27 ctl_LKCore_prop:file { getattr open };
 allow untrusted_app_27 ctl_adbd_prop:file { getattr open };
 allow untrusted_app_27 ctl_apexd_prop:file { getattr open };
 allow untrusted_app_27 ctl_bootanim_prop:file { getattr open };
@@ -38,7 +25,6 @@ allow untrusted_app_27 ctl_interface_restart_prop:file { getattr open };
 allow untrusted_app_27 ctl_interface_start_prop:file { getattr open };
 allow untrusted_app_27 ctl_interface_stop_prop:file { getattr open };
 allow untrusted_app_27 ctl_mdnsd_prop:file { getattr open };
-# allow untrusted_app_27 ctl_qcrild_prop:file { getattr open };
 allow untrusted_app_27 ctl_restart_prop:file { getattr open };
 allow untrusted_app_27 ctl_rildaemon_prop:file { getattr open };
 

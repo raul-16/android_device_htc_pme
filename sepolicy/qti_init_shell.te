@@ -9,3 +9,5 @@ allow qti_init_shell vendor_radio_data_file:dir { add_name create getattr open r
 allow qti_init_shell vendor_radio_data_file:file { open write getattr setattr };
 allow qti_init_shell carrier_file:dir search;
 
+allow qti_init_shell radio_data_file:file { open write };
+

@@ -26,7 +26,6 @@ TARGET_OTA_ASSERT_DEVICE := pme,pmeuhl,pmewhl,pmewl,pmeul,htc_pmeuhl,htc_pmewhl,
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8996
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno530
 
 # Architecture
 TARGET_ARCH := arm64

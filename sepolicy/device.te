@@ -1,2 +1,4 @@
 type fpc1155_device, dev_type;
+type carrier_block_device, dev_type;
+type dsp_block_device, dev_type;
 

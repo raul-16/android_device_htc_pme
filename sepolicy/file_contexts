@@ -3,8 +3,36 @@
 /dev/rt5501                                                                                     u:object_r:audio_device:s0
 /dev/tfa9888                                                                                    u:object_r:audio_device:s0
 
-# Encryption
+# Block Devices
+/dev/block/platform/soc/7464900\.sdhci/by-name/boot                                             u:object_r:boot_block_device:s0
+/dev/block/bootdevice/by-name/boot                                                              u:object_r:boot_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/cache                                            u:object_r:cache_block_device:s0
+/dev/block/bootdevice/by-name/cache                                                             u:object_r:cache_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/persist                                          u:object_r:persist_block_device:s0
+/dev/block/bootdevice/by-name/persist                                                           u:object_r:persist_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/radio                                            u:object_r:modem_block_device:s0
+/dev/block/bootdevice/by-name/radio                                                             u:object_r:modem_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/frp                                              u:object_r:frp_block_device:s0
+/dev/block/bootdevice/by-name/frp                                                               u:object_r:frp_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/carrier                                          u:object_r:carrier_block_device:s0
+/dev/block/bootdevice/by-name/carrier                                                           u:object_r:carrier_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/dsp                                              u:object_r:dsp_block_device:s0
+/dev/block/bootdevice/by-name/dsp                                                               u:object_r:dsp_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/extra                                            u:object_r:forceencrypt_block_device:s0
 /dev/block/bootdevice/by-name/extra                                                             u:object_r:forceencrypt_block_device:s0
+
+/dev/block/platform/soc/7464900\.sdhci/by-name/userdata                                         u:object_r:userdata_block_device:s0
+/dev/block/bootdevice/by-name/userdata                                                          u:object_r:userdata_block_device:s0
+
+# Dumpstate HAL
+/(vendor|system/vendor)/bin/hw/android\.hardware\.dumpstate@1\.1-service\.pme                   u:object_r:hal_dumpstate_impl_exec:s0
 
 # Fingerprint
 /dev/htc_smi                                                                                    u:object_r:fpc1155_device:s0
@@ -22,7 +50,6 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.2-service.pme                        u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power.stats@1\.0-service.mock                 u:object_r:hal_power_default_exec:s0
 
-
 # Light
 /sys/devices/soc/rgb-qpnp-19/leds/button-backlight/brightness                                   u:object_r:sysfs:s0
 
@@ -31,12 +58,13 @@
 /dev/block/bootdevice/by-name/rfg_[0-9]+                                                        u:object_r:modem_efs_partition_device:s0
 
 # Root Symlinks
-/bt_firmware(/.*)?											u:object_r:bt_firmware_file:s0
-# /dsp(/.*)?             										u:object_r:adsprpcd_file:s0
-/firmware(/.*)?          										u:object_r:firmware_file:s0
-/persist(/.*)?           										u:object_r:persist_file:s0
-/carrier(/.*)?           										u:object_r:carrier_file:s0
-/crashdump.d(/.*)?       										u:object_r:crashdata_data_file:s0
+/bt_firmware(/.*)?                                                                              u:object_r:bt_firmware_file:s0
+# /dsp(/.*)?                                                                                      u:object_r:adsprpcd_file:s0
+/firmware/image/(/.*)?	                                                                         u:object_r:firmware_file:s0
+/firmware(/.*)?                                                                                 u:object_r:firmware_file:s0
+/persist(/.*)?                                                                                  u:object_r:persist_file:s0
+/carrier(/.*)?                                                                                  u:object_r:carrier_file:s0
+/crashdump.d(/.*)?                                                                              u:object_r:crashdata_data_file:s0
 
 # ZRAM
 /dev/block/zram[0-9]+                                                                           u:object_r:swap_block_device:s0

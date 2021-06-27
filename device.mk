@@ -113,7 +113,6 @@ PRODUCT_PACKAGES += \
     libaudiopolicymanager \
     libqcompostprocbundle \
     libqcomvisualizer \
-    libqcomvoiceprocessing \
     libaudioroute \
     libvolumelistener \
     tinymix

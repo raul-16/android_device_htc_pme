@@ -422,9 +422,6 @@ on boot
 
     write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
 
-    # For modem config copy
-    write /data/misc/radio/copy_complete 1
-
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 

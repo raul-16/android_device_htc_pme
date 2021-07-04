@@ -301,6 +301,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger.fstab.qcom \
     fstab.qcom \
+    init.qcom.early_boot.sh \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.qcom.power.rc \

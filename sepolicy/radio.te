@@ -1,4 +1,6 @@
 #============= radio ==============
-allow radio cnd:binder call;
-allow radio vendor_qcom_ims_prop:file { getattr open read };
+binder_call(radio, cnd)
+binder_call(radio, gpuservice)
+
+get_prop(radio, vendor_qcom_ims_prop)
 

@@ -18,3 +18,7 @@ allow priv_app vndservice_contexts_file:file getattr;
 allow priv_app wifi_prop:file { getattr open };
 allow priv_app boottime_prop:file { getattr open read };
 
+allow priv_app adbd_prop:file { getattr open };
+allow priv_app apexd_prop:file { getattr open };
+allow priv_app apk_verity_prop:file { getattr open };
+

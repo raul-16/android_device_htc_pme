@@ -122,10 +122,6 @@ on post-fs-data
     # Create folder for mm-qcamera-daemon
     mkdir /data/vendor/camera 0770 camera camera
 
-    #create netmgr log dir
-    mkdir /data/vendor/netmgr 0770 radio radio
-    chmod 0770 /data/vendor/netmgr
-
     # Create directory for tombstone
     mkdir /data/tombstones 0771 system system
     mkdir /data/tombstones/modem 0771 system system
@@ -417,21 +413,12 @@ on boot
     # Set cap permissions
     chown system system /sys/android_cap/glove_setting
 
-    #Create NETMGR daemon socket area
-    mkdir /dev/socket/netmgr 0750 radio radio
-
     write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
 
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 
 # Services begin here
-service vendor.netmgrd /vendor/bin/netmgrd
-    class main
-    user root
-    group root wifi wakelock radio inet
-    writepid /dev/cpuset/system-background/tasks
-
 service adsprpcd /vendor/bin/adsprpcd
     class main
     user media

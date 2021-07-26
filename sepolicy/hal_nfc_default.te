@@ -8,3 +8,5 @@ allow hal_nfc_default nfc_vendor_data_file:file create;
 
 dontaudit hal_nfc_default nxpnfc_hwservice:hwservice_manager add;
 dontaudit hal_nfc_default nxpese_hwservice:hwservice_manager find;
+dontaudit hal_nfc_default default_android_hwservice:hwservice_manager { add find };
+

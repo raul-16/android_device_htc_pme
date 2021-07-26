@@ -3,10 +3,13 @@
 # type bt_firmware_file, file_type;
 # type firmware_file, file_type;
 # type persist_file, file_type;
+type acdbdelta_vendor_data_file, file_type, data_file_type;
 type crashdata_data_file, file_type;
 type carrier_file, file_type;
 # initial pme types
 type sysfs_fpc_irq, fs_type, sysfs_type;
 type sysfs_gesture, fs_type, sysfs_type;
 type forceencrypt_block_device, dev_type;
+# Battery health
+type persist_battery_file, file_type;
 

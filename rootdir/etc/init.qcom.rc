@@ -496,9 +496,8 @@ service vendor.tftp_server /vendor/bin/tftp_server
 
 service vendor.sensors.qti /vendor/bin/sensors.qti
     class core
-    user root
-    group root system
-    disabled
+    user system
+    group system
     writepid /dev/cpuset/system-background/tasks
 
 # Data Migration
@@ -537,11 +536,6 @@ service qcom-sh /vendor/bin/init.qcom.sh
 
 on property:ro.vendor.ril.mbn_copy_completed=1
     write /data/vendor/radio/copy_complete 1
-
-service vendor.sensor-sh /vendor/bin/init.qcom.sensors.sh
-    class core
-    user root
-    oneshot
 
 service hostapd_fst /vendor/bin/hw/hostapd -dd -g /data/vendor/wifi/hostapd/global
     class main

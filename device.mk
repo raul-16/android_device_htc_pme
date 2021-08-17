@@ -305,7 +305,6 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.qcom.power.rc \
-    init.qcom.sensors.sh \
     init.qti.ims.sh \
     init.qcom.usb.sh \
     init.qcom.sh \
@@ -471,9 +470,7 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
  PRODUCT_PACKAGES += \
-    libsensorndkbridge \
     android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service \
     android.hardware.contexthub@1.0-service \
     android.hardware.contexthub@1.0-impl.nanohub
 
@@ -481,6 +478,11 @@ PRODUCT_PACKAGES += \
     nanoapp_cmd \
     nanotool \
     sensortest
+
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v28/arm/arch-arm-armv7-a-neon/shared/vndk-core/android.frameworks.sensorservice@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/android.frameworks.sensorservice@1.0-v28.so \
+    prebuilts/vndk/v28/arm64/arch-arm64-armv8-a/shared/vndk-core/android.frameworks.sensorservice@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/android.frameworks.sensorservice@1.0-v28.so
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.sensors.smd=false

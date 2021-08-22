@@ -241,6 +241,12 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.ssc=true
 
+# Surfaceflinger 
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
+    ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
+    ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000
+
 # System prop for enabling/disabling Android XLAT
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.net.doxlat=false

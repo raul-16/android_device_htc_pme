@@ -57,7 +57,19 @@ on init
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
+    # Create UDS structure for base VR services.
+    mkdir /dev/socket/pdx 0775 system system
+    mkdir /dev/socket/pdx/system 0775 system system
+    mkdir /dev/socket/pdx/system/buffer_hub 0775 system system
+    mkdir /dev/socket/pdx/system/performance 0775 system system
+    mkdir /dev/socket/pdx/system/vr 0775 system system
+    mkdir /dev/socket/pdx/system/vr/display 0775 system system
+    mkdir /dev/socket/pdx/system/vr/pose 0775 system system
+    mkdir /dev/socket/pdx/system/vr/sensors 0775 system system
+
 on fs
+    wait /dev/block/bootdevice
+    wait /dev/device-mapper
     mount_all /vendor/etc/fstab.qcom
 
     # Add rfg_3 mounting from stock. This way we will still boot if partition doesn't actually exist on the device.
@@ -141,13 +153,8 @@ on post-fs-data
     mkdir /persist/qti_fp 0700 system system
 
 on early-boot
-    # SSR setup
-    write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
-    write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
-    write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
-    write /sys/bus/msm_subsys/devices/subsys3/restart_level "related"
-    write /sys/bus/msm_subsys/devices/subsys4/restart_level "related"
-    write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
+    # Permission for laser sensor driver
+    chown camera camera /sys/class/htc_laser/laser/enable_ps_sensor
 
     # vendor.health-hal needs to be able to RW
     chown system system /sys/devices/soc/qpnp-fg-17/cycle_counts_bins
@@ -159,6 +166,24 @@ on early-boot
     chmod 644 /sys/devices/soc/qpnp-fg-17/power_supply/bms/charge_full
 
 on boot
+    enable qcom-usb-sh
+
+    #USB controller configuration
+    write /sys/module/g_android/parameters/mtp_tx_req_len 131072
+    write /sys/module/g_android/parameters/mtp_rx_req_len 131072
+    write /sys/class/android_usb/android0/f_rndis_qc/rndis_transports BAM2BAM_IPA
+
+    # Don't reset entire SoC on individual subsystem crash
+    write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys3/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys4/restart_level "related"
+    write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
+
+    # Fingerprint
+    write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
+
     # To prevent permission denied error for telephony
     chmod 0644 /proc/cmdline
 
@@ -246,6 +271,9 @@ on boot
     # HTC Camera - for Flashlight Restriction
     chown system system /sys/camera_led_status/led_hotspot_status
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
+
+    #enable camera read sensors data
+    setprop persist.camera.gyro.disable 0
 
     # Laser
     chown system system /sys/class/htc_laser/laser/iio/buffer/enable
@@ -407,24 +435,68 @@ on boot
     # Set cap permissions
     chown system system /sys/android_cap/glove_setting
 
-    write /sys/devices/soc/soc:fp_fpc1155/pinctl_set fpc1020_reset_active
-
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 
-# Services begin here
+# Start camera server as daemon
+service qcamerasvr /vendor/bin/mm-qcamera-daemon
+    class main
+    user camera
+    group camera system inet input graphics
+    writepid /dev/cpuset/camera-daemon/tasks /dev/stune/top-app/tasks
+
+on property:init.svc.media=restarting
+    restart qcamerasvr
+
+on property:init.svc.servicemanager=restarting
+    restart qcamerasvr
+
+# Start up peripheral manager
+service vendor.per_mgr /vendor/bin/pm-service
+    class core
+    user system
+    group system net_raw
+    ioprio rt 4
+    writepid /dev/cpuset/system-background/tasks
+
+service vendor.per_proxy /vendor/bin/pm-proxy
+    class core
+    user system
+    group system
+    disabled
+    writepid /dev/cpuset/system-background/tasks
+
+on property:init.svc.vendor.per_mgr=running
+    start vendor.per_proxy
+
+on property:sys.shutdown.requested=*
+    stop vendor.per_proxy
+    stop vendor.ims_rtp_daemon
+
+service vendor.qseecomd /vendor/bin/qseecomd
+    class core
+    user root
+    group root
+    writepid /dev/cpuset/system-background/tasks
+
+on property:vendor.sys.listeners.registered=*
+    setprop sys.keymaster.loaded ${vendor.sys.listeners.registered}
+    setprop vendor.sys.keymaster.loaded ${vendor.sys.listeners.registered}
+
+service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
+   class main
+   user root
+   socket thermal-send-client stream 0666 system system
+   socket thermal-recv-client stream 0660 system system
+   socket thermal-recv-passive-client stream 0666 system system
+   socket thermal-send-rule stream 0660 system system
+   group root system diag
+   writepid /dev/cpuset/system-background/tasks
+
 service adsprpcd /vendor/bin/adsprpcd
     class main
     user media
     group media
-    writepid /dev/cpuset/foreground/tasks
-
-service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
-    class main
-    user root
-    group system wakelock
-    writepid /dev/cpuset/system-background/tasks
-
 
 ## imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
 service vendor.imsqmidaemon /vendor/bin/imsqmidaemon
@@ -442,6 +514,18 @@ service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
     group radio wifi inet log vendor_qti_diag
     disabled
     writepid /dev/cpuset/system-background/tasks
+
+service vendor.pd_mapper /vendor/bin/pd-mapper
+    class core
+    disabled
+    writepid /dev/cpuset/system-background/tasks
+
+on property:persist.sys.pd_enable=1
+    start vendor.pd_mapper
+    write /sys/class/service_locator/service_locator_status 1
+
+on property:persist.sys.pd_enable=0
+    write /sys/class/service_locator/service_locator_status 0
 
 on property:vendor.ims.QMI_DAEMON_STATUS=1
     start vendor.imsdatadaemon
@@ -461,38 +545,11 @@ service vendor.imsrcsservice /vendor/bin/imsrcsd
 on property:vendor.ims.DATA_DAEMON_STATUS=1
     restart vendor.ims_rtp_daemon
 
-# Start up peripheral manager
-service vendor.per_mgr /vendor/bin/pm-service
-    class core
-    user system
-    group system
+service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
+    class main
+    user root
+    group system wakelock
     writepid /dev/cpuset/system-background/tasks
-
-service vendor.per_proxy /vendor/bin/pm-proxy
-    class core
-    user system
-    group system
-    writepid /dev/cpuset/system-background/tasks
-    disabled
-
-on property:init.svc.vendor.per_mgr=running
-    start vendor.per_proxy
-
-on property:sys.shutdown.requested=*
-    stop vendor.per_proxy
-    stop vendor.ims_rtp_daemon
-
-service pd_mapper /vendor/bin/pd-mapper
-    class core
-    writepid /dev/cpuset/system-background/tasks
-    disabled
-
-on property:persist.sys.pd_enable=1
-    start pd_mapper
-    write /sys/class/service_locator/service_locator_status 1
-
-on property:persist.sys.pd_enable=0
-    write /sys/class/service_locator/service_locator_status 0
 
 service ppd /vendor/bin/mm-pp-dpps
     class hal
@@ -501,37 +558,26 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     writepid /dev/cpuset/foreground/tasks
 
-service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class main
-    user camera
-    group camera system inet input graphics
-    writepid /dev/cpuset/system-background/tasks
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
 
-on property:init.svc.media=restarting
-    restart qcamerasvr
+on property:init.svc.surfaceflinger=running
+    start ppd
 
-on property:init.svc.servicemanager=restarting
-    restart qcamerasvr
+on property:init.svc.surfaceflinger=restarting
+    stop ppd
+
+on property:init.svc.zygote=stopped
+    stop ppd
+
+on property:init.svc.zygote=running
+    start ppd
+
+on property:init.svc.zygote=restarting
+    stop ppd
 
 on property:apexd.status=ready
     mount none /system/etc/swcodec/ld.config.txt /apex/com.android.media.swcodec/etc/ld.config.txt bind
-
-service vendor.qseecomd /vendor/bin/qseecomd
-    class core
-    user root
-    group root
-    writepid /dev/cpuset/system-background/tasks
-
-service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
-   class main
-   user root
-   socket thermal-send-client stream 0666 system system
-   socket thermal-recv-client stream 0660 system system
-   socket thermal-recv-passive-client stream 0666 system system
-   socket thermal-send-rule stream 0660 system system
-   group root system diag
-   writepid /dev/cpuset/system-background/tasks
-
 
 # Firmware linking to /firmware/image
 service fwnk-adsp  /vendor/bin/sh /init.qcom.firmware_links.sh /firmware/adsp /firmware/image "adsp*" adsp

@@ -43,6 +43,9 @@ on early-init
     chmod 0620 /dev/kmsg
 
 on init
+    # Set permissions for persist partition
+    mkdir /mnt/vendor/persist 0771 root system
+
     # Create cgroup mount point for memory
     mkdir /sys/fs/cgroup/memory/bg 0750 root system
     write /sys/fs/cgroup/memory/bg/memory.swappiness 140
@@ -117,6 +120,7 @@ on boot
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
     chmod 0660 /proc/bluetooth/sleep/proto
     chown bluetooth net_bt /dev/ttyHS0
     chmod 0660 /sys/module/hci_uart/parameters/ath_lpm
@@ -131,9 +135,10 @@ on boot
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/device/extldo
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
-    # This location is used by QCRIL to host UNIX domain
-    # socket files used for internal IPC within QCRIL
-    # modules
+    # Create QMUX deamon socket area
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
 
@@ -239,9 +244,6 @@ on post-fs-data
     # Create directory for apps access via QTEEConnector
     mkdir /data/vendor/qtee 0770 system system
 
-    #Create folder of camera
-    mkdir /data/vendor/camera 0770 camera camera
-
     #Create directory for tftp
     mkdir /data/vendor/tombstones 0771 system system
     mkdir /data/vendor/tombstones/rfs 0771 system system
@@ -296,6 +298,32 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
+
+    # Create all remaining /data root dirs so that they are made through init
+    # and get proper encryption policy installed
+    mkdir /data/backup 0700 system system
+    mkdir /data/ss 0700 system system
+
+    mkdir /data/system/heapdump 0700 system system
+    mkdir /data/system/users 0775 system system
+
+    mkdir /data/system_de 0770 system system
+    mkdir /data/system_ce 0770 system system
+
+    mkdir /data/misc_de 01771 system misc
+    mkdir /data/misc_ce 01771 system misc
+
+    mkdir /data/user 0711 system system
+    mkdir /data/user_de 0711 system system
+    symlink /data/data /data/user/0
+
+    mkdir /data/media 0770 media_rw media_rw
+    mkdir /data/media/obb 0770 media_rw media_rw
+
+    mkdir /data/cache 0770 system cache
+    mkdir /data/cache/recovery 0770 system cache
+    mkdir /data/cache/backup_stage 0700 system system
+    mkdir /data/cache/backup 0700 system system
 
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
@@ -374,6 +402,14 @@ on post-fs-data
 
     # Create vpp directory
     mkdir /data/vendor/vpp 0770 media media
+
+    mkdir /data/vendor/sensor
+    chown root system /data/vendor/sensor
+    chmod 0770 /data/vendor/sensor
+
+    mkdir /data/system/nanohub_lock/
+    chown system system /data/system/nanohub_lock/
+    restorecon /data/system/nanohub_lock
 
     #Create dir for TUI
     mkdir /data/vendor/tui 0700 system drmrpc
@@ -456,12 +492,12 @@ service vendor.rmt_storage /vendor/bin/rmt_storage
 service vendor.tftp_server /vendor/bin/tftp_server
    class core
    user root
-    writepid /dev/cpuset/system-background/tasks
+   writepid /dev/cpuset/system-background/tasks
 
 service vendor.sensors.qti /vendor/bin/sensors.qti
     class core
     user root
-    group root
+    group root system
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -476,11 +512,18 @@ service vendor.move_wifi_data /system/bin/move_wifi_data.sh
 on property:sys.shutdown.requested=*
     write /sys/kernel/shutdown_wlan/shutdown 1
 
-service loc_launcher /system/vendor/bin/loc_launcher
+service loc_launcher /vendor/bin/loc_launcher
     class late_start
     user gps
     group gps
     writepid /dev/cpuset/system-background/tasks
+
+# init.qcom.usb.sh configure RNDIS to go through HW IPA
+service qcom-usb-sh /vendor/bin/init.qcom.usb.sh
+    class core
+    user root
+    oneshot
+    disabled
 
 on property:crypto.driver.load=1
     insmod /system/lib/modules/qce.ko
@@ -495,7 +538,7 @@ service qcom-sh /vendor/bin/init.qcom.sh
 on property:ro.vendor.ril.mbn_copy_completed=1
     write /data/vendor/radio/copy_complete 1
 
-service vendor-sensor-sh /vendor/bin/init.qcom.sensors.sh
+service vendor.sensor-sh /vendor/bin/init.qcom.sensors.sh
     class core
     user root
     oneshot
@@ -516,7 +559,7 @@ service vendor.wigig_hostapd /vendor/bin/hw/hostapd -dd  -j wigighostapd /data/v
     oneshot
     disabled
 
-service ims_regmanager /system/vendor/bin/exe-ims-regmanagerprocessnative
+service ims_regmanager /vendor/bin/exe-ims-regmanagerprocessnative
     class late_start
     group net_bt_admin inet radio wifi
     disabled
@@ -530,6 +573,12 @@ service charger /system/bin/charger
     group system graphics input
     capabilities SYS_BOOT
     seclabel u:r:charger:s0
+
+service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
+    class core
+    user root
+    group root
+    disabled
 
 on charger
     setprop persist.sys.usb.config mass_storage
@@ -560,12 +609,6 @@ on property:sys.qbcharger.enable=true
 on property:sys.qbcharger.enable=false
     stop qbcharger
 
-service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
-    class core
-    user root
-    group root
-    disabled
-
 on property:vendor.display.lcd_density=*
     setprop ro.sf.lcd_density ${vendor.display.lcd_density}
 
@@ -584,24 +627,13 @@ on property:vendor.opengles.version=*
 on property:vendor.gpu.available_frequencies=*
     setprop ro.vendor.gpu.available_frequencies ${vendor.gpu.available_frequencies}
 
-# why this here ? [raul on 09.01.2021]
-# it is allready in audioserver.rc
-# clear it for all
-# 
-#service vendor.audio-hal-2-0 /system/vendor/bin/hw/android.hardware.audio.service
-    #override
-    #class hal
-    #user audioserver
+service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio.service
+    override
+    class hal
+    user audioserver
     # media gid needed for /dev/fm (radio) and for /data/misc/media (tee)
-    #group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock
-    #capabilities BLOCK_SUSPEND
-    #ioprio rt 4
-    #writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
-    # audioflinger restarts itself when it loses connection with the hal
-    # and its .rc file has an "onrestart restart audio-hal" rule, thus
-    # an additional auto-restart from the init process isn't needed.
-    #oneshot
-    #interface android.hardware.audio@6.0::IDevicesFactory default
-    #interface android.hardware.audio@5.0::IDevicesFactory default
-    #interface android.hardware.audio@4.0::IDevicesFactory default
-    #interface android.hardware.audio@2.0::IDevicesFactory default
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock
+    capabilities BLOCK_SUSPEND
+    ioprio rt 4
+    writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
+    onrestart restart audioserver

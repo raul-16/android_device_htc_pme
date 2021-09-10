@@ -22,3 +22,7 @@ allow priv_app adbd_prop:file { getattr open };
 allow priv_app apexd_prop:file { getattr open };
 allow priv_app apk_verity_prop:file { getattr open };
 
+dontaudit priv_app bluetooth_a2dp_offload_prop:file { getattr open };
+dontaudit priv_app bluetooth_audio_hal_prop:file { getattr open };
+dontaudit priv_app bluetooth_prop:file { getattr open };
+

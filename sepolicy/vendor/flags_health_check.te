@@ -168,13 +168,3 @@ dontaudit flags_health_check system_jvmti_agent_prop:file { getattr open };
 dontaudit flags_health_check rebootescrow_hal_prop:file { getattr open };
 dontaudit flags_health_check vendor_dcvs_prop:file { getattr open };
 
-#dontaudit flags_health_check ctl_dpmd_prop:file { getattr open };
-#dontaudit flags_health_check recovery_update_prop:file { getattr open };
-#dontaudit flags_health_check vendor_fst_prop:file { getattr open };
-#dontaudit flags_health_check vendor_mm_osal_prop:file { getattr open };
-#dontaudit flags_health_check vendor_mm_parser_prop:file { getattr open };
-#dontaudit flags_health_check vendor_mm_video_prop:file { getattr open };
-#dontaudit flags_health_check vendor_wigig_core_prop:file { getattr open };
-#dontaudit flags_health_check wfd_debug_prop:file { getattr open };
-#dontaudit flags_health_check wfd_service_prop:file { getattr open };
-

@@ -26,3 +26,10 @@ allow vendor_init media_rw_data_file:file { getattr relabelfrom };
 allow vendor_init bluetooth_data_file:dir getattr;
 allow vendor_init radio_data_file:file { open write };
 
+allow vendor_init backup_data_file:dir getattr;
+allow vendor_init cache_backup_file:dir getattr;
+allow vendor_init cache_file:dir getattr;
+allow vendor_init cache_private_backup_file:dir getattr;
+allow vendor_init cache_recovery_file:dir getattr;
+allow vendor_init dm_device:chr_file getattr;
+allow vendor_init heapdump_data_file:dir getattr;

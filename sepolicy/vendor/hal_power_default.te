@@ -8,3 +8,7 @@ allow hal_power_default sysfs_gesture:file rw_file_perms;
 
 dontaudit hal_power_default hal_power_stats_hwservice:hwservice_manager { add find };
 
+allow hal_power_default sysfs_sensors:dir { open read search };
+allow hal_power_default sysfs_sensors:file { open read };
+allow hal_power_default sysfs_sensors:lnk_file read;
+

@@ -1,0 +1,5 @@
+#============= shell ==============
+allow shell pstorefs:dir { open read };
+
+# Allow read access to syslog
+dontaudit shell kernel:system syslog_read;

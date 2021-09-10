@@ -1,0 +1,6 @@
+#============= crash_dump ==============
+allow crash_dump bluetooth_a2dp_offload_prop:file { getattr open };
+allow crash_dump bluetooth_audio_hal_prop:file { getattr open };
+allow crash_dump hwservicemanager_prop:file { getattr open };
+allow crash_dump vendor_audio_prop:file { getattr open };
+

@@ -72,6 +72,11 @@
 /carrier(/.*)?                                                                                  u:object_r:carrier_file:s0
 /crashdump.d(/.*)?                                                                              u:object_r:crashdata_data_file:s0
 
+# Sensors
+/sys/bus/iio/devices(/.*)?                                                                      u:object_r:sysfs_sensors:s0
+/sys/devices/soc/7577000.spi/spi_master/spi2/spi2.0/iio:device1(/.*)?                           u:object_r:sysfs_sensors:s0
+/sys/class/htc_sensorhub/sensor_hub(/.*)?                                                       u:object_r:sysfs_sensors:s0
+
 # ZRAM
 /dev/block/zram[0-9]+                                                                           u:object_r:swap_block_device:s0
 

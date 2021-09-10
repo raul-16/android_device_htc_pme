@@ -12,4 +12,5 @@ type sysfs_gesture, fs_type, sysfs_type;
 type forceencrypt_block_device, dev_type;
 # Battery health
 type persist_battery_file, file_type;
-
+type sysfs_fpc, fs_type, sysfs_type;
+type sysfs_rmtfs, sysfs_type, fs_type;

@@ -23,4 +23,7 @@ allow init system_app:binder { call } ;
 dontaudit init hal_light_hwservice:hwservice_manager add;
 dontaudit init hal_power_hwservice:hwservice_manager add;
 dontaudit init hal_thermal_hwservice:hwservice_manager add;
+dontaudit init sysfs:dir create;
+dontaudit init system_file:file execute_no_trans;
+dontaudit init system_file:dir relabelfrom;
 

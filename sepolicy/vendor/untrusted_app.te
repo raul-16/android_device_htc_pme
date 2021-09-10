@@ -31,3 +31,7 @@ allow untrusted_app_27 ctl_rildaemon_prop:file { getattr open };
 #============= untrusted_app_29 ==============
 allow untrusted_app_29 hal_memtrack_default:binder call;
 
+allow untrusted_app_29 adbd_prop:file { getattr open };
+allow untrusted_app_29 apexd_prop:file { getattr open };
+allow untrusted_app_29 apk_verity_prop:file { getattr open };
+

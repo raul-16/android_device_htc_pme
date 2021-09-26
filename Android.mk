@@ -1,5 +1,6 @@
 #
 # Copyright 2016 The CyanogenMod Project
+# Copyright (C) 2017-2018, 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,16 +26,11 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter pme,$(TARGET_DEVICE)),)
+ifeq ($(TARGET_DEVICE),pme)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 include $(CLEAR_VARS)
-
-# Create symbolic links for msadp
-$(shell  mkdir -p $(TARGET_OUT_VENDOR)/firmware; \
-	ln -sf /dev/block/bootdevice/by-name/msadp \
-	$(TARGET_OUT_VENDOR)/firmware/msadp)
 
 # A/B builds require us to create the mount points at compile time.
 # Just creating it for all cases since it does not hurt.
@@ -181,6 +177,7 @@ $(RFS_MSM_ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /mnt/vendor/persist/hlos_rfs/shared $@/hlos
 	$(hide) ln -sf /firmware $@/readonly/firmware
 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+	$(hide) ln -sf /dev/block/bootdevice/by-name/msadp $(TARGET_OUT_VENDOR)/firmware/msadp
 
 RFS_MSM_MPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/mpss/
 $(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)

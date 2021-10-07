@@ -560,6 +560,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.opa.eligible_device=true
 
 # VNDK
+$(foreach target, $(shell cat $(LOCAL_PATH)/vndk.txt), $(eval PRODUCT_PACKAGES += $(target).vendor))
+
 PRODUCT_PACKAGES += \
     vndk_package
 

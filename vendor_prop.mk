@@ -62,6 +62,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.bt.enableAptXHD=true \
     ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress
 
+# BPF
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.kernel.ebpf.supported=false
+
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=1 \

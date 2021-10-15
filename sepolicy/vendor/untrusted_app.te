@@ -1,5 +1,15 @@
 #============= untrusted_app ==============
 allow untrusted_app virtual_ab_prop:file { getattr open read };
+allow untrusted_app adbd_prop:file { getattr open };
+dontaudit untrusted_app proc:file { getattr open read };
+dontaudit untrusted_app proc_stat:file { getattr open };
+dontaudit untrusted_app proc_version:file { getattr open read };
+allow untrusted_app sysfs:dir { open read };
+allow untrusted_app sysfs_devfreq:dir search;
+allow untrusted_app sysfs_graphics:file { getattr open read };
+allow untrusted_app sysfs_kgsl:file { getattr open read };
+allow untrusted_app sysfs_kgsl:lnk_file read;
+allow untrusted_app vendor_sysfs_kgsl_gpuclk:file { getattr open read };
 
 #============= untrusted_app_27 ==============
 allow untrusted_app_27 rootfs:dir { open read };
@@ -34,4 +44,17 @@ allow untrusted_app_29 hal_memtrack_default:binder call;
 allow untrusted_app_29 adbd_prop:file { getattr open };
 allow untrusted_app_29 apexd_prop:file { getattr open };
 allow untrusted_app_29 apk_verity_prop:file { getattr open };
+dontaudit untrusted_app_29 bootloader_boot_reason_prop:file { getattr open };
+allow untrusted_app_29 boottime_prop:file { getattr open };
+allow untrusted_app_29 boottime_public_prop:file open;
+dontaudit untrusted_app_29 bluetooth_a2dp_offload_prop:file { getattr open };
+dontaudit untrusted_app_29 bluetooth_audio_hal_prop:file { getattr open };
+dontaudit untrusted_app_29 bluetooth_prop:file { getattr open };
+allow untrusted_app_29 firmware_file:filesystem getattr;
+allow untrusted_app_29 sysfs:dir { open read };
+allow untrusted_app_29 sysfs:file getattr;
+allow untrusted_app_29 sysfs_graphics:file { getattr open read };
+allow untrusted_app_29 sysfs_kgsl:file { getattr open read };
+allow untrusted_app_29 sysfs_net:dir search;
+allow untrusted_app_29 sysfs_net:file getattr;
 

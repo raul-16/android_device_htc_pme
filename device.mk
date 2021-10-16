@@ -462,6 +462,10 @@ PRODUCT_PACKAGES += \
     libshim_ril \
     libxml2
 
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    device/htc/pme
+
 # Seccomp
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \

@@ -243,10 +243,6 @@ include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    device/htc/pme
-
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 # PRODUCT_FULL_TREBLE_OVERRIDE := true

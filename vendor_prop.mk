@@ -264,6 +264,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     persist.delta_time.enable=true
 
+# System
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.binary_xml=false
+
 # WFD
 #property to enable user to access Google WFD settings
     persist.debug.wfd.enable=1 \

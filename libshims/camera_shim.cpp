@@ -46,7 +46,12 @@ extern "C" void _ZN7android18BufferItemConsumerC1ERKNS_2spINS_22IGraphicBufferCo
     const sp<IGraphicBufferConsumer>& consumer, uint64_t consumerUsage,
     int bufferCount, bool controlledByApp);
 
-extern "C" void _ZN7android18BufferItemConsumerC1ERKNS_2spINS_22IGraphicBufferConsumerEEEjib() { }
+extern "C" void _ZN7android18BufferItemConsumerC1ERKNS_2spINS_22IGraphicBufferConsumerEEEjib(
+    const sp<IGraphicBufferConsumer>& consumer, uint32_t consumerUsage,
+    int bufferCount, bool controlledByApp) {
+  _ZN7android18BufferItemConsumerC1ERKNS_2spINS_22IGraphicBufferConsumerEEEyib(
+      consumer, static_cast<uint64_t>(consumerUsage), bufferCount, controlledByApp);
+}
 
 extern "C" void _ZN7android11BufferQueue17createBufferQueueEPNS_2spINS_22IGraphicBufferProducerEEEPNS1_INS_22IGraphicBufferConsumerEEERKNS1_INS_19IGraphicBufferAllocEEE(
     sp<IGraphicBufferProducer>* outProducer,
@@ -140,10 +145,12 @@ extern "C" void _ZN7android21SurfaceComposerClient22closeGlobalTransactionEb(){
 }
 
 //<sp<IBinder> SurfaceComposerClient::getPhysicalDisplayToken(unsigned long long)
-extern "C" void _ZN7android21SurfaceComposerClient23getPhysicalDisplayTokenEy() { }
+extern "C" void *_ZN7android21SurfaceComposerClient23getPhysicalDisplayTokenEy(unsigned long long);
 
 //sp<IBinder> SurfaceComposerClient::getBuiltInDisplay(int32_t id); 
-extern "C" void _ZN7android21SurfaceComposerClient17getBuiltInDisplayEi() { }
+extern "C" void* _ZN7android21SurfaceComposerClient17getBuiltInDisplayEi(int32_t id){
+  return _ZN7android21SurfaceComposerClient23getPhysicalDisplayTokenEy(static_cast<uint64_t>(id));
+}
 
 
 extern "C" void _ZN7android14SurfaceControlD0Ev(void);
@@ -167,3 +174,4 @@ extern "C" status_t _ZN7android13GraphicBuffer4lockEjPPv(uint32_t inUsage, void*
 extern "C" void _ZN7android10frameworks13sensorservice4V1_08toStringENS2_6ResultE() { }
 extern "C" void _ZN7android21SurfaceComposerClient13createSurfaceERKNS_7String8EjjijPNS_14SurfaceControlEjj() { }
 extern "C" void _ZN7android14SurfaceControl8setLayerEi() { }
+

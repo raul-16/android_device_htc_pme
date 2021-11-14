@@ -238,7 +238,9 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so \
     /system/vendor/lib/libmmcamera_stillmore_lib.so|/system/vendor/lib/libshim_stillmore.so \
     /system/vendor/lib/libmmcamera_ppeiscore.so|/system/vendor/lib/libshim_ppe.so \
-    /system/lib64/lib-imsvideocodec.so|/system/vendor/lib64/libshim_ims.so
+    /system/lib64/lib-imsvideocodec.so|/system/vendor/lib64/libshim_ims.so \
+    /system/product/lib64/libdpmframework.so|libcutils_shim.so \
+    /system/vendor/lib/libcameraface.so|libshim_sensor.so
 
 # Selinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk

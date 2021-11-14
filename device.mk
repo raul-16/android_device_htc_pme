@@ -166,6 +166,7 @@ PRODUCT_PACKAGES += \
     libmm-qcamera \
     Snap \
     libshim_camera \
+    libshim_sensor \
     libshim_stillmore \
     libshim_ppe \
     libion

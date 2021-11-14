@@ -514,8 +514,8 @@ PRODUCT_PACKAGES += \
     qti_telephony_utils.xml \
     libshim_ims
 
-PRODUCT_BOOT_JARS += \
-    telephony-ext
+#PRODUCT_BOOT_JARS += \
+#    telephony-ext
 
 # Tethering
 PRODUCT_PACKAGES += \

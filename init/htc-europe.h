@@ -90,6 +90,6 @@ static const char *htc_europe_properties =
     "keyguard.no_require_sim=true\n"
     "ro.apn.uservalue.protocol=IPV4V6\n"
     "telephony.lteOnCdmaDevice=1\n"
-    "rild.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
+    "vendor.rild.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
     "rild.vendor.libpath=/system/vendor/lib64/libril-qc-qmi-1-default.so\n"
 ;

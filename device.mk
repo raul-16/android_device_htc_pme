@@ -475,17 +475,14 @@ PRODUCT_COPY_FILES += \
  PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.contexthub@1.0-service \
-    android.hardware.contexthub@1.0-impl.nanohub
+    android.hardware.contexthub@1.0-impl.nanohub \
+    android.frameworks.sensorservice@1.0 \
+    android.frameworks.sensorservice@1.0.vendor
 
 PRODUCT_PACKAGES += \
     nanoapp_cmd \
     nanotool \
     sensortest
-
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v28/arm/arch-arm-armv7-a-neon/shared/vndk-core/android.frameworks.sensorservice@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/android.frameworks.sensorservice@1.0-v28.so \
-    prebuilts/vndk/v28/arm64/arch-arm64-armv8-a/shared/vndk-core/android.frameworks.sensorservice@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/android.frameworks.sensorservice@1.0-v28.so
-
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.sensors.smd=false

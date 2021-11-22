@@ -5,7 +5,8 @@ allow system_server sysfs_gesture:file write;
 allow system_server userspace_reboot_config_prop:file { getattr open read };
 allow system_server userspace_reboot_exported_prop:file { getattr open };
 allow system_server userspace_reboot_exported_prop:file read;
-allow system_server vendor_data_file:file { getattr open read write };
+allow system_server vendor_data_file:file { create getattr open read write };
+allow system_server vendor_data_file:dir { add_name write };
 
 dontaudit system_server init:binder call;
 dontaudit system_server iio_device:chr_file { open read write };

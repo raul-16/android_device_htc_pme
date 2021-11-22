@@ -160,4 +160,7 @@ dontaudit gmscore_app vendor_vm_bms_prop:file { getattr open };
 dontaudit gmscore_app vendor_wifi_ftmd_prop:file { getattr open };
 dontaudit gmscore_app vendor_wifi_version:file { getattr open };
 dontaudit gmscore_app vendor_wigig_prop:file { getattr open };
+dontaudit gmscore_app vendor_wlc_prop:file { getattr open };
+dontaudit gmscore_app vendor_xlat_prop:file { getattr open };
+dontaudit gmscore_app virtual_ab_prop:file { getattr open };
 

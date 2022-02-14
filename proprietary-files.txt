@@ -911,11 +911,11 @@ vendor/lib64/libqti-perfd-client.so
 vendor/lib64/libqti-perfd.so
 vendor/lib64/libqti-util.so
 
-# Peripheral manager - from LA.UM.8.6.r1-01900-89xx.0
-vendor/bin/pm-proxy|bae613f75568a6f0b47c86b878c25e4dd76e9054
-vendor/bin/pm-service|a5f14c84fed091bb66d160f2e45a6e373d3d19ab
-vendor/lib64/libperipheral_client.so|f9899d69f25aafb7bc95dd44d8848c86eab5a4bd
-vendor/lib/libperipheral_client.so|033dd6f669530e7fe28a07f2b4fe9dee609dbae2
+# Peripheral manager - from daisy - QKQ1.191002.002
+vendor/bin/pm-proxy|1f216a6f54e9b97c026f3f3bc4d7d441d58d90a7
+vendor/bin/pm-service|8a521f14576d0d2edf03b4500a54379d37e15d4e
+vendor/lib64/libperipheral_client.so|20c8ab21fe28e41f60b59af0ba72de9f6b1996d2
+vendor/lib/libperipheral_client.so|b75a6adac094ddcd6ded9415cae83e18d1e7e5d0
 
 # Postprocessing - from LA.UM.8.6.r1-01900-89xx.0
 vendor/bin/hw/vendor.display.color@1.0-service|633a0a4bed08202ef3799275f06920eb4382db31

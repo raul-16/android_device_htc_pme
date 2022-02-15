@@ -1,6 +1,6 @@
 #============= shell ==============
 allow shell pstorefs:dir { open read };
-allow shell adbd_prop:file { getattr open };
+#allow shell adbd_prop:file { getattr open };
 allow shell apexd_prop:file { getattr open };
 allow shell apk_verity_prop:file { getattr open };
 allow shell boottime_prop:file { getattr open };

@@ -1,6 +1,6 @@
 #============= untrusted_app ==============
 allow untrusted_app virtual_ab_prop:file { getattr open read };
-allow untrusted_app adbd_prop:file { getattr open };
+#allow untrusted_app adbd_prop:file { getattr open };
 dontaudit untrusted_app proc:file { getattr open read };
 dontaudit untrusted_app proc_stat:file { getattr open };
 dontaudit untrusted_app proc_version:file { getattr open read };
@@ -13,7 +13,7 @@ allow untrusted_app vendor_sysfs_kgsl_gpuclk:file { getattr open read };
 
 #============= untrusted_app_27 ==============
 allow untrusted_app_27 rootfs:dir { open read };
-allow untrusted_app_27 adbd_prop:file { getattr open };
+#allow untrusted_app_27 adbd_prop:file { getattr open };
 allow untrusted_app_27 apexd_prop:file { getattr open };
 allow untrusted_app_27 apk_verity_prop:file { getattr open };
 allow untrusted_app_27 boottime_prop:file { getattr open };
@@ -41,7 +41,7 @@ allow untrusted_app_27 ctl_rildaemon_prop:file { getattr open };
 #============= untrusted_app_29 ==============
 allow untrusted_app_29 hal_memtrack_default:binder call;
 
-allow untrusted_app_29 adbd_prop:file { getattr open };
+#allow untrusted_app_29 adbd_prop:file { getattr open };
 allow untrusted_app_29 apexd_prop:file { getattr open };
 allow untrusted_app_29 apk_verity_prop:file { getattr open };
 dontaudit untrusted_app_29 bootloader_boot_reason_prop:file { getattr open };

@@ -175,6 +175,10 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
 
+# ConfigStore
+PRODUCT_PACKAGES += \
+    disable_configstore
+
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
     cneapiclient \
@@ -198,7 +202,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    android.hardware.configstore@1.0-service \
     vendor.display.color@1.0-service \
     vendor.display.color@1.0-impl \
     vendor.display.config@2.0 \

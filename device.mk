@@ -555,8 +555,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # VNDK
 PRODUCT_EXTRA_VNDK_VERSIONS := 28 29 30
 
-$(foreach target, $(shell cat $(LOCAL_PATH)/vndk.txt), $(eval PRODUCT_PACKAGES += $(target).vendor))
-
 PRODUCT_PACKAGES += \
     vndk_package
 

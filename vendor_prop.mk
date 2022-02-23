@@ -270,6 +270,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # WFD
 #property to enable user to access Google WFD settings
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0
 

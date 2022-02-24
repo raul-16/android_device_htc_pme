@@ -1,1 +1,2 @@
+allow time_daemon default_prop:file { getattr open read };
 allow time_daemon sysfs:file { open read };

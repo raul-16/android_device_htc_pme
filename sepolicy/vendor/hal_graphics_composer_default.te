@@ -1,3 +1,4 @@
+allow hal_graphics_composer_default default_prop:file { getattr open read };
 allow hal_graphics_composer_default init:unix_stream_socket { connectto };
 allow hal_graphics_composer_default system_data_file:sock_file { write };
 allow hal_graphics_composer_default vfat:dir { search };

@@ -1,2 +1,4 @@
 dontaudit sensors self:capability dac_override;
 allow sensors sysfs:file { open read };
+allow sensors radio_prop:file { getattr open read };
+

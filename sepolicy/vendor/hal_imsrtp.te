@@ -1,2 +1,3 @@
 #============= hal_imsrtp ==============
+allow hal_imsrtp default_prop:file { getattr open read };
 allow hal_imsrtp sysfs:file { open read };

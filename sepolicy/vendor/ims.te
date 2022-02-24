@@ -1,2 +1,4 @@
+allow ims default_prop:file { getattr open read };
+allow ims radio_prop:file { getattr open read };
 allow ims sysfs:file { open read };
 allow hal_rcsservice sysfs:file { open read };

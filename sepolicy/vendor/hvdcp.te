@@ -1,4 +1,5 @@
 #============= hvdcp ==============
+allow hvdcp default_prop:file { getattr open read };
 allow hvdcp sysfs:file { open read write };
 allow hvdcp self:capability sys_admin;
 dontaudit hvdcp self:capability { dac_override };

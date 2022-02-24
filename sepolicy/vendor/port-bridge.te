@@ -1,3 +1,4 @@
 #============= port-bridge ==============
+allow port-bridge default_prop:file { getattr open read };
 allow port-bridge sysfs:file { open read };
 

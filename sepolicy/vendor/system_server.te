@@ -11,3 +11,5 @@ allow system_server vendor_data_file:dir { add_name write };
 dontaudit system_server init:binder call;
 dontaudit system_server iio_device:chr_file { open read write };
 
+allow system_server build_bootimage_prop:file { getattr open read };
+

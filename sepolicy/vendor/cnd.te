@@ -1,6 +1,8 @@
 #============= cnd ==============
 allow cnd sysfs:file { open read };
+allow cnd default_prop:file { getattr open read };
 allow cnd wifi_vendor_data_file:dir { add_name remove_name write };
 allow cnd wifi_vendor_data_file:sock_file { create setattr unlink write };
+allow cnd wifi_hal_prop:file { getattr open read };
 
 dontaudit cnd default_android_hwservice:hwservice_manager add;

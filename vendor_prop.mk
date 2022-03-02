@@ -286,6 +286,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.binary_xml=false \
     ro.vndk.version=current
 
+# USB
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.usb.product_string=HTC 10
+
 # WFD
 #property to enable user to access Google WFD settings
 PRODUCT_PROPERTY_OVERRIDES += \

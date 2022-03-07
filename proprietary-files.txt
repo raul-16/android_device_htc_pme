@@ -752,8 +752,8 @@ vendor/lib64/libsdmextension.so|a3e3ccd22f0d0a81e70e4e2e39dc270fc94615c9
 vendor/lib64/libtinyxml2_1.so|cb6f4fb572a28cad293f4b6c5312fcff73ad088b
 
 # Graphics - Vulkan
-vendor/lib/hw/vulkan.msm8996.so
-vendor/lib64/hw/vulkan.msm8996.so
+vendor/lib/hw/vulkan.msm8996.so:vendor/lib/vulkan.msm8996.so
+vendor/lib64/hw/vulkan.msm8996.so:vendor/lib64/vulkan.msm8996.so
 
 # Graphics firmware
 vendor/firmware/a225_pfp.fw

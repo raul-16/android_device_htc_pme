@@ -453,6 +453,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-htchep.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-htchep.xml \
     $(LOCAL_PATH)/configs/privapp-permissions-htcshep.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-htcshep.xml \
     $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-oem.xml \
+    $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:$(TARGET_COPY_OUT_SYSTEM)/product/etc/permissions/privapp-permissions-oem.xml \
     $(LOCAL_PATH)/configs/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \

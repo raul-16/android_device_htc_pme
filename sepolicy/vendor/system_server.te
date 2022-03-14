@@ -1,6 +1,7 @@
 #============= system_server ==============
 allow system_server mm-qcamerad:binder call;
 allow system_server thermal-engine:binder call;
+allow system_server sysfs:dir create;
 allow system_server sysfs_gesture:file write;
 allow system_server userspace_reboot_config_prop:file { getattr open read };
 allow system_server userspace_reboot_exported_prop:file { getattr open };

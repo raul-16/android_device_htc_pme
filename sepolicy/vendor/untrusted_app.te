@@ -19,7 +19,6 @@ allow untrusted_app_27 apk_verity_prop:file { getattr open };
 allow untrusted_app_27 boottime_prop:file { getattr open };
 allow untrusted_app_27 boottime_public_prop:file { getattr open };
 allow untrusted_app_27 bpf_progs_loaded_prop:file { getattr open };
-allow untrusted_app_27 charger_prop:file { getattr open };
 allow untrusted_app_27 cold_boot_done_prop:file { getattr open };
 allow untrusted_app_27 cpu_variant_prop:file { getattr open };
 allow untrusted_app_27 ctl_adbd_prop:file { getattr open };

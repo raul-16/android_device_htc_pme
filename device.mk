@@ -164,7 +164,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.qualcomm.qti.camera \
     libmm-qcamera \
-    Snap \
     libshim_camera \
     libshim_sensor \
     libshim_stillmore \

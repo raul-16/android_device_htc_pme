@@ -60,7 +60,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.bt.enableAptXHD=true \
-    ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress
+    ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress \
+    persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac \
+    persist.bluetooth.a2dp_offload.disabled=true
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \

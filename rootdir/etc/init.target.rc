@@ -435,6 +435,10 @@ on boot
     # Set cap permissions
     chown system system /sys/android_cap/glove_setting
 
+    # SafetyNet
+    chmod 640 /sys/fs/selinux/enforce
+    chmod 440 /sys/fs/selinux/policy
+
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 

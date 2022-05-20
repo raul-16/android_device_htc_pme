@@ -162,6 +162,7 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    vendor.qti.hardware.camera.device@1.0.vendor \
     com.qualcomm.qti.camera \
     libmm-qcamera \
     libshim_camera \

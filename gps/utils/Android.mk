@@ -32,7 +32,10 @@ LOCAL_SRC_FILES += \
 # Flag -std=c++11 is not accepted by compiler when LOCAL_CLANG is set to true
 LOCAL_CFLAGS += \
      -fno-short-enums \
-     -D_ANDROID_
+     -D_ANDROID_ \
+     -Wno-enum-conversion \
+     -Wno-unused-parameter \
+     -Wno-undefined-bool-conversion
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
    LOCAL_CFLAGS += -DTARGET_BUILD_VARIANT_USER

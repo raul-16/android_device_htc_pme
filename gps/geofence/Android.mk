@@ -23,6 +23,9 @@ LOCAL_SHARED_LIBRARIES := \
         liblog \
         libloc_core
 
+LOCAL_CFLAGS += \
+     -Wno-unused-parameter
+
 LOCAL_HEADER_LIBRARIES := \
     libgps.utils_headers \
     libloc_core_headers \

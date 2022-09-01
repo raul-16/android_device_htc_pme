@@ -160,9 +160,6 @@ BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 # Enable Peripheral Manager
 TARGET_PER_MGR_ENABLED := true
 
-# Encryption
-TARGET_HW_DISK_ENCRYPTION := true
-
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 TARGET_EXFAT_DRIVER := exfat

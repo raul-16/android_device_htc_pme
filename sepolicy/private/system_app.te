@@ -1,0 +1,2 @@
+typeattribute system_app mlstrustedsubject;
+allow system_app privapp_data_file:dir { getattr search };

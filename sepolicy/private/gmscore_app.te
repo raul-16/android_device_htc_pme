@@ -5,4 +5,7 @@ dontaudit gmscore_app vendor_fst_prop:file { getattr open };
 dontaudit gmscore_app vendor_mm_osal_prop:file { getattr open };
 dontaudit gmscore_app vendor_mm_parser_prop:file { getattr open };
 dontaudit gmscore_app vendor_mm_video_prop:file { getattr open };
-
+dontaudit gmscore_app vendor_wigig_core_prop:file { getattr open };
+dontaudit gmscore_app wfd_debug_prop:file { getattr open };
+dontaudit gmscore_app wfd_service_prop:file { getattr open };
+dontaudit gmscore_app gsid_prop:file read;

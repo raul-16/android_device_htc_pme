@@ -1,0 +1,2 @@
+#============= mediaprovider_app ==============
+dontaudit mediaprovider_app rootfs:file { getattr setattr };

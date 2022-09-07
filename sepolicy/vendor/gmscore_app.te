@@ -75,7 +75,7 @@ dontaudit gmscore_app system_jvmti_agent_prop:file { getattr open };
 dontaudit gmscore_app system_adbd_prop:file { getattr open };
 dontaudit gmscore_app system_boot_reason_prop:file { getattr open };
 dontaudit gmscore_app system_lmk_prop:file { getattr open };
-dontaudit gmscore_app system_trace_prop:file { getattr open };
+dontaudit gmscore_app system_trace_prop:file { read getattr open };
 dontaudit gmscore_app test_boot_reason_prop:file { getattr open };
 dontaudit gmscore_app device_config_storage_native_boot_prop:file { getattr open };
 dontaudit gmscore_app theme_prop:file { getattr open };
@@ -161,6 +161,6 @@ dontaudit gmscore_app vendor_wifi_ftmd_prop:file { getattr open };
 dontaudit gmscore_app vendor_wifi_version:file { getattr open };
 dontaudit gmscore_app vendor_wigig_prop:file { getattr open };
 dontaudit gmscore_app vendor_wlc_prop:file { getattr open };
-dontaudit gmscore_app vendor_xlat_prop:file { getattr open };
+dontaudit gmscore_app vendor_xlat_prop:file { getattr open read };
 dontaudit gmscore_app virtual_ab_prop:file { getattr open };
 

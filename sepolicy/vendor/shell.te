@@ -5,5 +5,14 @@ allow shell apexd_prop:file { getattr open };
 allow shell apk_verity_prop:file { getattr open };
 allow shell boottime_prop:file { getattr open };
 
+allow shell cgroup_rc_file:dir getattr;
+allow shell device:file getattr;
+allow shell fusectlfs:dir { open read };
+allow shell radio_data_file:dir getattr;
+allow shell runtime_event_log_tags_file:file getattr;
+allow shell sysfs:file getattr;
+allow shell sysfs_fs_ext4_features:dir { open read search };
+allow shell sysfs_fs_ext4_features:file getattr;
+
 # Allow read access to syslog
 dontaudit shell kernel:system syslog_read;

@@ -1,8 +1,19 @@
 #============= gmscore_app ==============
+allow gmscore_app aac_drc_prop:file { getattr open };
+allow gmscore_app ab_update_gki_prop:file { getattr open };
+allow gmscore_app adbd_prop:file { getattr open };
+allow gmscore_app apexd_config_prop:file { getattr open };
+allow gmscore_app cgroup:dir read;
+allow gmscore_app init_exec:lnk_file getattr;
+allow gmscore_app linkerconfig_file:dir getattr;
+dontaudit gmscore_app mirror_data_file:dir getattr;
+dontaudit gmscore_app mnt_vendor_file:dir getattr;
+allow gmscore_app postinstall_mnt_dir:dir getattr;
+allow gmscore_app sepolicy_file:file { getattr open read };
+
 dontaudit gmscore_app ctl_dpmd_prop:file { getattr open };
 dontaudit gmscore_app recovery_update_prop:file { getattr open };
 dontaudit gmscore_app vendor_fst_prop:file { getattr open };
 dontaudit gmscore_app vendor_mm_osal_prop:file { getattr open };
 dontaudit gmscore_app vendor_mm_parser_prop:file { getattr open };
 dontaudit gmscore_app vendor_mm_video_prop:file { getattr open };
-

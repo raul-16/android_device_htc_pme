@@ -17,6 +17,6 @@ def FullOTA_InstallEnd(info):
   info.script.AppendExtra('run_program("/tmp/install/bin/variants.sh");')
   info.script.AppendExtra('ui_print("***************************************");')
   info.script.AppendExtra('ui_print("*                                     *");')
-  info.script.AppendExtra('ui_print("*     LOS 19.1 [A12L] flashed OK      *");')
+  info.script.AppendExtra('ui_print("*    LineageOS 20 [A13] flashed OK    *");')
   info.script.AppendExtra('ui_print("*                                     *");')
   info.script.AppendExtra('ui_print("***************************************");')

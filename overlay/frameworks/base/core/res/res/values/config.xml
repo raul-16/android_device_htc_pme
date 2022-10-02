@@ -340,14 +340,6 @@
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">true</bool>
     
-    <!-- Whether device supports pickupsensor for AD pulse -->
-    <bool name="config_dozePulsePickup">true</bool>
-    <!-- Whether device supports wake screen gesture for AD pulse -->
-    <bool name="config_dozeWakeLockScreenSensorAvailable">true</bool>
-    <!-- Whether device supports sensor based doze customizations -->
-    <bool name="config_dozePulseTilt">true</bool>
-    <bool name="config_dozePulseProximity">true</bool>
-
     <!-- Whether or not swipe up gesture's opt-in setting is available on this device -->
     <bool name="config_swipe_up_gesture_setting_available">true</bool>
 

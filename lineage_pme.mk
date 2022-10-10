@@ -15,6 +15,7 @@
 #
 
 # Inherit from pme device
+TARGET_DISABLE_EPPE := true
 $(call inherit-product, device/htc/pme/device.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)

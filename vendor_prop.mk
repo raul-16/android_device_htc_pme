@@ -28,7 +28,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.audio.fluence.voicerec=false \
     persist.vendor.audio.fluence.voicecomm=true \
     persist.vendor.audio.fluence.speaker=true \
-    persist.vendor.bt.enable.splita2dp=false \
     persist.vendor.audio.hw.binder.size_kbyte=1024 \
     ro.af.client_heap_size_kbyte=7168 \
     ro.config.media_vol_steps=25 \
@@ -36,8 +35,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.sdk.ssr=false \
     ro.vendor.audio.sdk.fluencetype=fluence \
     vendor.audio.dmid=-1286820014 \
-    vendor.audio.dolby.ds2.enabled=1 \
-    vendor.audio.dolby.ds2.hardbypass=1 \
     vendor.audio.flac.sw.decoder.24bit=true \
     vendor.audio_hal.period_size=192 \
     vendor.audio.hw.aac.encoder=true \
@@ -95,7 +92,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Data modules
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.use_data_netmgrd=true \
     ro.vendor.use_data_netmgrd=true \
     persist.data.netmgrd.qos.enable=true \
     persist.radio.aosp_usr_pref_sel=true \
@@ -133,7 +129,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.latch_unsignaled=1 \
     dev.pm.dyn_samplingrate=1 \
     persist.demo.hdmirotationlock=false \
-    persist.hwc.enable_vds=1 \
     ro.opengles.version=196610 \
     ro.sf.lcd_density=640 \
     vendor.display.disable_rotator_split=1 \
@@ -168,30 +163,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.qcom_parser=1048575 \
     persist.mm.enable.prefetch=true \
     vendor.vidc.enc.disable.pq=true \
-    vendor.video.disable.ubwc=1 \
-    vidc.enc.dcvs.extra-buff-count=2 \
     vidc.debug.perf.mode=2 \
     av.debug.disable.pers.cache=true
 
-
-# Memory optimizations
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.qti.sys.fw.bservice_enable=true
-
-# NFC
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.nfc.port=I2C \
-    persist.nfc.smartcard.config=SIM1,eSE1
-
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.vendor.qti.sys.fw.bg_apps_limit=60
+    ro.vendor.extension_library=libqti-perfd-client.so
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     DEVICE_PROVISIONED=1 \
-    persist.data.qmi.adb_logmask=0 \
     ro.baseband.arch=msm \
     ro.telephony.call_ring.multiple=false \
     ro.telephony.use_old_mnc_mcc_format=true \
@@ -223,8 +204,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.df.agg.dl_pkt=10 \
     persist.data.df.agg.dl_size=4096 \
     persist.data.df.mux_count=8 \
-    persist.data.df.iwlan_mux=9 \
-    persist.data.df.dev_name=rmnet_usb0
+    persist.data.df.iwlan_mux=9
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -278,7 +258,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # TimeService
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.timed.enable=true \
     persist.delta_time.enable=true
 
 # System

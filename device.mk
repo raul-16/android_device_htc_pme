@@ -153,19 +153,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service \
-    libbt-vendor \
-    libbthost_if \
-    libldacBT_dec \
-    libldacBT_bco
+    libbt-vendor
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth/bt_vendor.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/bluetooth/bt_vendor.conf
 
 # Camera
 PRODUCT_PACKAGES += \
-    vendor.qti.hardware.camera.device@1.0.vendor \
-    com.qualcomm.qti.camera \
-    libmm-qcamera \
     libshim_camera \
     libshim_sensor \
     libshim_stillmore \
@@ -179,13 +173,6 @@ PRODUCT_PACKAGES += \
 # ConfigStore
 PRODUCT_PACKAGES += \
     disable_configstore
-
-# Connectivity Engine support (CNE)
-PRODUCT_PACKAGES += \
-    cneapiclient \
-    com.quicinc.cne \
-    libcnefeatureconfig \
-    services-ext
 
 # GestureHandler
 PRODUCT_PACKAGES += \
@@ -203,22 +190,14 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    vendor.display.color@1.0-service \
-    vendor.display.color@1.0-impl \
     vendor.display.config@2.0 \
-    vendor.display.config@2.0_vendor \
-    copybit.msm8996 \
     gralloc.msm8996 \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     libdisplayconfig \
-    libdisplayconfig.qti \
     libhwc2on1adapter \
-    libgenlock \
-    liboverlay \
     libqdMetaData \
     libqdMetaData.system \
-    libqdMetaData.vendor \
     libtinyxml \
     libvulkan
 
@@ -227,10 +206,6 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.4-service.clearkey
-
-# Enable Codec 2.0
-PRODUCT_PACKAGES += \
-    libstagefright_ccodec
 
 # Encryption
 PRODUCT_PACKAGES += \
@@ -251,9 +226,7 @@ PRODUCT_PACKAGES += \
 # fwk-detect
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect \
-    libqti_vndfwk_detect.vendor \
-    libvndfwk_detect_jni.qti \
-    libvndfwk_detect_jni.qti.vendor
+    libvndfwk_detect_jni.qti
 
 # Gatekeeper HAL
 PRODUCT_PACKAGES += \
@@ -267,8 +240,7 @@ PRODUCT_PACKAGES += \
     libbatching \
     libgeofencing \
     libgnss \
-    libsensorndkbridge \
-    libwifi-hal-ctrl
+    libsensorndkbridge
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
@@ -292,7 +264,6 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0_system \
     android.hidl.manager@1.0 \
-    android.hidl.manager@1.0-java \
     libhidltransport \
     libhwbinder
 
@@ -314,7 +285,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     init.qcom.sh \
     init.qcom.firmware_links.sh \
-    init.recovery.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc
 
@@ -333,12 +303,6 @@ PRODUCT_PACKAGES += \
     ipacm \
     IPACM_cfg.xml
 
-# IPv6
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes \
-    libebtc
-
 # IRSC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
@@ -355,10 +319,6 @@ PRODUCT_PACKAGES += \
 # Lineage hardware
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
-
-# LiveDisplay native
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@1.0-service-sdm
 
 # Marlin IRQ Balancer configuration file
 PRODUCT_COPY_FILES += \
@@ -377,7 +337,6 @@ PRODUCT_COPY_FILES += \
 
 # Media Extensions
 PRODUCT_PACKAGES += \
-    libavmediaserviceextensions \
     libmediametrics \
     libregistermsext \
     mediametrics
@@ -395,7 +354,6 @@ PRODUCT_PACKAGES += \
 # Minijail
 PRODUCT_PACKAGES += \
     libavservices_minijail \
-    libavservices_minijail.vendor \
     libminijail
 
 # NFC
@@ -415,7 +373,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
     libhypv_intercept \
-    libextmedia_jni \
     libmm-omxcore \
     libOmxAacEnc \
     libOmxAmrEnc \
@@ -423,7 +380,6 @@ PRODUCT_PACKAGES += \
     libOmxEvrcEnc \
     libOmxG711Enc \
     libOmxQcelp13Enc \
-    libOmxSwVencHevc \
     libOmxVdec \
     libOmxVenc \
     libstagefrighthw
@@ -489,8 +445,7 @@ PRODUCT_COPY_FILES += \
 # Sensors
  PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
-    android.frameworks.sensorservice@1.0 \
-    android.frameworks.sensorservice@1.0.vendor
+    android.frameworks.sensorservice@1.0
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.sensors.smd=false
@@ -501,7 +456,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Telephony
 PRODUCT_PACKAGES += \
-    com.android.ims.rcsmanager.xml \
     com.android.ims.rcsmanager \
     ims-ext-common \
     ims_ext_common.xml \
@@ -519,15 +473,10 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     TetheringConfigOverlay
 
-# TextClassifier smart selection model files
-PRODUCT_PACKAGES += \
-    textclassifier.bundle1
-
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl:64 \
-    android.hardware.thermal@1.0-service \
-    thermal.msm8996
+    android.hardware.thermal@1.0-service
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
@@ -560,9 +509,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # VNDK
 PRODUCT_EXTRA_VNDK_VERSIONS := 28 29 30
 
-PRODUCT_PACKAGES += \
-    vndk_package
-
 # VNDK-SP:
 PRODUCT_PACKAGES += \
     vndk-sp
@@ -577,8 +523,6 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
     wificond \
-    wifilogd \
-    wlutil \
     WifiOverlay \
     wpa_supplicant \
     wpa_supplicant.conf

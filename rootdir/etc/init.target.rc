@@ -122,6 +122,9 @@ on post-fs-data
     # Create directory for fingerprint
     mkdir /data/fpc 0770 system system
 
+    # Create folder for mm-qcamera-daemon
+    mkdir /data/vendor/camera 0770 camera camera
+
     mkdir /data/misc/dts 0770 media audio
     # mkdir /data/misc/seemp 0700 system system
     mkdir /data/misc/tloc/ 0700 system drmrpc

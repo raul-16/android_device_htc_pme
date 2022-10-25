@@ -1,5 +1,9 @@
 #============= hal_camera_default ==============
-allow hal_camera_default sysfs:file { getattr open read };
-allow hal_camera_default proc_version:file { getattr open read };
+allow hal_camera_default camera_prop:file { getattr open read };
+allow hal_camera_default camera_prop:property_service set;
 allow hal_camera_default default_prop:file { getattr open read };
+allow hal_camera_default init:unix_stream_socket connectto;
+allow hal_camera_default proc_version:file { getattr open read };
+allow hal_camera_default property_socket:sock_file write;
+allow hal_camera_default sysfs:file { getattr open read };
 

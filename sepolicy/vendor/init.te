@@ -31,4 +31,5 @@ allow init diag_device:chr_file { ioctl open read write };
 allow init hal_dpmQmiMgr:binder { call transfer };
 allow init self:netlink_route_socket { bind create nlmsg_read read write };
 allow init self:rawip_socket { create getopt setopt };
+allow init netutils_wrapper_exec:file { execute getattr open read };
 

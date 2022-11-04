@@ -876,11 +876,6 @@ vendor/lib64/libhtc_common.so
 # NFC
 vendor/firmware/libpn548_fw.so:vendor/lib/libpn548_fw.so
 
-# Network
--priv-app/QtiTetherService/QtiTetherService.apk
-vendor/lib64/libconnctrl.so
-vendor/lib64/libQtiTether.so
-
 # Perf - from op3 - PKQ1.181203.001
 vendor/bin/energy-awareness
 vendor/bin/hw/vendor.qti.hardware.perf@1.0-service

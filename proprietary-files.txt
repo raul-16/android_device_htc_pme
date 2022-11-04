@@ -658,15 +658,6 @@ lib64/hw/fingerprint.vendor6.msm8996.so|a5b06f246224dbc7eff6de752befa51f63e24896
 -vendor/lib64/hw/gatekeeper.msm8996.so|285d7f197ee11a5eac1b1e333f7dfe8684087859
 
 # GPS - from LA.UM.8.6.r1-01900-89xx.0
-etc/permissions/com.qti.location.sdk.xml|cb68a566bd77dcc75bb7547199d528289fac01cb
-etc/permissions/com.qualcomm.location.xml|1d36e7cf8e16813aa13ee6b3fca8d8687b543828
-etc/permissions/izat.xt.srv.xml|a0f460056f27b5495a4d6e959eecf0e429c42a57
-etc/permissions/privapp-permissions-com.qualcomm.location.xml|2dc7fba818bdf582bfea849a74f4b312d90745c9
-framework/com.qti.location.sdk.jar|5dcbf27bd7709a111985e9660b5b61b5fb7a22b1
-framework/izat.xt.srv.jar|5d48ba7a65ca6f62afd3e0dc886f590e2ad18bc3
-lib64/liblocationservice_jni.so|10476ec956f34903348c1f8d3d9315f52b36c022
-lib64/libxt_native.so|544b7456f54bc4567960d0e86de30e323b023b57
--priv-app/com.qualcomm.location/com.qualcomm.location.apk|fbe3f6542f1dd0ed112a1b6eabd0209661bdc57f
 vendor/bin/loc_launcher|06793983f836a9b42b5ff3848f8fe177134c1379
 vendor/bin/lowi-server|18140d8c4fe8965755ebc289d9b0b3a3347c219a
 vendor/bin/slim_daemon|4f2737be7f8715b4ed9f43dbb3f03889ed9ca5c7
